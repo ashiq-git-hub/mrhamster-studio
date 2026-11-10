@@ -1,0 +1,526 @@
+[
+  {
+    "id": "flirt-01",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "dating",
+      "crush",
+      "flirting"
+    ],
+    "text": "flirting is easy until you have to flirt\nwith someone you actually want."
+  },
+  {
+    "id": "flirt-02",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "mixed-signals",
+      "sarcasm"
+    ],
+    "text": "i don't give mixed signals.\nyou just have selective hearing and wishful thinking."
+  },
+  {
+    "id": "flirt-03",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "texting",
+      "habits"
+    ],
+    "text": "if i like you, i will reply in 2 seconds or 2 business days.\nthere is no in-between."
+  },
+  {
+    "id": "flirt-04",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "romance",
+      "sleep"
+    ],
+    "text": "you're my favorite reason\nto lose sleep and ignore everyone else."
+  },
+  {
+    "id": "flirt-05",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "warning",
+      "banter"
+    ],
+    "text": "texting me is high risk, high reward.\nmostly high risk."
+  },
+  {
+    "id": "flirt-06",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "naps",
+      "funny"
+    ],
+    "text": "i'm not hard to get.\nyou just have to catch me between naps and existential dread."
+  },
+  {
+    "id": "flirt-07",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "red-flags",
+      "dating"
+    ],
+    "text": "my red flags are visible from outer space\nyet here you are setting up camp."
+  },
+  {
+    "id": "flirt-08",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "panic",
+      "texting"
+    ],
+    "text": "accidentally opened your message immediately.\nnow i have to fake my own death."
+  },
+  {
+    "id": "flirt-09",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "hamster",
+      "cute",
+      "flirty"
+    ],
+    "text": "i look at you the way\na hamster looks at the last sunflower seed."
+  },
+  {
+    "id": "flirt-10",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "exes",
+      "pride"
+    ],
+    "text": "i said i was over you\nnot that i have self-respect."
+  },
+  {
+    "id": "flirt-11",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "toxic",
+      "games"
+    ],
+    "text": "we could be toxic together\nbut you're playing games with amateur rules."
+  },
+  {
+    "id": "flirt-12",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "reels",
+      "love-language"
+    ],
+    "text": "my love language is sending 47 reels\nand expecting you to watch every single one."
+  },
+  {
+    "id": "flirt-13",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "audacity",
+      "feelings"
+    ],
+    "text": "i didn't catch feelings.\ni slipped on your audacity and fell."
+  },
+  {
+    "id": "flirt-14",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "arguments",
+      "brain"
+    ],
+    "text": "sorry for being late,\ni was having an imaginary argument in my head."
+  },
+  {
+    "id": "flirt-15",
+    "category": "Flirty & Situationship",
+    "tags": [
+      "respect",
+      "smirk"
+    ],
+    "text": "looking respectfully.\n(not respectfully at all)"
+  },
+  {
+    "id": "2am-01",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "midnight",
+      "chaos"
+    ],
+    "text": "it's 2:43 AM.\ntime to either change my entire identity\nor eat cold leftovers in complete darkness."
+  },
+  {
+    "id": "2am-02",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "overthinking",
+      "brain"
+    ],
+    "text": "my brain at 2 PM: *dial-up connection noise*\nmy brain at 2 AM: here is a 45-slide presentation on why you are doomed."
+  },
+  {
+    "id": "2am-03",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "adulting",
+      "scam"
+    ],
+    "text": "do you ever just sit there and think\n'who gave me permission to be an adult?'"
+  },
+  {
+    "id": "2am-04",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "cringe",
+      "memories"
+    ],
+    "text": "staring at the ceiling recalculating\nevery conversation i've had since 2018."
+  },
+  {
+    "id": "2am-05",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "forest",
+      "escape"
+    ],
+    "text": "i am one mild inconvenience away\nfrom moving into the forest and befriending crows."
+  },
+  {
+    "id": "2am-06",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "bed",
+      "memory"
+    ],
+    "text": "my bed is a magical place where i suddenly\nremember everything i forgot to do today."
+  },
+  {
+    "id": "2am-07",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "silence",
+      "intrusive"
+    ],
+    "text": "the silence in my room is loud\nbut my intrusive thoughts are louder."
+  },
+  {
+    "id": "2am-08",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "sleep",
+      "peace"
+    ],
+    "text": "sleep is so nice because you're not dead\nand you're not awake. it's the perfect middle ground."
+  },
+  {
+    "id": "2am-09",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "tabs",
+      "anxiety"
+    ],
+    "text": "i have 43 tabs open in my browser\nand 792 open in my brain."
+  },
+  {
+    "id": "2am-10",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "schedule",
+      "insomnia"
+    ],
+    "text": "my sleep schedule isn't even a schedule anymore.\nit's just a roulette wheel."
+  },
+  {
+    "id": "2am-11",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "calories",
+      "worry"
+    ],
+    "text": "if overthinking burned calories\ni would have vanished into thin air by now."
+  },
+  {
+    "id": "2am-12",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "squirrels",
+      "unhinged"
+    ],
+    "text": "i don't have ducks in a row.\ni have squirrels at a rave."
+  },
+  {
+    "id": "2am-13",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "damage",
+      "sleep"
+    ],
+    "text": "why fall in love when you can fall asleep\nand avoid all emotional collateral damage."
+  },
+  {
+    "id": "2am-14",
+    "category": "2 AM Unhinged",
+    "tags": [
+      "pigeon",
+      "tired"
+    ],
+    "text": "i'm not a night owl or an early bird.\ni'm some sort of exhausted pigeon."
+  },
+  {
+    "id": "dark-01",
+    "category": "Dark Humor",
+    "tags": [
+      "choices",
+      "truth"
+    ],
+    "text": "everything happens for a reason.\nsometimes that reason is you're stupid and make bad choices."
+  },
+  {
+    "id": "dark-02",
+    "category": "Dark Humor",
+    "tags": [
+      "optimism",
+      "experience"
+    ],
+    "text": "i'm not pessimistic.\ni'm just an optimist with life experience."
+  },
+  {
+    "id": "dark-03",
+    "category": "Dark Humor",
+    "tags": [
+      "therapist",
+      "hugs"
+    ],
+    "text": "my therapist told me to embrace my mistakes.\nso i hugged myself."
+  },
+  {
+    "id": "dark-04",
+    "category": "Dark Humor",
+    "tags": [
+      "difficulty",
+      "game"
+    ],
+    "text": "i entered adulthood with zero tutorial\nand the difficulty set on extreme nightmare."
+  },
+  {
+    "id": "dark-05",
+    "category": "Dark Humor",
+    "tags": [
+      "stairs",
+      "chaos"
+    ],
+    "text": "life is like a wheel.\nexcept someone greased it and threw it down a flight of stairs."
+  },
+  {
+    "id": "dark-06",
+    "category": "Dark Humor",
+    "tags": [
+      "arguments",
+      "ego"
+    ],
+    "text": "i'm not arguing.\ni'm just explaining why i'm right and you should listen."
+  },
+  {
+    "id": "dark-07",
+    "category": "Dark Humor",
+    "tags": [
+      "taco",
+      "happiness"
+    ],
+    "text": "you can't make everyone happy.\nyou're not a taco or a sleeping pill."
+  },
+  {
+    "id": "dark-08",
+    "category": "Dark Humor",
+    "tags": [
+      "grudges",
+      "facts"
+    ],
+    "text": "i don't hold grudges.\ni just remember facts with extreme emotional intensity."
+  },
+  {
+    "id": "dark-09",
+    "category": "Dark Humor",
+    "tags": [
+      "coffee",
+      "money"
+    ],
+    "text": "money can't buy happiness\nbut it can buy a black coffee and peace of mind."
+  },
+  {
+    "id": "dark-10",
+    "category": "Dark Humor",
+    "tags": [
+      "historians",
+      "downfall"
+    ],
+    "text": "i am currently experiencing what historians\nwill refer to as 'the downfall'."
+  },
+  {
+    "id": "dark-11",
+    "category": "Dark Humor",
+    "tags": [
+      "parties",
+      "canceled"
+    ],
+    "text": "i've reached the point in life where my favorite party\nis the one that gets canceled."
+  },
+  {
+    "id": "dark-12",
+    "category": "Dark Humor",
+    "tags": [
+      "growing-up",
+      "scam"
+    ],
+    "text": "remember when you were a kid and wanted to be older?\nwhat an absolute scam."
+  },
+  {
+    "id": "rel-01",
+    "category": "Relatable Chaos",
+    "tags": [
+      "social",
+      "introvert"
+    ],
+    "text": "i'm not antisocial.\ni'm selectively social. there's a difference."
+  },
+  {
+    "id": "rel-02",
+    "category": "Relatable Chaos",
+    "tags": [
+      "hunger",
+      "mood"
+    ],
+    "text": "my mood depends heavily on\nwhether someone spoke to me before my first meal."
+  },
+  {
+    "id": "rel-03",
+    "category": "Relatable Chaos",
+    "tags": [
+      "battery",
+      "eye-contact"
+    ],
+    "text": "social battery at 2%.\nplease do not make eye contact or ask how i am."
+  },
+  {
+    "id": "rel-04",
+    "category": "Relatable Chaos",
+    "tags": [
+      "telepathy",
+      "replies"
+    ],
+    "text": "i replied in my head.\nin my heart, we have concluded the conversation."
+  },
+  {
+    "id": "rel-05",
+    "category": "Relatable Chaos",
+    "tags": [
+      "plans",
+      "dopamine"
+    ],
+    "text": "canceling plans gives me a dopamine hit\nthat modern science cannot explain."
+  },
+  {
+    "id": "rel-06",
+    "category": "Relatable Chaos",
+    "tags": [
+      "horizontal",
+      "overwhelmed"
+    ],
+    "text": "i have two speeds:\n1. completely overwhelmed\n2. horizontal in bed doing nothing."
+  },
+  {
+    "id": "rel-07",
+    "category": "Relatable Chaos",
+    "tags": [
+      "no-worries",
+      "drowning"
+    ],
+    "text": "saying 'no worries' while actively drowning in worry."
+  },
+  {
+    "id": "rel-08",
+    "category": "Relatable Chaos",
+    "tags": [
+      "outside",
+      "graphics"
+    ],
+    "text": "i went outside once.\nthe graphics were okay but the plot and NPCs were terrible."
+  },
+  {
+    "id": "rel-09",
+    "category": "Relatable Chaos",
+    "tags": [
+      "shopping",
+      "cart"
+    ],
+    "text": "my favorite hobby is putting things in online shopping carts\nand then closing the tab."
+  },
+  {
+    "id": "rel-10",
+    "category": "Relatable Chaos",
+    "tags": [
+      "cleaning",
+      "chair"
+    ],
+    "text": "cleaning my room by moving clothes\nfrom the chair to the bed and back to the chair."
+  },
+  {
+    "id": "rf-01",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "fix-him",
+      "trauma"
+    ],
+    "text": "he said he was emotionally unavailable.\ni said 'say less, let me fix you'."
+  },
+  {
+    "id": "rf-02",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "modern-dating",
+      "2026"
+    ],
+    "text": "dating in 2026 is just two emotionally damaged people\nasking each other 'so what's your trauma?'."
+  },
+  {
+    "id": "rf-03",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "rent",
+      "alone"
+    ],
+    "text": "i don't need a relationship.\ni need someone to pay half my rent and leave me alone."
+  },
+  {
+    "id": "rf-04",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "stories",
+      "stalking"
+    ],
+    "text": "saw your story within 0.4 seconds.\ni'm not obsessed, i just have no life."
+  },
+  {
+    "id": "rf-05",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "dates",
+      "9pm"
+    ],
+    "text": "my ideal date: you talk, i nod,\nwe eat good food, and we leave before 9 PM."
+  },
+  {
+    "id": "rf-06",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "disappointment",
+      "population"
+    ],
+    "text": "never let someone waste your time twice.\nthere are 8 billion people, let someone new disappoint you."
+  },
+  {
+    "id": "rf-07",
+    "category": "Red Flags & Dating",
+    "tags": [
+      "blindfold",
+      "red-flag"
+    ],
+    "text": "i see your red flag and i raise you\nmy pathological desire to ignore it."
+  }
+]

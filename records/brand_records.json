@@ -1,0 +1,83 @@
+{
+  "brand_name": "Mr. Hamster",
+  "primary_handle": "@mrr.hamster",
+  "platform": "Instagram",
+  "secondary_handles": [
+    "@mr.alibi",
+    "@mrspill",
+    "@themrspill",
+    "@mr.habit",
+    "@mrfaust"
+  ],
+  "character_persona": {
+    "title": "The Charismatic Degenerate & Anonymous Cynic",
+    "archetype": "Anti-hero / Flirty cynic / 2 AM overthinker",
+    "voice_attributes": [
+      "Flirty without being desperate",
+      "Dark humor delivered with complete calm",
+      "Relatable self-sabotage & procrastination",
+      "Blunt, unapologetic observations about modern dating and society",
+      "Zero filter, mysterious and unhinged"
+    ]
+  },
+  "visual_identity": {
+    "primary_avatar": "pfp_mog_hamster.png",
+    "avatar_style": "1-bit crunchy pixel lineart on white background with pink nose",
+    "recommended_pfp_backdrop": "#ffd6e0",
+    "backdrop_options": [
+      {
+        "name": "Soft Aesthetic Pink",
+        "color": "#ffd6e0",
+        "description": "Matches hamster pink nose; pops brilliantly on black feeds"
+      },
+      {
+        "name": "Charcoal Rim",
+        "color": "#1a1c23",
+        "description": "Stealthy, sleek dark aesthetic"
+      },
+      {
+        "name": "Hot Pink Neon",
+        "color": "#ff477e",
+        "description": "High contrast brand highlight"
+      },
+      {
+        "name": "Pure White Ring",
+        "color": "#ffffff",
+        "description": "Clean minimalist outline"
+      },
+      {
+        "name": "Mint Emerald",
+        "color": "#10b981",
+        "description": "Vibrant retro pop"
+      },
+      {
+        "name": "Cyber Cyan",
+        "color": "#38bdf8",
+        "description": "Futuristic digital edge"
+      }
+    ],
+    "canvas_format": {
+      "aspect_ratio": "4:5 (Portrait) and 1:1 (Square)",
+      "feed_resolution": "1080 x 1350 px (Maximum screen real estate)",
+      "square_resolution": "1080 x 1080 px",
+      "canvas_background": "#000000 (Pure OLED Pitch Black)",
+      "typography": "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+      "text_color": "#f7f9f9 (Twitter/Threads Crisp Off-White)",
+      "handle_color": "#71767b (Subtle Muted Charcoal)"
+    }
+  },
+  "ready_to_use_bios": [
+    {
+      "title": "Option 1: The Mixed Signals Charmer (Recommended)",
+      "bio": "Mr. Hamster ✨\nI don't give mixed signals, you just have selective hearing.\n🍸 Bad decisions posted daily\n📩 DMs open for regrettable choices\nthreads/tweets only"
+    },
+    {
+      "title": "Option 2: The 2:43 AM Cynic",
+      "bio": "Mr. Hamster 💀\nProfessionally unhinged.\nThoughts you have at 2:43 AM but shouldn't say out loud.\n⚠️ Not responsible for emotional damage.\n@mrr.hamster"
+    },
+    {
+      "title": "Option 3: Minimalist Mog",
+      "bio": "Mr. Hamster 🐹\nlooking respectfully\n• text only • dark humor • zero context\nswipe at your own risk"
+    }
+  ]
+}
