@@ -5,8 +5,10 @@ A refined, tactile, retro-styled studio designed for **Mr. Hamster** (`@mrr.hams
 ---
 
 ## 🌐 Live Vercel Deployment
-* **Live Web App**: [**`https://brisk-nova-0mkf2jr.tmp.now`**](https://brisk-nova-0mkf2jr.tmp.now)
-* **Claim to your Vercel Account**: [**Claim Project on Vercel**](https://vercel.com/claim-deployment?code=55b20901-48da-4f0e-8aa9-d0857a1f9bfd)
+* **Live Web App**: [**`https://rapid-jade-7h9sesn.tmp.now`**](https://rapid-jade-7h9sesn.tmp.now)
+* **Claim to your Vercel Account**: [**Claim Project on Vercel**](https://vercel.com/claim-deployment?code=1cadec28-cbc1-4c0f-bd46-34f561e90917)
+* **Branded Domain Target**: `https://mrhamster-studio.vercel.app` (or `https://mr-hamster-studio.vercel.app`)
+* **GitHub Repository (Auto-Deploy)**: [**`https://github.com/ashiq-git-hub/mrhamster-studio`**](https://github.com/ashiq-git-hub/mrhamster-studio)
 
 ### 🔐 Access Credentials (Login)
 | Field | Value |
