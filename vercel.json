@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "mr-hamster-studio",
   "cleanUrls": true,
   "routes": [
     {

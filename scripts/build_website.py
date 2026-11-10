@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+Mr. Hamster Studio Website Builder
+Generates index.html and generator.html with:
+- Warm vintage stone aesthetic & tactile retro drop shadows
+- Pitch-black OLED post canvas (1080p lossless)
+- Complete mobile responsive UX overhaul (natural stacked layout, live preview at top, zero scroll-trapping)
+- Stepper buttons for micro-adjustments on mobile
+- Defined avatar frames (Circle & Square) with Crisp Titanium White default
+- Credentials lockscreen (hamster_boss / MogMaster#2026)
+"""
+
 import os
 import json
 
@@ -13,7 +24,7 @@ html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Mr. Hamster — Post Atelier</title>
   <style>
     :root {{
@@ -52,60 +63,47 @@ html_content = f"""<!DOCTYPE html>
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      letter-spacing: -0.01em;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+      background-size: 28px 28px;
     }}
 
-    /* Understated Minimalist Scrollbars */
-    ::-webkit-scrollbar {{
-      width: 7px;
-      height: 7px;
-    }}
-    ::-webkit-scrollbar-track {{
-      background: var(--bg-sidebar);
-    }}
-    ::-webkit-scrollbar-thumb {{
-      background: #beb6a5;
-      border: 1px solid var(--border-hairline);
-    }}
-    ::-webkit-scrollbar-thumb:hover {{
-      background: #9c9381;
-    }}
-
-    /* Top Atelier Header (Bold Contrast & Defined Shadows) */
+    /* Top Atelier Header (Minimalist Warm Retro) */
     header {{
-      background: #e8e2d6;
-      border-bottom: 1.5px solid #c8c0b0;
-      padding: 13px 26px;
+      background: #fbfaf7;
+      border-bottom: 2px solid #1c1b18;
+      padding: 12px 24px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 14px rgba(32, 28, 22, 0.08);
+      box-shadow: 0 4px 14px rgba(28, 24, 18, 0.08);
     }}
 
-    .header-left {{
+    .brand-section {{
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }}
 
-    /* Brand Logo Box - Bold Contrast & High Visibility */
     .brand-box {{
       width: 42px;
       height: 42px;
       background: #1c1b18;
+      color: #ffffff;
       border: 1.5px solid #1c1b18;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
-      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25), 0 3px 8px rgba(0, 0, 0, 0.15);
+      font-size: 1.45rem;
+      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.22);
       flex-shrink: 0;
     }}
 
-    .title-group {{
+    .brand-text {{
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -113,35 +111,33 @@ html_content = f"""<!DOCTYPE html>
 
     .app-title {{
       font-family: var(--font-serif);
-      font-size: 1.1rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      color: var(--text-main);
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }}
 
-    .handle-badge {{
-      background: #1c1b18;
-      color: #dfba6c;
-      border: 1px solid #1c1b18;
-      padding: 2px 9px;
-      font-size: 0.74rem;
-      font-weight: 700;
+    .app-handle {{
       font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      font-size: 0.72rem;
+      color: #796024;
+      background: #f4ecda;
+      padding: 2px 7px;
+      font-weight: 700;
+      border: 1px solid #dcd1ba;
+      letter-spacing: 0.04em;
     }}
 
     .subtitle {{
-      font-size: 9.5px;
-      color: var(--text-dim);
+      font-size: 0.69rem;
       font-family: var(--font-mono);
-      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 600;
     }}
 
     .header-actions {{
@@ -151,48 +147,60 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .status-tag {{
-      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      background: #f3efe6;
+      border: 1px solid var(--border-hairline);
+      font-size: 0.68rem;
       font-family: var(--font-mono);
-      color: #52401c;
-      background: #f5eedc;
-      border: 1.5px solid #cfbe95;
-      padding: 7px 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      color: var(--text-dim);
       text-transform: uppercase;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.06);
+      font-weight: 600;
+      letter-spacing: 0.06em;
     }}
 
-    /* Elegant Box Buttons with Crisp Tactile Shadows */
+    .status-tag::before {{
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: #2e7d32;
+      display: inline-block;
+    }}
+
+    /* Tactile Retro Buttons */
     .btn {{
       padding: 9px 18px;
       font-size: 0.76rem;
-      font-weight: 700;
       font-family: var(--font-mono);
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       cursor: pointer;
-      border: 1.5px solid transparent;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.14s ease-in-out;
-      text-decoration: none;
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1.5px solid transparent;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }}
+
+    .btn:active {{
+      transform: translateY(1.5px);
     }}
 
     .btn-primary {{
       background: #1c1b18;
-      color: #f7f6f2;
+      color: #ffffff;
       border-color: #1c1b18;
-      box-shadow: 0 4px 14px rgba(28, 27, 24, 0.25), 3px 3px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18), 2.5px 2.5px 0px rgba(0, 0, 0, 0.28);
     }}
     .btn-primary:hover {{
-      background: var(--gold);
-      color: #ffffff;
-      border-color: var(--gold);
-      box-shadow: 0 6px 18px rgba(158, 122, 47, 0.35), 3px 3px 0px rgba(110, 85, 30, 0.4);
+      background: #32302b;
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 2.5px 2.5px 0px rgba(0, 0, 0, 0.35);
     }}
 
     .btn-secondary {{
@@ -209,8 +217,25 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .btn-sm {{
-      padding: 6px 13px;
-      font-size: 0.72rem;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+    }}
+
+    .btn-micro {{
+      padding: 3px 8px;
+      background: #f3efe6;
+      border: 1px solid var(--border-hairline);
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.1s;
+    }}
+    .btn-micro:hover, .btn-micro:active {{
+      background: #1c1b18;
+      color: #ffffff;
+      border-color: #1c1b18;
     }}
 
     /* Main Atelier Layout */
@@ -222,193 +247,7 @@ html_content = f"""<!DOCTYPE html>
       min-height: calc(100vh - 67px);
     }}
 
-    /* Mobile Mode Switcher Bar (Hidden on Desktop, Visible <= 960px) */
-    .mobile-mode-bar {{
-      display: none;
-      background: #dfd8cb;
-      border-bottom: 1.5px solid var(--border-hairline);
-      padding: 8px 12px;
-      gap: 8px;
-      position: sticky;
-      top: 56px;
-      z-index: 95;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }}
-    .mobile-mode-btn {{
-      flex: 1;
-      padding: 10px 14px;
-      font-size: 0.74rem;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: #ffffff;
-      color: var(--text-dim);
-      border: 1.5px solid var(--border-hairline);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      transition: all 0.12s;
-      min-height: 42px;
-    }}
-    .mobile-mode-btn.active {{
-      background: #1c1b18;
-      color: #ffffff;
-      border-color: #1c1b18;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
-    }}
-    .mobile-preview-badge {{
-      background: var(--gold);
-      color: #ffffff;
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      font-weight: 800;
-    }}
-
-    /* Mobile Floating Action Bar */
-    .mobile-floating-bar {{
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(232, 226, 214, 0.97);
-      backdrop-filter: blur(12px);
-      border-top: 1.5px solid var(--border-hairline);
-      padding: 10px 14px;
-      gap: 10px;
-      z-index: 90;
-      box-shadow: 0 -4px 18px rgba(0,0,0,0.12);
-    }}
-    .mobile-floating-bar .btn {{
-      flex: 1;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      min-height: 46px;
-    }}
-
-    @media (max-width: 960px) {{
-      body {{
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }}
-
-      .mobile-mode-bar {{
-        display: flex;
-      }}
-      .mobile-floating-bar {{
-        display: flex;
-      }}
-
-      .app-layout {{
-        display: block !important;
-        min-height: auto;
-        overflow: visible !important;
-      }}
-
-      .controls-panel {{
-        max-height: none !important;
-        overflow-y: visible !important;
-        padding: 14px 12px 85px 12px !important;
-        border-right: none !important;
-      }}
-
-      .preview-workspace {{
-        padding: 18px 12px 85px 12px !important;
-        min-height: calc(100vh - 125px) !important;
-      }}
-
-      /* Smooth Tab Display Switch */
-      .app-layout.view-controls .controls-panel {{
-        display: flex !important;
-      }}
-      .app-layout.view-controls .preview-workspace {{
-        display: none !important;
-      }}
-
-      .app-layout.view-preview .controls-panel {{
-        display: none !important;
-      }}
-      .app-layout.view-preview .preview-workspace {{
-        display: flex !important;
-      }}
-
-      .canvas-pedestal {{
-        max-width: 100% !important;
-        max-height: 70vh !important;
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 0 1.5px rgba(0, 0, 0, 0.25) !important;
-      }}
-
-      #postCanvas {{
-        max-width: 100% !important;
-        max-height: 68vh !important;
-        width: auto !important;
-        height: auto !important;
-      }}
-
-      /* Prevent iOS auto-zoom on input focus */
-      .input-field, .textarea-field, select {{
-        font-size: 16px !important;
-        padding: 12px 10px !important;
-      }}
-
-      /* Touch-optimized slider */
-      input[type=range] {{
-        height: 7px !important;
-      }}
-      input[type=range]::-webkit-slider-thumb {{
-        width: 26px !important;
-        height: 32px !important;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
-      }}
-
-      /* Touch targets for buttons */
-      .btn {{
-        min-height: 44px;
-      }}
-      .btn-ratio {{
-        min-height: 52px;
-        padding: 10px 8px !important;
-      }}
-      .btn-ratio span.label {{
-        font-size: 0.72rem !important;
-      }}
-      .btn-ratio span.dim {{
-        font-size: 0.62rem !important;
-      }}
-
-      /* PFP preview & upload buttons on mobile */
-      .pfp-slot-container {{
-        flex-wrap: wrap;
-      }}
-
-      /* Header mobile layout */
-      header {{
-        padding: 10px 12px !important;
-      }}
-      .brand-box {{
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 1.15rem !important;
-      }}
-      .app-title {{
-        font-size: 0.92rem !important;
-        gap: 6px !important;
-      }}
-      .subtitle, .status-tag {{
-        display: none !important;
-      }}
-      .header-actions .btn {{
-        padding: 6px 9px !important;
-        font-size: 0.68rem !important;
-        min-height: 34px !important;
-      }}
-    }}
-
-    /* Left Control Panel (Rich Warm Stone with Depth) */
+    /* Left Control Panel */
     .controls-panel {{
       background: var(--bg-sidebar);
       border-right: 1.5px solid var(--border-hairline);
@@ -418,6 +257,7 @@ html_content = f"""<!DOCTYPE html>
       display: flex;
       flex-direction: column;
       gap: 16px;
+      box-shadow: 2px 0 10px rgba(28, 24, 18, 0.04);
     }}
 
     /* Tactile Block with Distinct Drop Shadow */
@@ -481,10 +321,9 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .textarea-field {{
-      min-height: 120px;
+      min-height: 110px;
       resize: vertical;
       line-height: 1.55;
-      font-family: var(--font-sans);
       font-size: 0.94rem;
     }}
 
@@ -507,6 +346,7 @@ html_content = f"""<!DOCTYPE html>
       flex-direction: column;
       gap: 4px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 2px 2px 0px rgba(215, 208, 195, 0.4);
+      -webkit-tap-highlight-color: transparent;
     }}
 
     .btn-ratio span.label {{
@@ -533,10 +373,10 @@ html_content = f"""<!DOCTYPE html>
 
     .btn-ratio.active {{
       background: #f6f1e5;
-      border: 1.5px solid #a89f8d;
-      border-left: 4px solid var(--gold);
+      border: 1.5px solid #1c1b18;
+      border-left: 5px solid var(--gold);
       color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(158, 122, 47, 0.12), 2px 2px 0px rgba(158, 122, 47, 0.25);
+      box-shadow: 0 4px 12px rgba(158, 122, 47, 0.15), 2px 2px 0px rgba(158, 122, 47, 0.28);
     }}
     .btn-ratio.active span.dim {{
       color: var(--gold);
@@ -559,59 +399,57 @@ html_content = f"""<!DOCTYPE html>
       font-family: var(--font-mono);
       font-weight: 700;
       color: var(--text-dim);
-      border: none;
       background: #ffffff;
+      border: none;
       cursor: pointer;
-      text-align: center;
-      transition: all 0.12s;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-    }}
-
-    .btn-toggle:hover {{
-      color: var(--text-main);
-      background: #f5f0e4;
+      transition: all 0.12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      -webkit-tap-highlight-color: transparent;
     }}
 
     .btn-toggle.active {{
-      background: #ede5d5;
-      color: var(--text-main);
-      box-shadow: inset 0 -2px 0 var(--gold);
+      background: #1c1b18;
+      color: #ffffff;
     }}
 
-    /* Profile Avatar Slot (High Contrast & Clear Boundary) */
+    /* Profile Avatar Section */
     .pfp-slot-container {{
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 4px 0;
+      gap: 14px;
+      margin-bottom: 12px;
     }}
 
     .pfp-preview-box {{
-      width: 82px;
-      height: 82px;
+      width: 76px;
+      height: 76px;
+      border: 2px solid #1c1b18;
       background: #ded7c9;
-      border: 2px solid #a39985;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(0,0,0,0.1);
     }}
 
     .pfp-preview-box img {{
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }}
 
     .pfp-upload-actions {{
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      flex: 1;
     }}
 
     .pfp-upload-btn-wrap {{
@@ -619,73 +457,129 @@ html_content = f"""<!DOCTYPE html>
       gap: 6px;
     }}
 
-    /* Tactile Retro Sliders */
+    /* Slider Row with Stepper [-] [+] */
     .slider-row {{
-      margin-top: 12px;
+      margin-top: 14px;
     }}
+
     .slider-label-row {{
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
       font-size: 0.71rem;
       font-family: var(--font-mono);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       color: var(--text-dim);
-      margin-bottom: 6px;
-      letter-spacing: 0.05em;
-      font-weight: 600;
+    }}
+
+    .slider-stepper-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }}
+
+    .btn-stepper {{
+      width: 38px;
+      height: 36px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-hairline);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: all 0.1s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }}
+    .btn-stepper:active {{
+      background: #1c1b18;
+      color: #ffffff;
+      border-color: #1c1b18;
+      transform: translateY(1px);
     }}
 
     input[type=range] {{
       -webkit-appearance: none;
-      appearance: none;
       width: 100%;
-      height: 3px;
-      background: #bfb7a6;
+      height: 6px;
+      background: #d4cdbe;
       outline: none;
       border: none;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+      touch-action: pan-x;
     }}
+
     input[type=range]::-webkit-slider-thumb {{
       -webkit-appearance: none;
       appearance: none;
-      width: 12px;
-      height: 18px;
+      width: 22px;
+      height: 26px;
       background: #1c1b18;
-      border: 1.5px solid var(--gold);
+      border: 1.5px solid #ded7c9;
       cursor: pointer;
-      transition: background 0.1s;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      transition: background 0.12s;
     }}
+
     input[type=range]::-webkit-slider-thumb:hover {{
       background: var(--gold);
     }}
 
-    /* Dropzone (Decent & Vintage Minimalist) */
+    /* Checkbox & Dropzone */
+    .checkbox-container {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.77rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 600;
+      color: var(--text-main);
+    }}
+
+    .checkbox-container input[type=checkbox] {{
+      width: 17px;
+      height: 17px;
+      accent-color: #1c1b18;
+      cursor: pointer;
+    }}
+
     .dropzone {{
-      border: 2px dashed #b5ab99;
-      padding: 20px;
+      border: 1.5px dashed var(--border-hairline);
+      background: var(--bg-recessed);
+      padding: 16px;
       text-align: center;
       cursor: pointer;
-      background: #faf8f4;
       transition: all 0.15s;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
     }}
-    .dropzone:hover, .dropzone.dragover {{
-      border-color: var(--gold);
-      background: #f4efe4;
-      box-shadow: inset 0 2px 8px rgba(158, 122, 47, 0.1);
+    .dropzone:hover {{
+      border-color: var(--border-focus);
+      background: #ede8dc;
     }}
 
     .attach-preview-bar {{
-      margin-top: 8px;
       display: none;
+      margin-top: 8px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-hairline);
+      padding: 7px 10px;
       align-items: center;
       justify-content: space-between;
-      background: #ffffff;
-      padding: 8px 12px;
-      border: 1.5px solid var(--border-hairline);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     }}
 
-    /* Right Preview Pedestal (Rich Warm Gallery Wall - Post Canvas Remains 100% Black) */
+    /* Right Preview Pedestal (Exhibition Gallery Wall) */
     .preview-workspace {{
       background: #d4cdc0;
       background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
@@ -694,116 +588,103 @@ html_content = f"""<!DOCTYPE html>
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 28px;
       position: relative;
+      padding: 36px 24px;
       overflow: auto;
     }}
 
     .canvas-pedestal {{
-      box-shadow: 0 28px 75px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 28px 75px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.22), 0 0 0 2px #1c1b18;
       overflow: hidden;
-      background: #000000; /* POST REMAINS STRICT OLED BLACK */
+      background: #000000; /* POST CANVAS STRICTLY OLED BLACK */
       max-width: 100%;
       max-height: 86vh;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      line-height: 0;
     }}
 
     #postCanvas {{
       display: block;
+      width: 100%;
+      height: 100%;
       max-width: 100%;
       max-height: 84vh;
-      width: auto;
-      height: auto;
       object-fit: contain;
-      background: #000000; /* POST REMAINS PURE BLACK */
     }}
 
-    /* Retro Minimalist Checkboxes */
-    .checkbox-container {{
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--text-dim);
-      cursor: pointer;
-      user-select: none;
-      font-weight: 600;
-    }}
-    .checkbox-container input[type="checkbox"] {{
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #ffffff;
-      border: 1.5px solid var(--border-hairline);
-      display: grid;
-      place-content: center;
-      cursor: pointer;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-    }}
-    .checkbox-container input[type="checkbox"]:checked {{
-      background: #1c1b18;
-      border-color: #1c1b18;
-    }}
-    .checkbox-container input[type="checkbox"]:checked::before {{
-      content: "✔";
-      font-size: 10px;
+    .btn-pedestal-expand {{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(28, 27, 24, 0.82);
+      backdrop-filter: blur(4px);
       color: #ffffff;
-      font-weight: 900;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 5px 10px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+    }}
+    .btn-pedestal-expand:hover, .btn-pedestal-expand:active {{
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #ffffff;
     }}
 
     /* Toast Notification */
-    #toast {{
+    .toast {{
       position: fixed;
       bottom: 24px;
       right: 24px;
       background: #1c1b18;
-      color: #f7f6f2;
-      border: 1.5px solid #333333;
-      border-left: 4px solid var(--gold);
-      padding: 11px 20px;
-      font-size: 0.8rem;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 12px 18px;
+      font-size: 0.76rem;
       font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-      z-index: 1000;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      z-index: 999;
+      transform: translateY(80px);
       opacity: 0;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
       pointer-events: none;
-      transform: translateY(6px);
-      transition: all 0.16s ease;
     }}
-    #toast.show {{
-      opacity: 1;
-      pointer-events: auto;
+    .toast.show {{
       transform: translateY(0);
+      opacity: 1;
     }}
 
     /* Credentials Gate Lockscreen */
     #authOverlay {{
       position: fixed;
       inset: 0;
-      background: rgba(22, 20, 17, 0.88);
-      backdrop-filter: blur(8px);
-      z-index: 9999;
+      background: rgba(28, 24, 18, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.25s ease;
     }}
     #authOverlay.hidden {{
       opacity: 0;
-      visibility: hidden;
       pointer-events: none;
     }}
     .auth-card {{
       background: #fbfaf7;
       border: 2px solid #1c1b18;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4), 6px 6px 0px #1c1b18;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5), 6px 6px 0px #1c1b18;
       width: 100%;
       max-width: 420px;
       padding: 32px 28px;
@@ -855,6 +736,203 @@ html_content = f"""<!DOCTYPE html>
       font-family: var(--font-mono);
       font-weight: 600;
     }}
+
+    /* Fullscreen Overlay Modal */
+    .fullscreen-overlay {{
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+    }}
+    .fullscreen-overlay.hidden {{
+      display: none;
+    }}
+    .fullscreen-top-bar {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }}
+    .fullscreen-ratio-badge {{
+      color: var(--gold);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }}
+    .fullscreen-canvas-wrap {{
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0;
+      overflow: hidden;
+    }}
+    #fullscreenImg {{
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.9), 0 0 0 1.5px rgba(255,255,255,0.2);
+    }}
+    .fullscreen-bottom-bar {{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }}
+
+    /* Mobile Floating Bar */
+    .mobile-floating-bar {{
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(232, 226, 214, 0.98);
+      backdrop-filter: blur(12px);
+      border-top: 1.5px solid #1c1b18;
+      padding: 10px 14px;
+      gap: 10px;
+      z-index: 90;
+      box-shadow: 0 -4px 18px rgba(0,0,0,0.14);
+    }}
+    .mobile-floating-bar .btn {{
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      min-height: 48px;
+    }}
+
+    /* ======================================================== */
+    /* RESPONSIVE UX ENGINE (Mobile & Tablet <= 960px)          */
+    /* Smooth, natural vertical stack with LIVE PREVIEW AT TOP */
+    /* ======================================================== */
+    @media (max-width: 960px) {{
+      body {{
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }}
+
+      .mobile-floating-bar {{
+        display: flex;
+      }}
+
+      .app-layout {{
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: auto !important;
+        overflow: visible !important;
+      }}
+
+      /* Live Post Preview Hero anchored at the top */
+      .preview-workspace {{
+        order: 1 !important;
+        padding: 16px 12px !important;
+        min-height: auto !important;
+        background: #ded7c9 !important;
+        border-bottom: 2px solid var(--border-hairline) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }}
+
+      .canvas-pedestal {{
+        max-width: min(100%, 360px) !important;
+        max-height: 48vh !important;
+        margin: 0 auto !important;
+        box-shadow: 0 16px 36px rgba(28, 24, 18, 0.32), 0 0 0 1.5px #1c1b18 !important;
+      }}
+
+      #postCanvas {{
+        max-height: 46vh !important;
+        width: 100% !important;
+        height: auto !important;
+      }}
+
+      /* Smooth, natural scrolling controls directly beneath preview */
+      .controls-panel {{
+        order: 2 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        padding: 16px 12px 95px 12px !important;
+        border-right: none !important;
+        gap: 14px !important;
+      }}
+
+      /* Prevent iOS auto-zoom on input focus */
+      .input-field, .textarea-field, select {{
+        font-size: 16px !important;
+        padding: 12px 10px !important;
+      }}
+
+      /* Touch Ergonomics for Sliders & Steppers */
+      .slider-stepper-wrap {{
+        gap: 10px !important;
+      }}
+      .btn-stepper {{
+        width: 44px !important;
+        height: 42px !important;
+        font-size: 1.3rem !important;
+      }}
+
+      input[type=range] {{
+        height: 8px !important;
+      }}
+      input[type=range]::-webkit-slider-thumb {{
+        width: 28px !important;
+        height: 36px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
+      }}
+
+      /* Touch targets for buttons */
+      .btn {{
+        min-height: 46px;
+      }}
+      .btn-ratio {{
+        min-height: 56px;
+        padding: 12px 10px !important;
+      }}
+      .btn-ratio span.label {{
+        font-size: 0.74rem !important;
+      }}
+      .btn-ratio span.dim {{
+        font-size: 0.65rem !important;
+      }}
+
+      /* PFP preview & upload buttons on mobile */
+      .pfp-slot-container {{
+        flex-wrap: wrap;
+      }}
+
+      /* Header mobile layout */
+      header {{
+        padding: 10px 12px !important;
+      }}
+      .brand-box {{
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.15rem !important;
+      }}
+      .app-title {{
+        font-size: 0.95rem !important;
+        gap: 6px !important;
+      }}
+      .subtitle, .status-tag {{
+        display: none !important;
+      }}
+      .header-actions .btn {{
+        padding: 6px 10px !important;
+        font-size: 0.7rem !important;
+        min-height: 36px !important;
+      }}
+    }}
   </style>
 </head>
 <body>
@@ -889,22 +967,38 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Top Atelier Header -->
+  <!-- Fullscreen Post Preview Modal (Especially Great on Mobile) -->
+  <div id="fullscreenOverlay" class="fullscreen-overlay hidden">
+    <div class="fullscreen-top-bar">
+      <span class="fullscreen-ratio-badge" id="fullscreenRatioBadge">4:5 · 1080 × 1350</span>
+      <button class="btn btn-secondary btn-sm" id="btnCloseFullscreen">✕ Close</button>
+    </div>
+    <div class="fullscreen-canvas-wrap">
+      <img id="fullscreenImg" alt="High Resolution Post Preview">
+    </div>
+    <div class="fullscreen-bottom-bar">
+      <button class="btn btn-primary" id="btnFullscreenDownload" style="width: 100%; max-width: 380px;">
+        <span>📥 Download 1080p Lossless PNG</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header -->
   <header>
-    <div class="header-left">
-      <div class="brand-box" title="Mr. Hamster Mascot">🐹</div>
-      <div class="title-group">
+    <div class="brand-section">
+      <div class="brand-box">🐹</div>
+      <div class="brand-text">
         <div class="app-title">
           <span>Mr. Hamster</span>
-          <span class="handle-badge">@mrr.hamster</span>
+          <span class="app-handle">@mrr.hamster</span>
         </div>
         <div class="subtitle">Post & Meme Atelier · Minimalist Edition</div>
       </div>
     </div>
 
     <div class="header-actions">
-      <span class="status-tag">1080P Native</span>
-      <button class="btn btn-secondary btn-sm" id="btnLockStudio" title="Lock the studio with credentials">
+      <span class="status-tag">1080p Native</span>
+      <button class="btn btn-secondary btn-sm" id="btnLockStudio" title="Lock Studio Access">
         <span>🔒 Lock</span>
       </button>
       <button class="btn btn-secondary btn-sm" id="btnResetAllDefaults" title="Restore default sizing and layout">
@@ -916,19 +1010,8 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </header>
 
-  <!-- Mobile Mode Switcher (Visible only on mobile/tablet <= 960px) -->
-  <div class="mobile-mode-bar" id="mobileModeBar">
-    <button class="mobile-mode-btn active" id="tabBtnControls">
-      <span>✍️ EDIT CONTROLS</span>
-    </button>
-    <button class="mobile-mode-btn" id="tabBtnPreview">
-      <span>👁️ LIVE PREVIEW</span>
-      <span class="mobile-preview-badge" id="mobilePreviewRatioBadge">4:5</span>
-    </button>
-  </div>
-
   <!-- Main Atelier Layout -->
-  <div class="app-layout view-controls">
+  <div class="app-layout">
     
     <!-- Left Controls Panel -->
     <div class="controls-panel">
@@ -974,7 +1057,7 @@ html_content = f"""<!DOCTYPE html>
           <div class="pfp-upload-actions">
             <div class="pfp-upload-btn-wrap">
               <button class="btn btn-secondary btn-sm" id="btnUploadPfp" style="flex: 1;">
-                <span>Upload Photo</span>
+                <span>📷 Upload Photo</span>
               </button>
               <button class="btn btn-secondary btn-sm" id="btnResetPfp" title="Reset to default Mog Hamster">
                 <span>↺ Reset</span>
@@ -990,8 +1073,8 @@ html_content = f"""<!DOCTYPE html>
             <span>Avatar Shape in Post</span>
           </div>
           <div class="btn-toggle-group">
-            <button class="btn-toggle active" id="btnPfpCircle">● Circle</button>
-            <button class="btn-toggle" id="btnPfpSquare">■ Square Box</button>
+            <button class="btn-toggle active" id="btnPfpCircle">● Circle Frame</button>
+            <button class="btn-toggle" id="btnPfpSquare">■ Square Box Frame</button>
           </div>
         </div>
 
@@ -999,25 +1082,29 @@ html_content = f"""<!DOCTYPE html>
         <div style="margin-top: 12px;">
           <div class="slider-label-row">
             <span>Avatar Frame Rim Color</span>
-            <span id="labelFrameColor" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); font-weight: 700;">SLATE TITANIUM</span>
+            <span id="labelFrameColor" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); font-weight: 700;">CRISP WHITE</span>
           </div>
           <select id="selectPfpFrameColor">
-            <option value="#4a4f5c" selected>Slate Titanium (#4a4f5c) · Matches Post</option>
-            <option value="#2b2d35">Deep Charcoal (#2b2d35) · Subtle Dark Rim</option>
-            <option value="#9e7d3b">Vintage Brass (#9e7d3b) · Atelier Gold</option>
-            <option value="#ded8cc">Warm Ivory (#ded8cc) · High Contrast</option>
-            <option value="#737987">Classic Platinum (#737987) · Clean Metal Rim</option>
+            <option value="#ffffff" selected>Crisp Titanium White (#ffffff) · High Definition</option>
+            <option value="#ded8cc">Warm Editorial Ivory (#ded8cc) · Classic Atelier</option>
+            <option value="#8e95a5">Slate Titanium (#8e95a5) · Neutral Steel Rim</option>
+            <option value="#c5a059">Champagne Gold (#c5a059) · Antique Luxury</option>
+            <option value="#2b2d35">Deep Charcoal (#2b2d35) · Stealth Dark Rim</option>
             <option value="none">None (Borderless)</option>
           </select>
         </div>
 
-        <!-- Avatar Scale Slider -->
+        <!-- Avatar Scale Slider with Stepper [-] [+] -->
         <div class="slider-row">
           <div class="slider-label-row">
             <span>Avatar Scale</span>
             <span id="labelPfpSize">96 px</span>
           </div>
-          <input type="range" id="rangePfpSize" min="60" max="150" value="96">
+          <div class="slider-stepper-wrap">
+            <button type="button" class="btn-stepper" id="btnPfpSizeMinus" title="Decrease Size">-</button>
+            <input type="range" id="rangePfpSize" min="60" max="150" value="96">
+            <button type="button" class="btn-stepper" id="btnPfpSizePlus" title="Increase Size">+</button>
+          </div>
         </div>
       </div>
 
@@ -1046,7 +1133,11 @@ html_content = f"""<!DOCTYPE html>
       <div class="control-card">
         <div class="group-label">
           <span class="section-title">Post Text</span>
-          <span id="charCount" style="color: var(--text-muted); font-family: var(--font-mono);">0 chars</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" class="btn-micro" id="btnSampleText" title="Insert Sample Quote">↻ Sample</button>
+            <button type="button" class="btn-micro" id="btnClearText" title="Clear Text">✕ Clear</button>
+            <span id="charCount" style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.68rem;">0 chars</span>
+          </div>
         </div>
         <textarea class="textarea-field" id="inputText" placeholder="Write whatever thought, quote, or observation you want..."></textarea>
       </div>
@@ -1057,12 +1148,17 @@ html_content = f"""<!DOCTYPE html>
           <span class="section-title">Typography & Layout</span>
         </div>
         
+        <!-- Font Size Slider with Stepper [-] [+] -->
         <div class="slider-row" style="margin-top: 0; margin-bottom: 14px;">
           <div class="slider-label-row">
             <span>Font Size</span>
             <span id="labelFontSize">46 px</span>
           </div>
-          <input type="range" id="rangeFontSize" min="26" max="74" value="46">
+          <div class="slider-stepper-wrap">
+            <button type="button" class="btn-stepper" id="btnFontSizeMinus" title="Decrease Font">-</button>
+            <input type="range" id="rangeFontSize" min="26" max="74" value="46">
+            <button type="button" class="btn-stepper" id="btnFontSizePlus" title="Increase Font">+</button>
+          </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
@@ -1150,34 +1246,40 @@ html_content = f"""<!DOCTYPE html>
 
     <!-- Right Live Canvas Workspace Pedestal (Warm Gallery Light Backdrop) -->
     <div class="preview-workspace">
-      <div class="canvas-pedestal">
+      <div class="canvas-pedestal" id="canvasPedestal">
+        <button type="button" class="btn-pedestal-expand" id="btnOpenFullscreen" title="Expand Fullscreen Preview">⛶ Fullscreen</button>
         <canvas id="postCanvas" width="1080" height="1350"></canvas>
       </div>
     </div>
 
   </div>
 
-  <!-- Mobile Floating Quick Bar -->
+  <!-- Mobile Floating Quick Bar (Pinned on screens <= 960px) -->
   <div class="mobile-floating-bar" id="mobileFloatingBar">
-    <button class="btn btn-secondary btn-sm" id="btnMobileQuickToggle">
-      <span>👁️ View Live Post</span>
+    <button class="btn btn-secondary" id="btnMobileScrollTop">
+      <span>👁️ View Post</span>
     </button>
-    <button class="btn btn-primary btn-sm" id="btnMobileDownload" onclick="document.getElementById('btnDownload').click()">
+    <button class="btn btn-primary" id="btnMobileDownload">
       <span>📥 Download 1080p</span>
     </button>
   </div>
 
-  <!-- Minimalist Toast Notification -->
-  <div id="toast">Action Completed</div>
+  <!-- Hidden Media Containers -->
+  <video id="activeVideo" playsinline loop muted style="display: none;"></video>
+  <img id="activeImgAttach" style="display: none;">
 
-  <!-- Studio Script Logic -->
+  <!-- Toast Notification Box -->
+  <div class="toast" id="toast">Settings Updated</div>
+
   <script>
+    // System Master Credentials
+    const AUTH_CREDS = {{
+      username: 'hamster_boss',
+      password: 'MogMaster#2026'
+    }};
+
     const DEFAULT_HAMSTER_B64 = "{mog_b64}";
 
-    const canvas = document.getElementById('postCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // Default configuration values
     const DEFAULTS = {{
       aspect: '4:5',
       width: 1080,
@@ -1187,7 +1289,7 @@ html_content = f"""<!DOCTYPE html>
       text: 'flirting is easy until you have to flirt\\nwith someone you actually want.',
       pfpSrc: DEFAULT_HAMSTER_B64,
       pfpShape: 'circle', // 'circle' or 'square'
-      pfpFrameColor: '#4a4f5c',
+      pfpFrameColor: '#ffffff', // Crisp Titanium White default
       pfpSize: 96,
       headerAlign: 'left',
       fontStyle: 'sans',
@@ -1214,6 +1316,7 @@ html_content = f"""<!DOCTYPE html>
     const btnResetPfp = document.getElementById('btnResetPfp');
     const activePfpImg = document.getElementById('activePfpImg');
     const pfpStatusBadge = document.getElementById('pfpStatusBadge');
+
     const btnPfpCircle = document.getElementById('btnPfpCircle');
     const btnPfpSquare = document.getElementById('btnPfpSquare');
 
@@ -1268,6 +1371,56 @@ html_content = f"""<!DOCTYPE html>
       render();
     }});
 
+    // Slider Stepper Buttons: Avatar Scale
+    const rangePfpSize = document.getElementById('rangePfpSize');
+    const labelPfpSize = document.getElementById('labelPfpSize');
+    document.getElementById('btnPfpSizeMinus').addEventListener('click', () => {{
+      let v = parseInt(rangePfpSize.value, 10) - 2;
+      if (v < 60) v = 60;
+      rangePfpSize.value = v;
+      state.pfpSize = v;
+      labelPfpSize.textContent = `${{v}} px`;
+      render();
+    }});
+    document.getElementById('btnPfpSizePlus').addEventListener('click', () => {{
+      let v = parseInt(rangePfpSize.value, 10) + 2;
+      if (v > 150) v = 150;
+      rangePfpSize.value = v;
+      state.pfpSize = v;
+      labelPfpSize.textContent = `${{v}} px`;
+      render();
+    }});
+    rangePfpSize.addEventListener('input', (e) => {{
+      state.pfpSize = parseInt(e.target.value, 10);
+      labelPfpSize.textContent = `${{state.pfpSize}} px`;
+      render();
+    }});
+
+    // Slider Stepper Buttons: Font Size
+    const rangeFontSize = document.getElementById('rangeFontSize');
+    const labelFontSize = document.getElementById('labelFontSize');
+    document.getElementById('btnFontSizeMinus').addEventListener('click', () => {{
+      let v = parseInt(rangeFontSize.value, 10) - 2;
+      if (v < 26) v = 26;
+      rangeFontSize.value = v;
+      state.fontSize = v;
+      labelFontSize.textContent = `${{v}} px`;
+      render();
+    }});
+    document.getElementById('btnFontSizePlus').addEventListener('click', () => {{
+      let v = parseInt(rangeFontSize.value, 10) + 2;
+      if (v > 74) v = 74;
+      rangeFontSize.value = v;
+      state.fontSize = v;
+      labelFontSize.textContent = `${{v}} px`;
+      render();
+    }});
+    rangeFontSize.addEventListener('input', (e) => {{
+      state.fontSize = parseInt(e.target.value, 10);
+      labelFontSize.textContent = `${{state.fontSize}} px`;
+      render();
+    }});
+
     // Reset All Defaults Button
     document.getElementById('btnResetAllDefaults').addEventListener('click', () => {{
       state.fontSize = DEFAULTS.fontSize;
@@ -1279,16 +1432,16 @@ html_content = f"""<!DOCTYPE html>
       state.pfpShape = DEFAULTS.pfpShape;
       state.pfpFrameColor = DEFAULTS.pfpFrameColor;
 
-      document.getElementById('rangeFontSize').value = state.fontSize;
-      document.getElementById('labelFontSize').textContent = `${{state.fontSize}} px`;
-      document.getElementById('rangePfpSize').value = state.pfpSize;
-      document.getElementById('labelPfpSize').textContent = `${{state.pfpSize}} px`;
+      rangeFontSize.value = state.fontSize;
+      labelFontSize.textContent = `${{state.fontSize}} px`;
+      rangePfpSize.value = state.pfpSize;
+      labelPfpSize.textContent = `${{state.pfpSize}} px`;
       document.getElementById('selectVAlign').value = state.vAlign;
       document.getElementById('selectTextAlign').value = state.textAlign;
       document.getElementById('selectHeaderAlign').value = state.headerAlign;
       document.getElementById('selectFontStyle').value = state.fontStyle;
       selectPfpFrameColor.value = state.pfpFrameColor;
-      labelFrameColor.textContent = 'SLATE TITANIUM';
+      labelFrameColor.textContent = 'CRISP WHITE';
 
       btnPfpCircle.classList.add('active');
       btnPfpSquare.classList.remove('active');
@@ -1297,7 +1450,16 @@ html_content = f"""<!DOCTYPE html>
       showToast('Default Settings Restored');
     }});
 
-    // Aspect Ratio Toggles
+    // Aspect Ratio Toggles & Dynamic Frame Synchronization
+    const canvas = document.getElementById('postCanvas');
+    const canvasPedestal = document.getElementById('canvasPedestal');
+
+    function syncAspectRatio() {{
+      const aspectStr = `${{state.width}} / ${{state.height}}`;
+      canvas.style.aspectRatio = aspectStr;
+      canvasPedestal.style.aspectRatio = aspectStr;
+    }}
+
     document.querySelectorAll('.btn-ratio').forEach(btn => {{
       btn.addEventListener('click', () => {{
         document.querySelectorAll('.btn-ratio').forEach(b => b.classList.remove('active'));
@@ -1309,11 +1471,28 @@ html_content = f"""<!DOCTYPE html>
         canvas.width = state.width;
         canvas.height = state.height;
 
+        syncAspectRatio();
+
         document.getElementById('currentRatioBadge').textContent = `${{state.width}} × ${{state.height}}`;
-        if (mobilePreviewRatioBadge) mobilePreviewRatioBadge.textContent = state.aspect;
         render();
         showToast(`Aspect Ratio: ${{state.aspect}} (${{state.width}}×${{state.height}})`);
       }});
+    }});
+
+    // Quick text helpers
+    const inputText = document.getElementById('inputText');
+    document.getElementById('btnSampleText').addEventListener('click', () => {{
+      inputText.value = 'flirting is easy until you have to flirt\\nwith someone you actually want.';
+      state.text = inputText.value;
+      render();
+      showToast('Sample Quote Inserted');
+    }});
+
+    document.getElementById('btnClearText').addEventListener('click', () => {{
+      inputText.value = '';
+      state.text = '';
+      render();
+      showToast('Text Cleared');
     }});
 
     function getLines(ctx, text, maxWidth) {{
@@ -1341,7 +1520,6 @@ html_content = f"""<!DOCTYPE html>
       const radius = size / 2;
       ctx.save();
 
-      // Scalloped 12-point starburst in official blue #1d9bf0
       ctx.fillStyle = '#1d9bf0';
       ctx.beginPath();
       
@@ -1349,7 +1527,7 @@ html_content = f"""<!DOCTYPE html>
       const innerRadius = radius * 0.88;
       for (let i = 0; i < points * 2; i++) {{
         const r = (i % 2 === 0) ? radius : innerRadius;
-        const angle = (i * Math.PI) / points - (Math.PI / 2);
+        const angle = (i * Math.PI) / points - Math.PI / 2;
         const x = centerX + Math.cos(angle) * r;
         const y = centerY + Math.sin(angle) * r;
         if (i === 0) ctx.moveTo(x, y);
@@ -1358,64 +1536,79 @@ html_content = f"""<!DOCTYPE html>
       ctx.closePath();
       ctx.fill();
 
-      // White checkmark accurately centered
+      // Sharp white checkmark
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = Math.max(2.4, size * 0.125);
+      ctx.lineWidth = Math.max(2, size * 0.125);
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-
       ctx.beginPath();
-      ctx.moveTo(centerX - size * 0.22, centerY + size * 0.02);
-      ctx.lineTo(centerX - size * 0.05, centerY + size * 0.19);
-      ctx.lineTo(centerX + size * 0.24, centerY - size * 0.16);
+      ctx.moveTo(centerX - radius * 0.42, centerY - radius * 0.02);
+      ctx.lineTo(centerX - radius * 0.1, centerY + radius * 0.32);
+      ctx.lineTo(centerX + radius * 0.44, centerY - radius * 0.34);
       ctx.stroke();
 
       ctx.restore();
     }}
 
+    // Master Canvas Render Engine
     function render() {{
-      const W = state.width;
-      const H = state.height;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
 
-      // Pure Lossless Pitch Black for the Post Canvas (#000000)
+      // 100% OLED PITCH BLACK BACKGROUND
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, W, H);
 
-      const marginX = (W === 1920 && H === 1080) ? 220 : 86;
+      const marginX = (W === 1920) ? 140 : 80;
       const contentWidth = W - (marginX * 2);
 
-      let fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif';
-      if (state.fontStyle === 'serif') fontFamily = '"Georgia", "Baskerville", "Times New Roman", serif';
-      else if (state.fontStyle === 'mono') fontFamily = 'ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace';
+      // Typography Configuration
+      let fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      if (state.fontStyle === 'serif') fontFamily = 'Georgia, "Playfair Display", "Times New Roman", serif';
+      if (state.fontStyle === 'mono') fontFamily = '"SF Mono", "Cascadia Code", Consolas, monospace';
 
-      const fontText = `400 ${{state.fontSize}}px ${{fontFamily}}`;
-      ctx.font = fontText;
-      const lineHeight = Math.round(state.fontSize * 1.44);
-      const textLines = getLines(ctx, state.text, contentWidth);
-      const textBlockHeight = textLines.length * lineHeight;
+      ctx.font = `400 ${{state.fontSize}}px ${{fontFamily}}`;
+      const lineHeight = Math.round(state.fontSize * 1.48);
+      const lines = getLines(ctx, state.text, contentWidth);
+      const textBlockHeight = lines.length * lineHeight;
 
       const pfpSize = state.pfpSize;
       const isCenteredHeader = (state.headerAlign === 'center');
-      const headerHeight = isCenteredHeader ? (pfpSize + 76) : pfpSize;
 
-      let attachHeight = 0;
-      let attachWidth = contentWidth;
-
-      if (state.attachedImg) {{
-        const aspect = state.attachedImg.width / state.attachedImg.height;
-        const maxAttachH = (H === 1920) ? 960 : ((H === 1350) ? 680 : 440);
-        attachHeight = Math.min(Math.round(attachWidth / aspect), maxAttachH);
-        attachWidth = Math.round(attachHeight * aspect);
-      }} else if (state.attachedVideo && state.attachedVideo.videoWidth) {{
-        const aspect = state.attachedVideo.videoWidth / state.attachedVideo.videoHeight;
-        const maxAttachH = (H === 1920) ? 960 : ((H === 1350) ? 680 : 440);
-        attachHeight = Math.min(Math.round(attachWidth / aspect), maxAttachH);
-        attachWidth = Math.round(attachHeight * aspect);
+      let headerHeight = pfpSize;
+      if (isCenteredHeader) {{
+        headerHeight = pfpSize + 72; // Space for stacked name & handle below pfp
       }}
 
-      const spacingHeaderToText = 36;
-      const spacingTextToAttach = (state.attachedImg || state.attachedVideo) ? 34 : 0;
-      const totalBlockHeight = headerHeight + spacingHeaderToText + textBlockHeight + spacingTextToAttach + attachHeight;
+      // Check Media Attachment
+      let mediaHeight = 0;
+      let mediaWidth = contentWidth;
+      const mediaGap = 36;
+      let activeMediaObj = null;
+
+      if (state.attachType === 'image' && imgAttachObj.complete && imgAttachObj.naturalWidth > 0) {{
+        activeMediaObj = imgAttachObj;
+      }} else if (state.attachType === 'video' && videoElement.readyState >= 2) {{
+        activeMediaObj = videoElement;
+      }}
+
+      if (activeMediaObj) {{
+        const naturalW = activeMediaObj.videoWidth || activeMediaObj.naturalWidth || 1;
+        const naturalH = activeMediaObj.videoHeight || activeMediaObj.naturalHeight || 1;
+        const maxMediaH = Math.round(H * 0.42);
+        mediaHeight = Math.round((contentWidth / naturalW) * naturalH);
+        if (mediaHeight > maxMediaH) {{
+          mediaHeight = maxMediaH;
+          mediaWidth = Math.round((maxMediaH / naturalH) * naturalW);
+        }}
+      }}
+
+      const headerToTextGap = 34;
+      let totalBlockHeight = headerHeight + headerToTextGap + textBlockHeight;
+      if (activeMediaObj) {{
+        totalBlockHeight += mediaGap + mediaHeight;
+      }}
 
       // Determine Start Y
       let startY = 120;
@@ -1453,20 +1646,21 @@ html_content = f"""<!DOCTYPE html>
       }}
       ctx.restore();
 
-      // Defined Avatar Frame Rim (Matches Black Post & White PFP)
+      // Defined Avatar Frame Rim (Crisp, High Visibility Border)
       if (state.pfpFrameColor && state.pfpFrameColor !== 'none') {{
         ctx.save();
+        const strokeW = Math.max(5, Math.round(pfpSize * 0.052));
+        ctx.lineWidth = strokeW;
+        ctx.strokeStyle = state.pfpFrameColor;
         ctx.beginPath();
         if (state.pfpShape === 'square') {{
           // Sharp rectangular box frame
-          ctx.rect(pfpX, pfpY, pfpSize, pfpSize);
+          ctx.strokeRect(pfpX, pfpY, pfpSize, pfpSize);
         }} else {{
           // Smooth circular ring frame
           ctx.arc(pfpX + radius, pfpY + radius, radius, 0, Math.PI * 2);
+          ctx.stroke();
         }}
-        ctx.strokeStyle = state.pfpFrameColor;
-        ctx.lineWidth = Math.max(3, Math.round(pfpSize * 0.035));
-        ctx.stroke();
         ctx.restore();
       }}
 
@@ -1484,106 +1678,92 @@ html_content = f"""<!DOCTYPE html>
         ctx.font = fontName;
         ctx.fillStyle = '#f7f9f9';
         ctx.textAlign = 'center';
-        ctx.fillText(displayName, W / 2, nameY);
+        ctx.textBaseline = 'middle';
+
+        const nameMetrics = ctx.measureText(displayName);
+        const badgeSize = 25;
+        const badgeGap = 8;
+        const totalW = nameMetrics.width + (state.verified ? (badgeSize + badgeGap) : 0);
+        const startTextX = Math.round(W / 2 - totalW / 2 + nameMetrics.width / 2);
+
+        ctx.fillText(displayName, startTextX, nameY);
 
         if (state.verified) {{
-          const nameWidth = ctx.measureText(displayName).width;
-          const badgeSize = 24;
-          const badgeCenterX = Math.round(W / 2 + nameWidth / 2 + 16);
-          const badgeCenterY = Math.round(nameY - 11);
-          drawAccurateVerifiedBadge(ctx, badgeCenterX, badgeCenterY, badgeSize);
+          const badgeCenterX = Math.round(startTextX + nameMetrics.width / 2 + badgeGap + badgeSize / 2);
+          drawAccurateVerifiedBadge(ctx, badgeCenterX, nameY, badgeSize);
         }}
 
         ctx.font = fontHandle;
         ctx.fillStyle = '#71767b';
-        ctx.textAlign = 'center';
-        ctx.fillText(state.handle, W / 2, handleY);
+        ctx.fillText(state.handle, Math.round(W / 2), handleY);
 
       }} else {{
-        const textStartX = pfpX + pfpSize + 22;
-        const nameY = pfpY + Math.round(pfpSize * 0.42);
-        const handleY = pfpY + Math.round(pfpSize * 0.82);
+        const textStartX = pfpX + pfpSize + 18;
+        const nameY = pfpY + Math.round(pfpSize * 0.34);
+        const handleY = pfpY + Math.round(pfpSize * 0.76);
 
         ctx.font = fontName;
         ctx.fillStyle = '#f7f9f9';
         ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
         ctx.fillText(displayName, textStartX, nameY);
 
         if (state.verified) {{
-          const nameWidth = ctx.measureText(displayName).width;
-          const badgeSize = 24;
-          const badgeCenterX = Math.round(textStartX + nameWidth + 16);
-          const badgeCenterY = Math.round(nameY - 11);
-          drawAccurateVerifiedBadge(ctx, badgeCenterX, badgeCenterY, badgeSize);
+          const nameMetrics = ctx.measureText(displayName);
+          const badgeSize = 25;
+          const badgeGap = 8;
+          const badgeCenterX = Math.round(textStartX + nameMetrics.width + badgeGap + badgeSize / 2);
+          drawAccurateVerifiedBadge(ctx, badgeCenterX, nameY, badgeSize);
         }}
 
         ctx.font = fontHandle;
         ctx.fillStyle = '#71767b';
         ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
         ctx.fillText(state.handle, textStartX, handleY);
       }}
 
-      // 3. Render Post Content Text
-      ctx.font = fontText;
+      // 3. Render Post Thought / Quote Text
+      const textStartY = startY + headerHeight + headerToTextGap;
+      ctx.font = `400 ${{state.fontSize}}px ${{fontFamily}}`;
       ctx.fillStyle = '#f7f9f9';
-      let textCurrentY = startY + headerHeight + spacingHeaderToText + Math.round(state.fontSize * 0.85);
+      ctx.textBaseline = 'top';
 
-      for (let i = 0; i < textLines.length; i++) {{
-        const line = textLines[i];
+      if (state.textAlign === 'center') {{
+        ctx.textAlign = 'center';
+        for (let i = 0; i < lines.length; i++) {{
+          ctx.fillText(lines[i], Math.round(W / 2), textStartY + (i * lineHeight));
+        }}
+      }} else {{
+        ctx.textAlign = 'left';
+        for (let i = 0; i < lines.length; i++) {{
+          ctx.fillText(lines[i], marginX, textStartY + (i * lineHeight));
+        }}
+      }}
+
+      // 4. Render Meme Media Attachment (if present)
+      if (activeMediaObj) {{
+        const mediaY = textStartY + textBlockHeight + mediaGap;
+        let mediaX = marginX;
         if (state.textAlign === 'center') {{
-          ctx.textAlign = 'center';
-          ctx.fillText(line, W / 2, textCurrentY);
-        }} else {{
-          ctx.textAlign = 'left';
-          ctx.fillText(line, marginX, textCurrentY);
+          mediaX = Math.round(W / 2 - mediaWidth / 2);
         }}
-        textCurrentY += lineHeight;
-      }}
 
-      // 4. Render Attached Meme (Sharp Box Framing with zero curves)
-      const attachY = textCurrentY - lineHeight + spacingTextToAttach;
-      const attachX = Math.round(marginX + (contentWidth - attachWidth) / 2);
-
-      if (state.attachedImg) {{
         ctx.save();
-        ctx.beginPath();
-        ctx.rect(attachX, attachY, attachWidth, attachHeight);
-        ctx.clip();
-        ctx.drawImage(state.attachedImg, attachX, attachY, attachWidth, attachHeight);
+        ctx.strokeStyle = '#282828';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(mediaX, mediaY, mediaWidth, mediaHeight);
+
+        ctx.drawImage(activeMediaObj, mediaX, mediaY, mediaWidth, mediaHeight);
         ctx.restore();
-
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(attachX, attachY, attachWidth, attachHeight);
-      }} else if (state.attachedVideo && state.attachedVideo.readyState >= 2) {{
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(attachX, attachY, attachWidth, attachHeight);
-        ctx.clip();
-        ctx.drawImage(state.attachedVideo, attachX, attachY, attachWidth, attachHeight);
-        ctx.restore();
-
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(attachX, attachY, attachWidth, attachHeight);
       }}
-    }}
 
-    function startVideoLoop() {{
-      if (videoAnimId) cancelAnimationFrame(videoAnimId);
-      function loop() {{
-        if (state.attachedVideo && !state.attachedVideo.paused && !state.attachedVideo.ended) {{
-          render();
-        }}
-        videoAnimId = requestAnimationFrame(loop);
-      }}
-      loop();
-    }}
-
-    // Form Event Listeners
-    document.getElementById('inputText').addEventListener('input', (e) => {{
-      state.text = e.target.value;
       document.getElementById('charCount').textContent = `${{state.text.length}} chars`;
+    }}
+
+    // Real-Time Input Event Listeners
+    inputText.addEventListener('input', (e) => {{
+      state.text = e.target.value;
       render();
     }});
 
@@ -1607,18 +1787,6 @@ html_content = f"""<!DOCTYPE html>
       render();
     }});
 
-    document.getElementById('rangeFontSize').addEventListener('input', (e) => {{
-      state.fontSize = parseInt(e.target.value, 10);
-      document.getElementById('labelFontSize').textContent = `${{state.fontSize}} px`;
-      render();
-    }});
-
-    document.getElementById('rangePfpSize').addEventListener('input', (e) => {{
-      state.pfpSize = parseInt(e.target.value, 10);
-      document.getElementById('labelPfpSize').textContent = `${{state.pfpSize}} px`;
-      render();
-    }});
-
     document.getElementById('selectVAlign').addEventListener('change', (e) => {{
       state.vAlign = e.target.value;
       render();
@@ -1639,7 +1807,7 @@ html_content = f"""<!DOCTYPE html>
       render();
     }});
 
-    // Meme Attachment (Photo & Video)
+    // Meme Media Dropzone & Attachment Handling
     const dropzone = document.getElementById('dropzone');
     const inputAttach = document.getElementById('inputAttach');
     const attachPreviewBar = document.getElementById('attachPreviewBar');
@@ -1647,202 +1815,177 @@ html_content = f"""<!DOCTYPE html>
     const attachTypeIcon = document.getElementById('attachTypeIcon');
     const btnRemoveAttach = document.getElementById('btnRemoveAttach');
     const videoControlsRow = document.getElementById('videoControlsRow');
+    const videoElement = document.getElementById('activeVideo');
+    const imgAttachObj = document.getElementById('activeImgAttach');
     const btnToggleVideoPlay = document.getElementById('btnToggleVideoPlay');
     const btnToggleVideoMute = document.getElementById('btnToggleVideoMute');
     const btnExportVideo = document.getElementById('btnExportVideo');
-    const btnDownloadText = document.getElementById('btnDownloadText');
 
     dropzone.addEventListener('click', () => inputAttach.click());
-    dropzone.addEventListener('dragover', (e) => {{ e.preventDefault(); dropzone.classList.add('dragover'); }});
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+
+    dropzone.addEventListener('dragover', (e) => {{
+      e.preventDefault();
+      dropzone.style.borderColor = 'var(--gold)';
+    }});
+    dropzone.addEventListener('dragleave', () => {{
+      dropzone.style.borderColor = 'var(--border-hairline)';
+    }});
     dropzone.addEventListener('drop', (e) => {{
       e.preventDefault();
-      dropzone.classList.remove('dragover');
+      dropzone.style.borderColor = 'var(--border-hairline)';
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {{
-        handleAttachedMedia(e.dataTransfer.files[0]);
+        handleMediaFile(e.dataTransfer.files[0]);
       }}
     }});
 
     inputAttach.addEventListener('change', (e) => {{
       if (e.target.files && e.target.files[0]) {{
-        handleAttachedMedia(e.target.files[0]);
+        handleMediaFile(e.target.files[0]);
       }}
     }});
 
-    function handleAttachedMedia(file) {{
-      const isVideo = file.type.startsWith('video/');
-      const isImage = file.type.startsWith('image/');
-      if (!isImage && !isVideo) return;
+    function handleMediaFile(file) {{
+      const isVid = file.type.startsWith('video/');
+      const url = URL.createObjectURL(file);
 
-      const fileUrl = URL.createObjectURL(file);
-      attachFileName.textContent = file.name;
+      if (isVid) {{
+        state.attachType = 'video';
+        videoElement.src = url;
+        videoElement.play();
+        attachTypeIcon.textContent = '[VIDEO]';
+        videoControlsRow.style.display = 'block';
+        btnExportVideo.style.display = 'block';
 
-      if (isVideo) {{
-        if (state.attachedVideo) {{
-          state.attachedVideo.pause();
-          state.attachedVideo.remove();
+        if (!videoAnimId) {{
+          function step() {{
+            if (state.attachType === 'video') {{
+              render();
+              videoAnimId = requestAnimationFrame(step);
+            }}
+          }}
+          videoAnimId = requestAnimationFrame(step);
         }}
-        const vid = document.createElement('video');
-        vid.src = fileUrl;
-        vid.crossOrigin = 'anonymous';
-        vid.loop = true;
-        vid.muted = true;
-        vid.playsInline = true;
-        vid.autoplay = true;
-
-        vid.onloadedmetadata = () => {{
-          state.attachedVideo = vid;
-          state.attachedImg = null;
-          attachTypeIcon.textContent = '[VIDEO]';
-          attachPreviewBar.style.display = 'flex';
-          videoControlsRow.style.display = 'block';
-          btnExportVideo.style.display = 'inline-flex';
-          btnDownloadText.textContent = 'Capture Frame (PNG)';
-          vid.play();
-          startVideoLoop();
-          showToast('Video Attached to Canvas');
-        }};
       }} else {{
-        if (state.attachedVideo) {{
-          state.attachedVideo.pause();
-          state.attachedVideo = null;
-        }}
-        if (videoAnimId) cancelAnimationFrame(videoAnimId);
+        state.attachType = 'image';
+        imgAttachObj.onload = () => render();
+        imgAttachObj.src = url;
+        attachTypeIcon.textContent = '[PHOTO]';
         videoControlsRow.style.display = 'none';
         btnExportVideo.style.display = 'none';
-        btnDownloadText.textContent = 'Download Post (1080p Lossless PNG)';
-
-        const img = new Image();
-        img.onload = () => {{
-          state.attachedImg = img;
-          attachTypeIcon.textContent = '[PHOTO]';
-          attachPreviewBar.style.display = 'flex';
-          render();
-          showToast('Photograph Attached');
-        }};
-        img.src = fileUrl;
+        if (videoAnimId) {{
+          cancelAnimationFrame(videoAnimId);
+          videoAnimId = null;
+        }}
       }}
+
+      attachFileName.textContent = file.name;
+      attachPreviewBar.style.display = 'flex';
+      showToast(`Attached: ${{file.name}}`);
     }}
 
     btnRemoveAttach.addEventListener('click', () => {{
-      if (state.attachedVideo) {{
-        state.attachedVideo.pause();
-        state.attachedVideo = null;
-      }}
-      if (videoAnimId) cancelAnimationFrame(videoAnimId);
-      state.attachedImg = null;
-      inputAttach.value = '';
+      state.attachType = null;
       attachPreviewBar.style.display = 'none';
       videoControlsRow.style.display = 'none';
       btnExportVideo.style.display = 'none';
-      btnDownloadText.textContent = 'Download Post (1080p Lossless PNG)';
+      inputAttach.value = '';
+      if (videoAnimId) {{
+        cancelAnimationFrame(videoAnimId);
+        videoAnimId = null;
+      }}
+      videoElement.pause();
       render();
+      showToast('Attachment Removed');
     }});
 
     btnToggleVideoPlay.addEventListener('click', () => {{
-      if (!state.attachedVideo) return;
-      if (state.attachedVideo.paused) {{
-        state.attachedVideo.play();
+      if (videoElement.paused) {{
+        videoElement.play();
         btnToggleVideoPlay.textContent = '⏸️ Pause';
       }} else {{
-        state.attachedVideo.pause();
+        videoElement.pause();
         btnToggleVideoPlay.textContent = '▶️ Play';
       }}
     }});
 
     btnToggleVideoMute.addEventListener('click', () => {{
-      if (!state.attachedVideo) return;
-      state.attachedVideo.muted = !state.attachedVideo.muted;
-      btnToggleVideoMute.textContent = state.attachedVideo.muted ? '🔇 Muted' : '🔊 Sound';
+      videoElement.muted = !videoElement.muted;
+      btnToggleVideoMute.textContent = videoElement.muted ? '🔇 Muted' : '🔊 Sound';
     }});
 
-    // Export Video Meme Recording
-    btnExportVideo.addEventListener('click', async () => {{
-      const vid = state.attachedVideo;
-      if (!vid) return;
-
-      try {{
-        showToast('Rendering Video Recording...');
-        const stream = canvas.captureStream(30);
-
-        if (vid.captureStream) {{
-          try {{
-            const vStream = vid.captureStream();
-            const aTracks = vStream.getAudioTracks();
-            if (aTracks.length > 0) stream.addTrack(aTracks[0]);
-          }} catch(e) {{}}
-        }}
-
-        const mime = MediaRecorder.isTypeSupported('video/mp4;codecs=avc1') ? 'video/mp4' : 'video/webm';
-        const recorder = new MediaRecorder(stream, {{ mimeType: mime }});
-        const chunks = [];
-
-        recorder.ondataavailable = e => {{ if (e.data.size > 0) chunks.push(e.data); }};
-        recorder.onstop = () => {{
-          const blob = new Blob(chunks, {{ type: mime }});
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          const ext = mime.includes('mp4') ? 'mp4' : 'webm';
-          link.download = `mrr_hamster_meme_${{Date.now()}}.${{ext}}`;
-          link.href = url;
-          link.click();
-          showToast('Video Exported Successfully');
-        }};
-
-        vid.currentTime = 0;
-        await vid.play();
-        recorder.start();
-
-        const duration = Math.min(vid.duration || 6, 15);
-        setTimeout(() => {{
-          if (recorder.state === 'recording') recorder.stop();
-        }}, duration * 1000 + 300);
-
-      }} catch (err) {{
-        alert('Video recording: ' + err.message);
-      }}
-    }});
-
-    // Lossless PNG Download (24-bit, uncompressed)
+    // Lossless PNG Download
     document.getElementById('btnDownload').addEventListener('click', () => {{
-      const link = document.createElement('a');
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-      link.download = `mrr_hamster_post_${{state.aspect.replace(':', 'x')}}_${{timestamp}}.png`;
-      link.href = canvas.toDataURL('image/png', 1.0);
-      link.click();
-      showToast('1080p Lossless PNG Downloaded');
+      render();
+      const a = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      a.download = `mrhamster_${{state.aspect.replace(':', '-')}}_${{timestamp}}.png`;
+      a.href = canvas.toDataURL('image/png', 1.0);
+      a.click();
+      showToast('Lossless 1080p Post Downloaded');
+    }});
+
+    // Mobile Pinned Bar Actions
+    document.getElementById('btnMobileDownload').addEventListener('click', () => {{
+      document.getElementById('btnDownload').click();
+    }});
+
+    document.getElementById('btnMobileScrollTop').addEventListener('click', () => {{
+      document.querySelector('.preview-workspace').scrollIntoView({{ behavior: 'smooth' }});
+    }});
+
+    // Fullscreen Overlay Preview
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const fullscreenImg = document.getElementById('fullscreenImg');
+    const fullscreenRatioBadge = document.getElementById('fullscreenRatioBadge');
+    const btnOpenFullscreen = document.getElementById('btnOpenFullscreen');
+    const btnCloseFullscreen = document.getElementById('btnCloseFullscreen');
+    const btnFullscreenDownload = document.getElementById('btnFullscreenDownload');
+
+    function openFullscreenModal() {{
+      render();
+      fullscreenImg.src = canvas.toDataURL('image/png', 1.0);
+      fullscreenRatioBadge.textContent = `${{state.aspect}} · ${{state.width}} × ${{state.height}}`;
+      fullscreenOverlay.classList.remove('hidden');
+    }}
+
+    btnOpenFullscreen.addEventListener('click', openFullscreenModal);
+    canvas.addEventListener('click', () => {{
+      if (window.innerWidth <= 960) openFullscreenModal();
+    }});
+    btnCloseFullscreen.addEventListener('click', () => fullscreenOverlay.classList.add('hidden'));
+    btnFullscreenDownload.addEventListener('click', () => {{
+      document.getElementById('btnDownload').click();
+      fullscreenOverlay.classList.add('hidden');
     }});
 
     // Copy to Clipboard
     document.getElementById('btnCopy').addEventListener('click', async () => {{
+      render();
       try {{
         canvas.toBlob(async (blob) => {{
-          const item = new ClipboardItem({{ 'image/png': blob }});
-          await navigator.clipboard.write([item]);
-          showToast('Copied to Clipboard');
-        }}, 'image/png', 1.0);
+          await navigator.clipboard.write([
+            new ClipboardItem({{ 'image/png': blob }})
+          ]);
+          showToast('Copied to Clipboard!');
+        }});
       }} catch (err) {{
-        showToast('Clipboard access unavailable');
+        showToast('Clipboard access not permitted');
       }}
     }});
 
+    // Toast Utility
     function showToast(msg) {{
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2200);
+      setTimeout(() => t.classList.remove('show'), 2600);
     }}
 
-    // Credentials Gate Authentication System
-    const AUTH_CREDS = {{
-      username: 'hamster_boss',
-      password: 'MogMaster#2026'
-    }};
-
+    // Credentials Gate Check & Handlers
     function checkAuth() {{
-      const isAuth = sessionStorage.getItem('mr_hamster_auth') === 'granted';
+      const auth = sessionStorage.getItem('mr_hamster_auth');
       const overlay = document.getElementById('authOverlay');
-      if (isAuth) {{
+      if (auth === 'granted') {{
         overlay.classList.add('hidden');
       }} else {{
         overlay.classList.remove('hidden');
@@ -1879,42 +2022,8 @@ html_content = f"""<!DOCTYPE html>
       showToast('STUDIO LOCKED');
     }});
 
-    // Mobile Mode Switcher (Controls vs Live Preview)
-    const appLayout = document.querySelector('.app-layout');
-    const tabBtnControls = document.getElementById('tabBtnControls');
-    const tabBtnPreview = document.getElementById('tabBtnPreview');
-    const btnMobileQuickToggle = document.getElementById('btnMobileQuickToggle');
-    const mobilePreviewRatioBadge = document.getElementById('mobilePreviewRatioBadge');
-
-    function setMobileMode(mode) {{
-      if (mode === 'preview') {{
-        appLayout.classList.remove('view-controls');
-        appLayout.classList.add('view-preview');
-        tabBtnPreview.classList.add('active');
-        tabBtnControls.classList.remove('active');
-        if (btnMobileQuickToggle) btnMobileQuickToggle.innerHTML = '<span>✍️ Edit Controls</span>';
-        window.scrollTo({{ top: 0, behavior: 'smooth' }});
-        render();
-      }} else {{
-        appLayout.classList.remove('view-preview');
-        appLayout.classList.add('view-controls');
-        tabBtnControls.classList.add('active');
-        tabBtnPreview.classList.remove('active');
-        if (btnMobileQuickToggle) btnMobileQuickToggle.innerHTML = '<span>👁️ View Live Post</span>';
-        window.scrollTo({{ top: 0, behavior: 'smooth' }});
-      }}
-    }}
-
-    if (tabBtnControls) tabBtnControls.addEventListener('click', () => setMobileMode('controls'));
-    if (tabBtnPreview) tabBtnPreview.addEventListener('click', () => setMobileMode('preview'));
-    if (btnMobileQuickToggle) {{
-      btnMobileQuickToggle.addEventListener('click', () => {{
-        const isCurrentlyPreview = appLayout.classList.contains('view-preview');
-        setMobileMode(isCurrentlyPreview ? 'controls' : 'preview');
-      }});
-    }}
-
     checkAuth();
+    syncAspectRatio();
 
     // Initial Render
     render();
