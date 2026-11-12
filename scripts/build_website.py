@@ -14,6 +14,7 @@ Mr. Hamster Studio - Swiss Minimalist Luxury Atelier Architecture
 
 import os
 import json
+import base64
 
 BASE_DIR = r"c:\Users\Thoufeek\Desktop\mr hasmter"
 
@@ -21,6 +22,9 @@ with open(os.path.join(BASE_DIR, "assets", "data", "pfps_base64.json"), "r", enc
     pfps_base64 = json.load(f)
 
 mog_b64 = pfps_base64.get("pfp_mog_hamster.png", "")
+
+with open(os.path.join(BASE_DIR, "assets", "icons", "verified_badge.svg"), "rb") as f:
+    verified_badge_b64 = "data:image/svg+xml;base64," + base64.b64encode(f.read()).decode("ascii")
 
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1303,10 +1307,6 @@ html_content = f"""<!DOCTYPE html>
         </div>
         <div style="display: flex; gap: 18px; margin-bottom: 14px;">
           <label class="checkbox-container">
-            <input type="checkbox" id="checkSparkle" checked>
-            <span>Sparkle ✨</span>
-          </label>
-          <label class="checkbox-container">
             <input type="checkbox" id="checkVerified" checked>
             <span>Verified Badge</span>
           </label>
@@ -1410,6 +1410,12 @@ html_content = f"""<!DOCTYPE html>
     }};
 
     const DEFAULT_HAMSTER_B64 = "{mog_b64}";
+    const VERIFIED_BADGE_B64 = "{verified_badge_b64}";
+    const verifiedBadgeImg = new Image();
+    verifiedBadgeImg.onload = () => {{
+      render();
+    }};
+    verifiedBadgeImg.src = VERIFIED_BADGE_B64;
 
     const DEFAULTS = {{
       aspect: '4:5',
@@ -1424,7 +1430,6 @@ html_content = f"""<!DOCTYPE html>
       pfpSize: 96,
       headerAlign: 'left',
       fontStyle: 'sans',
-      sparkle: true,
       verified: true,
       fontSize: 46,
       vAlign: 'center',
@@ -1900,10 +1905,6 @@ html_content = f"""<!DOCTYPE html>
       state.handle = e.target.value;
       render();
     }});
-    document.getElementById('checkSparkle').addEventListener('change', (e) => {{
-      state.sparkle = e.target.checked;
-      render();
-    }});
     document.getElementById('checkVerified').addEventListener('change', (e) => {{
       state.verified = e.target.checked;
       render();
@@ -1943,27 +1944,6 @@ html_content = f"""<!DOCTYPE html>
         lines.push(currentLine);
       }}
       return lines;
-    }}
-
-    // Accurate Verified Badge Rendering
-    function drawAccurateVerifiedBadge(ctx, centerX, centerY, radius) {{
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#1D9BF0'; // Twitter/X Verified Blue
-      ctx.fill();
-
-      // Checkmark in white
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = Math.max(2, radius * 0.28);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-      ctx.moveTo(centerX - radius * 0.42, centerY);
-      ctx.lineTo(centerX - radius * 0.08, centerY + radius * 0.36);
-      ctx.lineTo(centerX + radius * 0.46, centerY - radius * 0.34);
-      ctx.stroke();
-      ctx.restore();
     }}
 
     // Helper: Rounded Rectangle / Blunt Corner Trim Path
@@ -2126,22 +2106,34 @@ html_content = f"""<!DOCTYPE html>
         const textCenterY = pfpY + pfpSize + 28;
         ctx.font = `700 ${{nameSize}}px ${{fontFamily}}`;
         ctx.fillStyle = '#FFFFFF';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
 
-        let displayName = state.name;
-        if (state.sparkle) displayName += ' ✨';
-        ctx.fillText(displayName, W / 2, textCenterY);
+        const nameWidth = ctx.measureText(state.name).width;
+        const badgeSize = Math.max(20, Math.round(nameSize * 0.72));
+        const badgeGap = 8;
 
         if (state.verified) {{
-          const nameWidth = ctx.measureText(displayName).width;
-          const badgeX = Math.round(W / 2 + nameWidth / 2 + 14);
-          const badgeY = Math.round(textCenterY + nameSize * 0.48);
-          drawAccurateVerifiedBadge(ctx, badgeX, badgeY, Math.round(nameSize * 0.38));
+          const totalWidth = nameWidth + badgeGap + badgeSize;
+          const startX = Math.round(W / 2 - totalWidth / 2);
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          const nameMidY = Math.round(textCenterY + nameSize * 0.5);
+          ctx.fillText(state.name, startX, nameMidY);
+
+          const badgeX = startX + nameWidth + badgeGap;
+          const badgeY = Math.round(nameMidY - badgeSize / 2);
+          if (verifiedBadgeImg.complete && verifiedBadgeImg.naturalWidth !== 0) {{
+            ctx.drawImage(verifiedBadgeImg, badgeX, badgeY, badgeSize, badgeSize);
+          }}
+        }} else {{
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText(state.name, W / 2, textCenterY);
         }}
 
         ctx.font = `400 ${{handleSize}}px ${{fontFamily}}`;
         ctx.fillStyle = '#71767B';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
         ctx.fillText(state.handle, W / 2, textCenterY + nameSize + 6);
       }} else {{
         // Left-aligned classic layout
@@ -2152,16 +2144,17 @@ html_content = f"""<!DOCTYPE html>
         ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-
-        let displayName = state.name;
-        if (state.sparkle) displayName += ' ✨';
-        ctx.fillText(displayName, textLeftX, nameBaselineY);
+        ctx.fillText(state.name, textLeftX, nameBaselineY);
 
         if (state.verified) {{
-          const nameWidth = ctx.measureText(displayName).width;
-          const badgeX = Math.round(textLeftX + nameWidth + 14);
-          const badgeY = nameBaselineY;
-          drawAccurateVerifiedBadge(ctx, badgeX, badgeY, Math.round(nameSize * 0.38));
+          const nameWidth = ctx.measureText(state.name).width;
+          const badgeSize = Math.max(20, Math.round(nameSize * 0.72));
+          const badgeGap = 8;
+          const badgeX = Math.round(textLeftX + nameWidth + badgeGap);
+          const badgeY = Math.round(nameBaselineY - badgeSize / 2);
+          if (verifiedBadgeImg.complete && verifiedBadgeImg.naturalWidth !== 0) {{
+            ctx.drawImage(verifiedBadgeImg, badgeX, badgeY, badgeSize, badgeSize);
+          }}
         }}
 
         const handleBaselineY = pfpY + Math.round(pfpSize * 0.76);
