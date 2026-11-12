@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Mr. Hamster Studio Website Builder
-Generates index.html and generator.html with:
-- Warm vintage stone aesthetic & tactile retro drop shadows
-- Pitch-black OLED post canvas (1080p lossless)
-- Complete mobile responsive UX overhaul (natural stacked layout, live preview at top, zero scroll-trapping)
-- Stepper buttons for micro-adjustments on mobile
-- Defined avatar frames (Circle & Square) with Crisp Titanium White default
-- Credentials lockscreen (hamster_boss / MogMaster#2026)
+Mr. Hamster Studio - Swiss Minimalist Luxury Atelier Architecture
+- Color Palette: Luminous Gallery Alabaster (#FAF8F5), Studio White (#FFFFFF), Hairline (#E5E0D8), Champagne Gold (#946E26)
+- Typography: Editorial Modern Serif ('Cinzel', 'Playfair Display', Georgia) + Precision Grotesque
+- Semantic HTML5: <header>, <main>, <aside>, <section>, <figure>, <figcaption>, <nav>, <footer>
+- Desktop: Left 440px Atelier Sidebar, Right Museum Pedestal (100% OLED Black Canvas)
+- Mobile: Pinned Live Preview at Top, Segmented Tool Dock below, No iOS Zoom-Jacking (16px inputs), Butter-Smooth UX
+- Frame Rim System: Circle & Square Frame with Crisp Titanium White, Champagne Ivory, Antique Gold rims
+- Zero Horizontal Overflow, Mathematical Precision
+- Master Credentials Gate: hamster_boss / MogMaster#2026
 """
 
 import os
@@ -25,82 +26,102 @@ html_content = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Mr. Hamster Studio — Minimalist Luxury Post & Meme Atelier for 1080p high-resolution social statements.">
   <title>Mr. Hamster — Post Atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {{
-      --bg-core: #eae4d8;              /* Warm vintage oat/stone background - NOT plain white */
-      --bg-sidebar: #dfd8cb;           /* Rich tactile warm clay/parchment sidebar */
-      --bg-card: #ffffff;              /* Crisp gallery white block */
-      --bg-card-hover: #faf9f6;        /* Subtle ivory hover */
-      --bg-recessed: #f3efe6;          /* Recessed field */
-      --border-hairline: #cac2b2;      /* Defined warm border */
-      --border-hover: #9c9381;         /* Border hover */
-      --border-focus: #1c1b18;         /* High-contrast dark focus border */
-      --gold: #9e7a2f;                 /* Antique vintage brass / warm gold */
-      --gold-soft: rgba(158, 122, 47, 0.12);
-      --gold-hover: #836423;
-      --text-main: #181714;            /* Rich vintage ink */
-      --text-dim: #544f47;             /* Muted graphite */
-      --text-muted: #827c71;           /* Quiet ash */
-      --font-serif: "Georgia", "Baskerville", "Playfair Display", "Times New Roman", serif;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+      --bg-core: #FAF8F5;              /* Luminous Gallery Alabaster */
+      --bg-surface: #FFFFFF;           /* Crisp Atelier White */
+      --bg-card: #FFFFFF;              /* Pure Card Surface */
+      --bg-card-hover: #FDFCF9;        /* Subtle Ivory Hover */
+      --bg-recessed: #F3EFE8;          /* Recessed Track & Inputs */
+      --border-hairline: #E5E0D8;      /* Warm Architectural Hairline */
+      --border-hover: #C9C2B5;         /* Hairline Hover */
+      --border-focus: #181715;         /* Obsidian Ink Focus */
+      --gold: #946E26;                 /* Antique Champagne Brass */
+      --gold-light: #F9F5EC;           /* Soft Champagne Tint */
+      --gold-border: rgba(148, 110, 38, 0.28);
+      --text-main: #181715;            /* Deep Obsidian Ink */
+      --text-dim: #555048;             /* Warm Editorial Graphite */
+      --text-muted: #8A8478;           /* Quiet Stone Ash */
+      --shadow-sm: 0 1px 3px rgba(24, 23, 21, 0.04);
+      --shadow-card: 0 3px 14px rgba(24, 23, 21, 0.04), 0 1px 3px rgba(24, 23, 21, 0.02);
+      --shadow-hover: 0 6px 20px rgba(24, 23, 21, 0.07), 0 2px 6px rgba(24, 23, 21, 0.03);
+      --font-serif: "Cinzel", "Playfair Display", "Baskerville", serif;
+      --font-body: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+      --radius-sm: 4px;
+      --radius-md: 6px;
     }}
 
     *, *::before, *::after {{
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      border-radius: 0 !important; /* ZERO CURVES - STRICT RETRO BOX SYSTEM */
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }}
+
+    html, body {{
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--bg-core);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
     }}
 
     body {{
-      background-color: var(--bg-core);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-      background-size: 28px 28px;
     }}
 
-    /* Top Atelier Header (Minimalist Warm Retro) */
-    header {{
-      background: #fbfaf7;
-      border-bottom: 2px solid #1c1b18;
-      padding: 12px 24px;
+    /* Top Atelier Header (Symmetric, Refined, Zero Overflow) */
+    .atelier-header {{
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 12px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 14px rgba(28, 24, 18, 0.08);
+      box-shadow: 0 1px 6px rgba(24, 23, 21, 0.03);
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
     }}
 
     .brand-section {{
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
     }}
 
-    .brand-box {{
-      width: 42px;
-      height: 42px;
-      background: #1c1b18;
-      color: #ffffff;
-      border: 1.5px solid #1c1b18;
+    .brand-mark {{
+      width: 40px;
+      height: 40px;
+      background: #181715;
+      color: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.45rem;
-      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.22);
+      font-size: 1.35rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 6px rgba(24, 23, 21, 0.18);
       flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }}
+    .brand-mark:hover {{
+      transform: scale(1.03);
     }}
 
     .brand-text {{
@@ -109,35 +130,42 @@ html_content = f"""<!DOCTYPE html>
       gap: 2px;
     }}
 
-    .app-title {{
+    .brand-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+
+    h1.app-title {{
       font-family: var(--font-serif);
-      font-size: 1.18rem;
+      font-size: 1.15rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      margin: 0;
+      line-height: 1.1;
     }}
 
-    .app-handle {{
+    .app-handle-badge {{
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: #796024;
-      background: #f4ecda;
+      font-size: 0.70rem;
+      color: var(--gold);
+      background: var(--gold-light);
       padding: 2px 7px;
-      font-weight: 700;
-      border: 1px solid #dcd1ba;
+      font-weight: 600;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
       letter-spacing: 0.04em;
     }}
 
-    .subtitle {{
-      font-size: 0.69rem;
+    .atelier-subtitle {{
+      font-size: 0.67rem;
       font-family: var(--font-mono);
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      letter-spacing: 0.09em;
       text-transform: uppercase;
+      margin: 0;
     }}
 
     .header-actions {{
@@ -146,322 +174,328 @@ html_content = f"""<!DOCTYPE html>
       gap: 10px;
     }}
 
-    .status-tag {{
+    .badge-resolution {{
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 10px;
-      background: #f3efe6;
+      padding: 6px 11px;
+      background: var(--bg-core);
       border: 1px solid var(--border-hairline);
       font-size: 0.68rem;
       font-family: var(--font-mono);
       color: var(--text-dim);
       text-transform: uppercase;
       font-weight: 600;
+      border-radius: var(--radius-sm);
       letter-spacing: 0.06em;
     }}
-
-    .status-tag::before {{
+    .badge-resolution::before {{
       content: "";
       width: 6px;
       height: 6px;
-      background: #2e7d32;
+      border-radius: 50%;
+      background: #2E7D32;
       display: inline-block;
     }}
 
-    /* Tactile Retro Buttons */
+    /* Buttons */
     .btn {{
       padding: 9px 18px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-family: var(--font-mono);
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1.5px solid transparent;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+      text-decoration: none;
     }}
-
     .btn:active {{
-      transform: translateY(1.5px);
+      transform: translateY(1px);
     }}
 
     .btn-primary {{
-      background: #1c1b18;
-      color: #ffffff;
-      border-color: #1c1b18;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18), 2.5px 2.5px 0px rgba(0, 0, 0, 0.28);
+      background: #181715;
+      color: #FFFFFF;
+      border-color: #181715;
+      box-shadow: 0 2px 6px rgba(24, 23, 21, 0.15);
     }}
     .btn-primary:hover {{
-      background: #32302b;
-      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 2.5px 2.5px 0px rgba(0, 0, 0, 0.35);
+      background: #2A2825;
+      box-shadow: 0 4px 12px rgba(24, 23, 21, 0.22);
     }}
 
     .btn-secondary {{
-      background: #ffffff;
+      background: #FFFFFF;
       color: var(--text-main);
       border-color: var(--border-hairline);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 2px 2px 0px rgba(200, 192, 178, 0.4);
+      box-shadow: var(--shadow-sm);
     }}
     .btn-secondary:hover {{
-      background: #f4efe5;
+      background: var(--bg-core);
       border-color: var(--border-hover);
-      color: #000000;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 2px 2px 0px rgba(175, 166, 150, 0.6);
     }}
 
     .btn-sm {{
       padding: 6px 12px;
-      font-size: 0.7rem;
+      font-size: 0.70rem;
     }}
 
-    .btn-micro {{
-      padding: 3px 8px;
-      background: #f3efe6;
+    .btn-action-text {{
+      padding: 4px 9px;
+      background: var(--bg-recessed);
       border: 1px solid var(--border-hairline);
-      font-size: 0.65rem;
+      font-size: 0.67rem;
       font-family: var(--font-mono);
       color: var(--text-dim);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.1s;
+      transition: all 0.12s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }}
-    .btn-micro:hover, .btn-micro:active {{
-      background: #1c1b18;
-      color: #ffffff;
-      border-color: #1c1b18;
+    .btn-action-text:hover, .btn-action-text:active {{
+      background: #181715;
+      color: #FFFFFF;
+      border-color: #181715;
     }}
 
-    /* Main Atelier Layout */
+    /* Desktop Layout */
     .app-layout {{
       display: grid;
-      grid-template-columns: 460px 1fr;
+      grid-template-columns: 440px 1fr;
       flex: 1;
       overflow: hidden;
-      min-height: calc(100vh - 67px);
+      min-height: calc(100vh - 65px);
+      width: 100%;
+      max-width: 100vw;
     }}
 
-    /* Left Control Panel */
+    /* Controls Panel */
     .controls-panel {{
-      background: var(--bg-sidebar);
-      border-right: 1.5px solid var(--border-hairline);
-      padding: 22px;
+      background: #FFFFFF;
+      border-right: 1px solid var(--border-hairline);
+      padding: 22px 20px;
       overflow-y: auto;
-      max-height: calc(100vh - 67px);
+      max-height: calc(100vh - 65px);
       display: flex;
       flex-direction: column;
       gap: 16px;
-      box-shadow: 2px 0 10px rgba(28, 24, 18, 0.04);
+      box-sizing: border-box;
     }}
 
-    /* Tactile Block with Distinct Drop Shadow */
+    /* Semantic Control Card */
     .control-card {{
       background: var(--bg-card);
-      border: 1.5px solid var(--border-hairline);
-      padding: 18px 20px;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-md);
+      padding: 18px;
       position: relative;
-      transition: all 0.15s ease-in-out;
-      box-shadow: 0 4px 18px rgba(28, 24, 18, 0.09), 0 1px 4px rgba(28, 24, 18, 0.05), 3px 3px 0px rgba(200, 192, 178, 0.5);
+      box-shadow: var(--shadow-card);
+      box-sizing: border-box;
+      width: 100%;
+      transition: box-shadow 0.2s, border-color 0.2s;
     }}
     .control-card:hover {{
       border-color: var(--border-hover);
-      box-shadow: 0 8px 24px rgba(28, 24, 18, 0.13), 0 2px 6px rgba(28, 24, 18, 0.07), 3px 3px 0px rgba(180, 172, 158, 0.7);
+      box-shadow: var(--shadow-hover);
     }}
 
-    /* Clean Editorial Group Header */
-    .group-label {{
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-dim);
-      font-family: var(--font-mono);
-      margin-bottom: 14px;
+    /* Clean Card Header */
+    .card-header {{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1.5px solid #e5ded2;
-      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 9px;
+      margin-bottom: 14px;
+      width: 100%;
     }}
-
-    .group-label span.section-title {{
+    .card-title {{
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
       display: flex;
       align-items: center;
-      gap: 8px;
+      margin: 0;
     }}
-
-    .group-label span.section-title::before {{
-      content: "—";
+    .card-title span.section-index {{
       color: var(--gold);
-      font-weight: 800;
+      font-weight: 700;
+      margin-right: 7px;
     }}
 
+    /* Form Fields */
     .input-field, .textarea-field, select {{
       width: 100%;
-      background: #ffffff;
-      border: 1.5px solid var(--border-hairline);
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
       padding: 10px 12px;
       color: var(--text-main);
-      font-size: 0.88rem;
-      font-family: var(--font-sans);
+      font-size: 0.90rem;
+      font-family: var(--font-body);
       outline: none;
       transition: border-color 0.15s, box-shadow 0.15s;
-      box-shadow: inset 0 1px 3px rgba(32, 28, 22, 0.05);
+      box-shadow: inset 0 1px 2px rgba(24, 23, 21, 0.02);
+      box-sizing: border-box;
     }}
-
     .input-field:focus, .textarea-field:focus, select:focus {{
       border-color: var(--border-focus);
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 2px rgba(28, 27, 24, 0.1);
+      box-shadow: inset 0 1px 2px rgba(24, 23, 21, 0.04), 0 0 0 2px rgba(24, 23, 21, 0.08);
     }}
-
     .textarea-field {{
       min-height: 110px;
       resize: vertical;
       line-height: 1.55;
-      font-size: 0.94rem;
+      font-size: 0.95rem;
     }}
 
-    /* Aspect Ratio Grid */
+    /* Ratio Grid */
     .ratio-grid {{
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
+      width: 100%;
     }}
-
     .btn-ratio {{
       padding: 12px 14px;
-      background: #ffffff;
-      border: 1.5px solid #d4cdbe;
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
       color: var(--text-dim);
       cursor: pointer;
       text-align: left;
-      transition: all 0.12s;
+      transition: all 0.15s;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 2px 2px 0px rgba(215, 208, 195, 0.4);
+      gap: 3px;
+      box-shadow: var(--shadow-sm);
       -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
     }}
-
     .btn-ratio span.label {{
       font-family: var(--font-mono);
       font-weight: 700;
       font-size: 0.76rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      color: var(--text-main);
     }}
-
     .btn-ratio span.dim {{
       font-size: 0.67rem;
       color: var(--text-muted);
       font-family: var(--font-mono);
       font-weight: 500;
     }}
-
     .btn-ratio:hover {{
       border-color: var(--border-hover);
-      color: var(--text-main);
-      background: #faf8f3;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 2px 2px 0px rgba(190, 182, 168, 0.6);
+      background: var(--bg-core);
     }}
-
     .btn-ratio.active {{
-      background: #f6f1e5;
-      border: 1.5px solid #1c1b18;
-      border-left: 5px solid var(--gold);
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
       color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(158, 122, 47, 0.15), 2px 2px 0px rgba(158, 122, 47, 0.28);
+      box-shadow: 0 2px 8px rgba(148, 110, 38, 0.12);
     }}
     .btn-ratio.active span.dim {{
       color: var(--gold);
       font-weight: 700;
     }}
 
-    /* Minimalist Retro Segmented Toggles */
+    /* Toggle Group */
     .btn-toggle-group {{
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1px;
+      gap: 2px;
       background: var(--border-hairline);
-      border: 1.5px solid var(--border-hairline);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      width: 100%;
     }}
-
     .btn-toggle {{
-      padding: 9px 10px;
+      padding: 10px;
       font-size: 0.72rem;
       font-family: var(--font-mono);
       font-weight: 700;
       color: var(--text-dim);
-      background: #ffffff;
+      background: #FFFFFF;
       border: none;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      transition: all 0.12s;
+      transition: all 0.15s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       -webkit-tap-highlight-color: transparent;
     }}
-
     .btn-toggle.active {{
-      background: #1c1b18;
-      color: #ffffff;
+      background: #181715;
+      color: #FFFFFF;
     }}
 
-    /* Profile Avatar Section */
+    /* Avatar Box */
     .pfp-slot-container {{
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      width: 100%;
     }}
-
     .pfp-preview-box {{
-      width: 76px;
-      height: 76px;
-      border: 2px solid #1c1b18;
-      background: #ded7c9;
+      width: 74px;
+      height: 74px;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
+      background: var(--bg-recessed);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-sm);
     }}
-
     .pfp-preview-box img {{
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }}
-
     .pfp-upload-actions {{
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }}
-
     .pfp-upload-btn-wrap {{
       display: flex;
       gap: 6px;
+      width: 100%;
     }}
 
-    /* Slider Row with Stepper [-] [+] */
+    /* Steppers & Sliders */
     .slider-row {{
       margin-top: 14px;
+      width: 100%;
     }}
-
     .slider-label-row {{
       display: flex;
       justify-content: space-between;
@@ -474,19 +508,18 @@ html_content = f"""<!DOCTYPE html>
       letter-spacing: 0.06em;
       color: var(--text-dim);
     }}
-
     .slider-stepper-wrap {{
       display: flex;
       align-items: center;
       gap: 8px;
       width: 100%;
     }}
-
     .btn-stepper {{
       width: 38px;
       height: 36px;
-      background: #ffffff;
-      border: 1.5px solid var(--border-hairline);
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
       color: var(--text-main);
       font-family: var(--font-mono);
       font-size: 1.15rem;
@@ -495,47 +528,45 @@ html_content = f"""<!DOCTYPE html>
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-sm);
       transition: all 0.1s;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       flex-shrink: 0;
     }}
     .btn-stepper:active {{
-      background: #1c1b18;
-      color: #ffffff;
-      border-color: #1c1b18;
+      background: #181715;
+      color: #FFFFFF;
+      border-color: #181715;
       transform: translateY(1px);
     }}
-
     input[type=range] {{
       -webkit-appearance: none;
       width: 100%;
       height: 6px;
-      background: #d4cdbe;
+      background: #E5E0D8;
+      border-radius: 3px;
       outline: none;
       border: none;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+      box-shadow: inset 0 1px 2px rgba(24,23,21,0.06);
       touch-action: pan-x;
     }}
-
     input[type=range]::-webkit-slider-thumb {{
       -webkit-appearance: none;
       appearance: none;
-      width: 22px;
-      height: 26px;
-      background: #1c1b18;
-      border: 1.5px solid #ded7c9;
+      width: 18px;
+      height: 22px;
+      background: #181715;
+      border: 1px solid #FFFFFF;
+      border-radius: 3px;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 2px 6px rgba(24, 23, 21, 0.25);
       transition: background 0.12s;
     }}
-
     input[type=range]::-webkit-slider-thumb:hover {{
       background: var(--gold);
     }}
 
-    /* Checkbox & Dropzone */
     .checkbox-container {{
       display: inline-flex;
       align-items: center;
@@ -547,63 +578,40 @@ html_content = f"""<!DOCTYPE html>
       font-weight: 600;
       color: var(--text-main);
     }}
-
     .checkbox-container input[type=checkbox] {{
       width: 17px;
       height: 17px;
-      accent-color: #1c1b18;
+      accent-color: #181715;
       cursor: pointer;
     }}
 
-    .dropzone {{
-      border: 1.5px dashed var(--border-hairline);
-      background: var(--bg-recessed);
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.15s;
-    }}
-    .dropzone:hover {{
-      border-color: var(--border-focus);
-      background: #ede8dc;
-    }}
-
-    .attach-preview-bar {{
-      display: none;
-      margin-top: 8px;
-      background: #ffffff;
-      border: 1.5px solid var(--border-hairline);
-      padding: 7px 10px;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    }}
-
-    /* Right Preview Pedestal (Exhibition Gallery Wall) */
+    /* Preview Pedestal (Right Side Desktop) */
     .preview-workspace {{
-      background: #d4cdc0;
-      background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-      background-size: 22px 22px;
+      background: radial-gradient(circle at 50% 32%, #F6F3EB 0%, #E8E3DA 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 36px 24px;
+      padding: 32px;
       overflow: auto;
+      box-sizing: border-box;
+      width: 100%;
     }}
 
     .canvas-pedestal {{
-      box-shadow: 0 28px 75px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.22), 0 0 0 2px #1c1b18;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.12);
+      border-radius: var(--radius-sm);
       overflow: hidden;
-      background: #000000; /* POST CANVAS STRICTLY OLED BLACK */
+      background: #000000; /* STRICT OLED BLACK POST */
       max-width: 100%;
-      max-height: 86vh;
+      max-height: 84vh;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       position: relative;
       line-height: 0;
+      margin: 0 auto;
     }}
 
     #postCanvas {{
@@ -611,31 +619,31 @@ html_content = f"""<!DOCTYPE html>
       width: 100%;
       height: 100%;
       max-width: 100%;
-      max-height: 84vh;
+      max-height: 82vh;
       object-fit: contain;
     }}
 
     .btn-pedestal-expand {{
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(28, 27, 24, 0.82);
-      backdrop-filter: blur(4px);
-      color: #ffffff;
+      top: 12px;
+      right: 12px;
+      background: rgba(24, 23, 21, 0.85);
+      backdrop-filter: blur(6px);
+      color: #FFFFFF;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 5px 10px;
-      font-size: 0.68rem;
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 0.69rem;
       font-family: var(--font-mono);
       font-weight: 700;
       cursor: pointer;
       z-index: 10;
       transition: all 0.15s;
-      letter-spacing: 0.04em;
     }}
     .btn-pedestal-expand:hover, .btn-pedestal-expand:active {{
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #ffffff;
+      background: #181715;
+      border-color: #FFFFFF;
+      transform: scale(1.02);
     }}
 
     /* Toast Notification */
@@ -643,320 +651,383 @@ html_content = f"""<!DOCTYPE html>
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background: #1c1b18;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 12px 18px;
-      font-size: 0.76rem;
+      background: #181715;
+      color: #FFFFFF;
+      padding: 10px 18px;
       font-family: var(--font-mono);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      z-index: 999;
-      transform: translateY(80px);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
       opacity: 0;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+      transform: translateY(12px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
+      z-index: 999;
     }}
     .toast.show {{
-      transform: translateY(0);
       opacity: 1;
+      transform: translateY(0);
     }}
 
-    /* Credentials Gate Lockscreen */
-    #authOverlay {{
-      position: fixed;
-      inset: 0;
-      background: rgba(28, 24, 18, 0.88);
-      backdrop-filter: blur(10px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 0.25s ease;
-    }}
-    #authOverlay.hidden {{
-      opacity: 0;
-      pointer-events: none;
-    }}
-    .auth-card {{
-      background: #fbfaf7;
-      border: 2px solid #1c1b18;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5), 6px 6px 0px #1c1b18;
-      width: 100%;
-      max-width: 420px;
-      padding: 32px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }}
-    .auth-header {{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
-    }}
-    .auth-badge {{
-      width: 48px;
-      height: 48px;
-      background: #1c1b18;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
-    }}
-    .auth-title {{
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-main);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }}
-    .auth-subtitle {{
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }}
-    .auth-error {{
-      display: none;
-      background: #fdf2f2;
-      border: 1.5px solid #d9534f;
-      color: #c92a2a;
-      padding: 8px 12px;
-      font-size: 0.76rem;
-      font-family: var(--font-mono);
-      font-weight: 600;
-    }}
-
-    /* Fullscreen Overlay Modal */
+    /* Fullscreen Modal */
     .fullscreen-overlay {{
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.96);
+      background: rgba(14, 13, 12, 0.94);
       backdrop-filter: blur(8px);
-      z-index: 10001;
+      z-index: 2000;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      padding: 16px;
+      padding: 18px;
+      box-sizing: border-box;
+      opacity: 1;
+      transition: opacity 0.2s ease;
     }}
     .fullscreen-overlay.hidden {{
       display: none;
+      opacity: 0;
     }}
     .fullscreen-top-bar {{
+      width: 100%;
+      max-width: 900px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
     }}
     .fullscreen-ratio-badge {{
-      color: var(--gold);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
     }}
     .fullscreen-canvas-wrap {{
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 0;
-      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      padding: 14px 0;
+      box-sizing: border-box;
     }}
-    #fullscreenImg {{
+    .fullscreen-canvas-wrap img {{
       max-width: 100%;
-      max-height: 75vh;
+      max-height: 78vh;
       object-fit: contain;
-      box-shadow: 0 16px 50px rgba(0,0,0,0.9), 0 0 0 1.5px rgba(255,255,255,0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      border-radius: var(--radius-sm);
     }}
     .fullscreen-bottom-bar {{
+      width: 100%;
+      max-width: 900px;
       display: flex;
       justify-content: center;
-      width: 100%;
+      padding-top: 10px;
     }}
 
-    /* Mobile Floating Bar */
+    /* Auth Gate Modal */
+    #authOverlay {{
+      position: fixed;
+      inset: 0;
+      background: rgba(24, 23, 21, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }}
+    #authOverlay.hidden {{
+      display: none;
+    }}
+    .auth-card {{
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-md);
+      padding: 34px 28px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+    @keyframes modalFadeIn {{
+      from {{ opacity: 0; transform: scale(0.96); }}
+      to {{ opacity: 1; transform: scale(1); }}
+    }}
+    .auth-badge {{
+      width: 48px;
+      height: 48px;
+      background: #181715;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 14px auto;
+    }}
+    .auth-title {{
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }}
+    .auth-subtitle {{
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }}
+    .auth-error {{
+      background: #FFF5F5;
+      border: 1px solid #FFCDD2;
+      color: #C62828;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      display: none;
+    }}
+
+    /* Hidden Utility */
+    .sr-only {{
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }}
+
+    /* Hide desktop controls on mobile by default */
+    .mobile-tool-tabs {{
+      display: none;
+    }}
     .mobile-floating-bar {{
       display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(232, 226, 214, 0.98);
-      backdrop-filter: blur(12px);
-      border-top: 1.5px solid #1c1b18;
-      padding: 10px 14px;
-      gap: 10px;
-      z-index: 90;
-      box-shadow: 0 -4px 18px rgba(0,0,0,0.14);
-    }}
-    .mobile-floating-bar .btn {{
-      flex: 1;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      min-height: 48px;
     }}
 
     /* ======================================================== */
-    /* RESPONSIVE UX ENGINE (Mobile & Tablet <= 960px)          */
-    /* Smooth, natural vertical stack with LIVE PREVIEW AT TOP */
+    /* RESPONSIVE MOBILE ARCHITECTURE (Screens <= 960px)        */
+    /* Pinned Live Preview at Top + Tabbed Tool Dock Beneath    */
+    /* ZERO SCROLL TRAPPING, PERFECT SYMMETRY, ZERO OVERFLOW    */
     /* ======================================================== */
     @media (max-width: 960px) {{
-      body {{
-        overflow-x: hidden;
-        overflow-y: auto;
+      html, body {{
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
       }}
 
-      .mobile-floating-bar {{
-        display: flex;
+      /* Prevent iOS Safari auto-zoom on input focus */
+      .input-field, .textarea-field, select {{
+        font-size: 16px !important;
       }}
 
+      /* Mobile Header: Clean, balanced, fits in 100vw */
+      .atelier-header {{
+        padding: 10px 14px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+      }}
+      .brand-mark {{
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 1.15rem !important;
+      }}
+      h1.app-title {{
+        font-size: 0.94rem !important;
+      }}
+      .atelier-subtitle, .badge-resolution, #btnLockStudio, #btnQuickExport {{
+        display: none !important;
+      }}
+      .header-actions {{
+        gap: 6px !important;
+      }}
+      .header-actions .btn {{
+        padding: 6px 10px !important;
+        font-size: 0.70rem !important;
+        min-height: 34px !important;
+      }}
+
+      /* App Layout: Vertical flow */
       .app-layout {{
         display: flex !important;
         flex-direction: column !important;
         min-height: auto !important;
         overflow: visible !important;
+        width: 100% !important;
+        max-width: 100vw !important;
       }}
 
-      /* Live Post Preview Hero anchored at the top */
+      /* Live Preview at Top: Compact, proportioned */
       .preview-workspace {{
         order: 1 !important;
-        padding: 16px 12px !important;
+        padding: 12px 14px !important;
         min-height: auto !important;
-        background: #ded7c9 !important;
-        border-bottom: 2px solid var(--border-hairline) !important;
+        background: radial-gradient(circle at 50% 35%, #F4F0E8 0%, #E6E1D7 100%) !important;
+        border-bottom: 1px solid var(--border-hairline) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
       }}
 
       .canvas-pedestal {{
-        max-width: min(100%, 360px) !important;
-        max-height: 48vh !important;
+        max-width: min(92vw, 300px) !important;
+        max-height: 29vh !important;
         margin: 0 auto !important;
-        box-shadow: 0 16px 36px rgba(28, 24, 18, 0.32), 0 0 0 1.5px #1c1b18 !important;
+        box-shadow: 0 10px 26px rgba(24, 23, 21, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.12) !important;
       }}
 
       #postCanvas {{
-        max-height: 46vh !important;
+        max-height: 28vh !important;
         width: 100% !important;
         height: auto !important;
       }}
 
-      /* Smooth, natural scrolling controls directly beneath preview */
-      .controls-panel {{
+      /* Segmented Tool Tabs (Pinned under Live Preview) */
+      .mobile-tool-tabs {{
+        display: flex !important;
         order: 2 !important;
+        background: #FFFFFF !important;
+        border-bottom: 1px solid var(--border-hairline) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        position: sticky !important;
+        top: 55px !important;
+        z-index: 80 !important;
+      }}
+      .mobile-tool-tab {{
+        flex: 1;
+        padding: 11px 4px;
+        background: #FFFFFF;
+        border: none;
+        border-bottom: 3px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        transition: all 0.12s;
+        -webkit-tap-highlight-color: transparent;
+      }}
+      .mobile-tool-tab.active {{
+        color: var(--text-main);
+        border-bottom-color: var(--gold);
+        background: var(--gold-light);
+      }}
+
+      /* Controls Panel on Mobile */
+      .controls-panel {{
+        order: 3 !important;
         display: flex !important;
         flex-direction: column !important;
         max-height: none !important;
         overflow-y: visible !important;
-        padding: 16px 12px 95px 12px !important;
+        padding: 14px 14px 95px 14px !important;
         border-right: none !important;
-        gap: 14px !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
       }}
 
-      /* Prevent iOS auto-zoom on input focus */
-      .input-field, .textarea-field, select {{
-        font-size: 16px !important;
-        padding: 12px 10px !important;
+      /* Mobile Tab Switching: Only show active card */
+      .controls-panel.mobile-tab-view .control-card {{
+        display: none;
+      }}
+      .controls-panel.mobile-tab-view .control-card.active-tab-card {{
+        display: block !important;
+        animation: fadeIn 0.15s ease;
       }}
 
-      /* Touch Ergonomics for Sliders & Steppers */
-      .slider-stepper-wrap {{
-        gap: 10px !important;
-      }}
-      .btn-stepper {{
-        width: 44px !important;
-        height: 42px !important;
-        font-size: 1.3rem !important;
+      @keyframes fadeIn {{
+        from {{ opacity: 0; transform: translateY(4px); }}
+        to {{ opacity: 1; transform: translateY(0); }}
       }}
 
-      input[type=range] {{
-        height: 8px !important;
-      }}
-      input[type=range]::-webkit-slider-thumb {{
-        width: 28px !important;
-        height: 36px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
-      }}
-
-      /* Touch targets for buttons */
-      .btn {{
-        min-height: 46px;
-      }}
-      .btn-ratio {{
-        min-height: 56px;
-        padding: 12px 10px !important;
-      }}
-      .btn-ratio span.label {{
-        font-size: 0.74rem !important;
-      }}
-      .btn-ratio span.dim {{
-        font-size: 0.65rem !important;
-      }}
-
-      /* PFP preview & upload buttons on mobile */
-      .pfp-slot-container {{
-        flex-wrap: wrap;
-      }}
-
-      /* Header mobile layout */
-      header {{
-        padding: 10px 12px !important;
-      }}
-      .brand-box {{
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 1.15rem !important;
-      }}
-      .app-title {{
-        font-size: 0.95rem !important;
-        gap: 6px !important;
-      }}
-      .subtitle, .status-tag {{
+      /* Hide redundant desktop download buttons on mobile */
+      .desktop-export-actions {{
         display: none !important;
       }}
-      .header-actions .btn {{
-        padding: 6px 10px !important;
-        font-size: 0.7rem !important;
-        min-height: 36px !important;
+
+      /* Mobile Floating Action Bar */
+      .mobile-floating-bar {{
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border-top: 1px solid var(--border-hairline) !important;
+        padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px)) 14px !important;
+        gap: 8px !important;
+        z-index: 90 !important;
+        box-shadow: 0 -4px 18px rgba(24, 23, 21, 0.08) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+      }}
+
+      .toast {{
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+        right: 14px !important;
+        left: 14px !important;
+        text-align: center !important;
       }}
     }}
   </style>
 </head>
 <body>
 
-  <!-- Credentials Gate Lockscreen -->
-  <div id="authOverlay">
+  <!-- Credentials Gate Lockscreen (Accessible Semantic Dialog) -->
+  <div id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <div class="auth-card">
-      <div class="auth-header">
-        <div class="auth-badge">🐹</div>
-        <div class="auth-title">Mr. Hamster Atelier</div>
-        <div class="auth-subtitle">Restricted Access · Enter Credentials</div>
-      </div>
+      <div class="auth-badge">🐹</div>
+      <div class="auth-title" id="authTitle">Mr. Hamster Atelier</div>
+      <div class="auth-subtitle">Restricted Access · Enter Credentials</div>
 
-      <div class="auth-error" id="authError">
+      <div class="auth-error" id="authError" role="alert">
         ✕ Invalid username or password. Access denied.
       </div>
 
       <form id="authForm" onsubmit="event.preventDefault(); handleLogin();" style="display: flex; flex-direction: column; gap: 12px;">
         <div>
-          <label style="display: block; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-dim); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">Username</label>
+          <label for="authUsername" style="display: block; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-dim); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">Username</label>
           <input type="text" id="authUsername" class="input-field" placeholder="Username" autocomplete="username" required>
         </div>
         <div>
-          <label style="display: block; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-dim); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">Password</label>
+          <label for="authPassword" style="display: block; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-dim); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">Password</label>
           <input type="password" id="authPassword" class="input-field" placeholder="Password" autocomplete="current-password" required>
         </div>
 
@@ -967,14 +1038,14 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Fullscreen Post Preview Modal (Especially Great on Mobile) -->
-  <div id="fullscreenOverlay" class="fullscreen-overlay hidden">
+  <!-- Fullscreen Post Preview Modal -->
+  <div id="fullscreenOverlay" class="fullscreen-overlay hidden" role="dialog" aria-modal="true" aria-label="High-Resolution Post Preview">
     <div class="fullscreen-top-bar">
       <span class="fullscreen-ratio-badge" id="fullscreenRatioBadge">4:5 · 1080 × 1350</span>
       <button class="btn btn-secondary btn-sm" id="btnCloseFullscreen">✕ Close</button>
     </div>
     <div class="fullscreen-canvas-wrap">
-      <img id="fullscreenImg" alt="High Resolution Post Preview">
+      <img id="fullscreenImg" alt="High Resolution Mr. Hamster Statement Preview">
     </div>
     <div class="fullscreen-bottom-bar">
       <button class="btn btn-primary" id="btnFullscreenDownload" style="width: 100%; max-width: 380px;">
@@ -983,70 +1054,89 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
+  <!-- Semantic Atelier Header -->
+  <header class="atelier-header" role="banner">
     <div class="brand-section">
-      <div class="brand-box">🐹</div>
+      <div class="brand-mark" aria-hidden="true">🐹</div>
       <div class="brand-text">
-        <div class="app-title">
-          <span>Mr. Hamster</span>
-          <span class="app-handle">@mrr.hamster</span>
+        <div class="brand-title-wrap">
+          <h1 class="app-title">Mr. Hamster</h1>
+          <span class="app-handle-badge">@mrr.hamster</span>
         </div>
-        <div class="subtitle">Post & Meme Atelier · Minimalist Edition</div>
+        <p class="atelier-subtitle">Post &amp; Meme Atelier · Swiss Minimalist Edition</p>
       </div>
     </div>
 
-    <div class="header-actions">
-      <span class="status-tag">1080p Native</span>
+    <nav class="header-actions" aria-label="Studio Controls">
+      <span class="badge-resolution">1080p Lossless</span>
       <button class="btn btn-secondary btn-sm" id="btnLockStudio" title="Lock Studio Access">
-        <span>🔒 Lock</span>
+        <span>Lock</span>
       </button>
       <button class="btn btn-secondary btn-sm" id="btnResetAllDefaults" title="Restore default sizing and layout">
-        <span>↺ Defaults</span>
+        <span>Defaults</span>
       </button>
-      <button class="btn btn-primary btn-sm" id="btnQuickExport" onclick="document.getElementById('btnDownload').click()">
-        <span>Download Post</span>
+      <button class="btn btn-primary btn-sm" id="btnQuickExport" title="Quick Download 1080p">
+        <span>Export</span>
       </button>
-    </div>
+    </nav>
   </header>
 
-  <!-- Main Atelier Layout -->
-  <div class="app-layout">
+  <!-- Semantic Main Studio Layout -->
+  <main class="app-layout" id="studioMain">
     
     <!-- Left Controls Panel -->
-    <div class="controls-panel">
+    <aside class="controls-panel mobile-tab-view" id="controlsPanel" aria-label="Studio Controls">
       
-      <!-- Aspect Ratio Box Grid -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Aspect Ratio</span>
-          <span id="currentRatioBadge" style="color: var(--gold); font-weight: 700;">1080 × 1350</span>
+      <!-- Card 1: Aspect Ratio Format -->
+      <section class="control-card" id="cardRatio" aria-labelledby="headingRatio">
+        <div class="card-header">
+          <h2 class="card-title" id="headingRatio">
+            <span class="section-index">01</span> Aspect Ratio
+          </h2>
+          <span id="currentRatioBadge" style="color: var(--gold); font-weight: 700; font-family: var(--font-mono); font-size: 0.72rem;">1080 × 1350</span>
         </div>
-        <div class="ratio-grid">
-          <button class="btn-ratio active" data-ratio="4:5" data-w="1080" data-h="1350">
+        <div class="ratio-grid" role="radiogroup" aria-label="Social Media Aspect Ratio">
+          <button type="button" class="btn-ratio active" data-ratio="4:5" data-w="1080" data-h="1350" role="radio" aria-checked="true">
             <span class="label">4:5 Portrait</span>
             <span class="dim">Feed (1080×1350)</span>
           </button>
-          <button class="btn-ratio" data-ratio="1:1" data-w="1080" data-h="1080">
+          <button type="button" class="btn-ratio" data-ratio="1:1" data-w="1080" data-h="1080" role="radio" aria-checked="false">
             <span class="label">1:1 Square</span>
             <span class="dim">Feed (1080×1080)</span>
           </button>
-          <button class="btn-ratio" data-ratio="9:16" data-w="1080" data-h="1920">
+          <button type="button" class="btn-ratio" data-ratio="9:16" data-w="1080" data-h="1920" role="radio" aria-checked="false">
             <span class="label">9:16 Story / Reel</span>
             <span class="dim">Vertical (1080×1920)</span>
           </button>
-          <button class="btn-ratio" data-ratio="16:9" data-w="1920" data-h="1080">
+          <button type="button" class="btn-ratio" data-ratio="16:9" data-w="1920" data-h="1080" role="radio" aria-checked="false">
             <span class="label">16:9 Landscape</span>
-            <span class="dim">Cover (1920×1080)</span>
+            <span class="dim">Banner (1920×1080)</span>
           </button>
         </div>
-      </div>
+      </section>
 
-      <!-- Profile Avatar (Clean, Natural) -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Profile Avatar</span>
-          <span id="pfpStatusBadge" style="color: var(--gold); font-weight: 700;">Mog Hamster</span>
+      <!-- Card 2: Statement Text (Default Active Tab on Mobile) -->
+      <section class="control-card active-tab-card" id="cardText" aria-labelledby="headingText">
+        <div class="card-header">
+          <h2 class="card-title" id="headingText">
+            <span class="section-index">02</span> Statement Text
+          </h2>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <button type="button" class="btn-action-text" id="btnSampleText" title="Insert sample viral quote">↺ Sample</button>
+            <button type="button" class="btn-action-text" id="btnClearText" title="Clear text box">✕ Clear</button>
+            <span id="charCount" style="color: var(--text-muted); font-size: 0.68rem; font-family: var(--font-mono); margin-left: 4px;">72 Chars</span>
+          </div>
+        </div>
+        <textarea id="inputText" class="textarea-field" rows="4" placeholder="Write your raw statement here..." aria-label="Statement Text"></textarea>
+      </section>
+
+      <!-- Card 3: Profile Avatar -->
+      <section class="control-card" id="cardAvatar" aria-labelledby="headingAvatar">
+        <div class="card-header">
+          <h2 class="card-title" id="headingAvatar">
+            <span class="section-index">03</span> Profile Avatar
+          </h2>
+          <span id="pfpStatusBadge" style="color: var(--gold); font-weight: 700; font-family: var(--font-mono); font-size: 0.72rem;">Mog Hamster</span>
         </div>
         
         <div class="pfp-slot-container">
@@ -1056,39 +1146,39 @@ html_content = f"""<!DOCTYPE html>
 
           <div class="pfp-upload-actions">
             <div class="pfp-upload-btn-wrap">
-              <button class="btn btn-secondary btn-sm" id="btnUploadPfp" style="flex: 1;">
-                <span>📷 Upload Photo</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnUploadPfp" style="flex: 1;">
+                <span>Upload Image</span>
               </button>
-              <button class="btn btn-secondary btn-sm" id="btnResetPfp" title="Reset to default Mog Hamster">
-                <span>↺ Reset</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnResetPfp" title="Reset to default Mog Hamster">
+                <span>Reset Mog</span>
               </button>
             </div>
             <input type="file" id="inputPfpFile" accept="image/*" style="display: none;">
           </div>
         </div>
 
-        <!-- Avatar Shape in Post Toggle -->
+        <!-- Avatar Shape Toggle -->
         <div style="margin-top: 14px;">
           <div class="slider-label-row">
             <span>Avatar Shape in Post</span>
           </div>
-          <div class="btn-toggle-group">
-            <button class="btn-toggle active" id="btnPfpCircle">● Circle Frame</button>
-            <button class="btn-toggle" id="btnPfpSquare">■ Square Box Frame</button>
+          <div class="btn-toggle-group" role="radiogroup" aria-label="Avatar Shape">
+            <button type="button" class="btn-toggle active" id="btnPfpCircle" role="radio" aria-checked="true">● Circle Frame</button>
+            <button type="button" class="btn-toggle" id="btnPfpSquare" role="radio" aria-checked="false">■ Square Frame</button>
           </div>
         </div>
 
-        <!-- Avatar Frame Rim Color (Matches Black Post & White PFP) -->
-        <div style="margin-top: 12px;">
+        <!-- Avatar Frame Rim Color -->
+        <div style="margin-top: 14px;">
           <div class="slider-label-row">
             <span>Avatar Frame Rim Color</span>
             <span id="labelFrameColor" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); font-weight: 700;">CRISP WHITE</span>
           </div>
-          <select id="selectPfpFrameColor">
+          <select id="selectPfpFrameColor" aria-label="Avatar Frame Rim Color">
             <option value="#ffffff" selected>Crisp Titanium White (#ffffff) · High Definition</option>
-            <option value="#ded8cc">Warm Editorial Ivory (#ded8cc) · Classic Atelier</option>
-            <option value="#8e95a5">Slate Titanium (#8e95a5) · Neutral Steel Rim</option>
+            <option value="#f4ede2">Warm Editorial Ivory (#f4ede2) · Classic Atelier</option>
             <option value="#c5a059">Champagne Gold (#c5a059) · Antique Luxury</option>
+            <option value="#8e95a5">Slate Titanium (#8e95a5) · Neutral Steel Rim</option>
             <option value="#2b2d35">Deep Charcoal (#2b2d35) · Stealth Dark Rim</option>
             <option value="none">None (Borderless)</option>
           </select>
@@ -1102,22 +1192,24 @@ html_content = f"""<!DOCTYPE html>
           </div>
           <div class="slider-stepper-wrap">
             <button type="button" class="btn-stepper" id="btnPfpSizeMinus" title="Decrease Size">-</button>
-            <input type="range" id="rangePfpSize" min="60" max="150" value="96">
+            <input type="range" id="rangePfpSize" min="60" max="150" value="96" aria-label="Avatar Scale Slider">
             <button type="button" class="btn-stepper" id="btnPfpSizePlus" title="Increase Size">+</button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Account Identity -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Identity</span>
+      <!-- Card 4: Identity & Typography -->
+      <section class="control-card" id="cardStyle" aria-labelledby="headingStyle">
+        <div class="card-header">
+          <h2 class="card-title" id="headingStyle">
+            <span class="section-index">04</span> Identity &amp; Typography
+          </h2>
         </div>
-        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-          <input type="text" class="input-field" id="inputName" value="Mr. Hamster" placeholder="Display Name">
-          <input type="text" class="input-field" id="inputHandle" value="@mrr.hamster" placeholder="Handle">
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input type="text" class="input-field" id="inputName" value="Mr. Hamster" placeholder="Display Name" aria-label="Display Name">
+          <input type="text" class="input-field" id="inputHandle" value="@mrr.hamster" placeholder="Handle" aria-label="Handle">
         </div>
-        <div style="display: flex; gap: 18px;">
+        <div style="display: flex; gap: 18px; margin-bottom: 14px;">
           <label class="checkbox-container">
             <input type="checkbox" id="checkSparkle" checked>
             <span>Sparkle ✨</span>
@@ -1127,27 +1219,7 @@ html_content = f"""<!DOCTYPE html>
             <span>Verified Badge</span>
           </label>
         </div>
-      </div>
 
-      <!-- Post Content Free Writing Area -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Post Text</span>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <button type="button" class="btn-micro" id="btnSampleText" title="Insert Sample Quote">↻ Sample</button>
-            <button type="button" class="btn-micro" id="btnClearText" title="Clear Text">✕ Clear</button>
-            <span id="charCount" style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.68rem;">0 chars</span>
-          </div>
-        </div>
-        <textarea class="textarea-field" id="inputText" placeholder="Write whatever thought, quote, or observation you want..."></textarea>
-      </div>
-
-      <!-- Typography & Layout Settings -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Typography & Layout</span>
-        </div>
-        
         <!-- Font Size Slider with Stepper [-] [+] -->
         <div class="slider-row" style="margin-top: 0; margin-bottom: 14px;">
           <div class="slider-label-row">
@@ -1156,120 +1228,84 @@ html_content = f"""<!DOCTYPE html>
           </div>
           <div class="slider-stepper-wrap">
             <button type="button" class="btn-stepper" id="btnFontSizeMinus" title="Decrease Font">-</button>
-            <input type="range" id="rangeFontSize" min="26" max="74" value="46">
+            <input type="range" id="rangeFontSize" min="26" max="74" value="46" aria-label="Font Size Slider">
             <button type="button" class="btn-stepper" id="btnFontSizePlus" title="Increase Font">+</button>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
-          <div>
-            <div style="font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Vertical Placement</div>
-            <select id="selectVAlign">
-              <option value="center" selected>Centered</option>
-              <option value="top">Top Header</option>
-            </select>
-          </div>
-          <div>
-            <div style="font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Text Align</div>
-            <select id="selectTextAlign">
-              <option value="left" selected>Left</option>
-              <option value="center">Center</option>
-            </select>
           </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
           <div>
-            <div style="font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Header Align</div>
-            <select id="selectHeaderAlign">
-              <option value="left" selected>Left (Classic)</option>
-              <option value="center">Center (Post)</option>
+            <label for="selectTextAlign" style="display: block; font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Text Align</label>
+            <select id="selectTextAlign">
+              <option value="left" selected>Left</option>
+              <option value="center">Center</option>
             </select>
           </div>
           <div>
-            <div style="font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Font Style</div>
-            <select id="selectFontStyle">
-              <option value="sans" selected>Modern Sans-Serif</option>
-              <option value="serif">Editorial Serif</option>
-              <option value="mono">Classic Monospace</option>
+            <label for="selectHeaderAlign" style="display: block; font-size: 0.69rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Header Layout</label>
+            <select id="selectHeaderAlign">
+              <option value="left" selected>Left (Classic)</option>
+              <option value="center">Center (Editorial)</option>
             </select>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Meme Media Attachment (Photo & Video) -->
-      <div class="control-card">
-        <div class="group-label">
-          <span class="section-title">Meme Media Attachment</span>
-          <span style="color: var(--gold); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;">Photo / Video</span>
-        </div>
-
-        <div class="dropzone" id="dropzone">
-          <div style="font-size: 1.2rem; margin-bottom: 4px; opacity: 0.85; font-family: var(--font-mono);">[ + ]</div>
-          <div style="font-size: 0.78rem; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.04em;">Select or Drop Photo / Video</div>
-          <div style="font-size: 0.69rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 4px;">JPG, PNG, GIF, MP4, WEBM — Crisp rectangular framing</div>
-        </div>
-        <input type="file" id="inputAttach" accept="image/*,video/*" style="display: none;">
-        
-        <div class="attach-preview-bar" id="attachPreviewBar">
-          <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
-            <span id="attachTypeIcon" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--gold); font-weight: 700;">[MEDIA]</span>
-            <span id="attachFileName" style="font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; font-weight: 600;">file</span>
-          </div>
-          <button class="btn btn-secondary btn-sm" id="btnRemoveAttach" style="color: #b03a3a;">✕ Remove</button>
-        </div>
-
-        <div id="videoControlsRow" style="display: none; margin-top: 8px; background: #ffffff; padding: 8px; border: 1.5px solid var(--border-hairline); box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-          <div style="display: flex; gap: 6px; justify-content: space-between;">
-            <button class="btn btn-secondary btn-sm" id="btnToggleVideoPlay" style="flex: 1;">⏸️ Pause</button>
-            <button class="btn btn-secondary btn-sm" id="btnToggleVideoMute" style="flex: 1;">🔇 Muted</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Export Actions -->
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
-        <button class="btn btn-primary" id="btnDownload" style="padding: 13px 20px; font-size: 0.86rem;">
-          <span id="btnDownloadText">Download Post (1080p Lossless PNG)</span>
+      <!-- Export Actions (Desktop Only) -->
+      <div class="desktop-export-actions" style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+        <button type="button" class="btn btn-primary" id="btnDownload" style="padding: 14px 20px; font-size: 0.88rem; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span id="btnDownloadText">Download 1080p Post (Lossless PNG)</span>
         </button>
-        <div style="display: flex; gap: 6px;">
-          <button class="btn btn-secondary" id="btnCopy" style="flex: 1;">
-            <span>Copy to Clipboard</span>
-          </button>
-          <button class="btn btn-secondary" id="btnExportVideo" style="flex: 1; display: none;">
-            <span>🎬 Export Video Meme</span>
-          </button>
-        </div>
+        <button type="button" class="btn btn-secondary" id="btnCopy" style="width: 100%; gap: 7px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Copy to Clipboard</span>
+        </button>
       </div>
 
-    </div>
+    </aside>
 
-    <!-- Right Live Canvas Workspace Pedestal (Warm Gallery Light Backdrop) -->
-    <div class="preview-workspace">
-      <div class="canvas-pedestal" id="canvasPedestal">
+    <!-- Right Live Canvas Workspace Pedestal -->
+    <section class="preview-workspace" aria-label="Live Post Preview Pedestal">
+      <figure class="canvas-pedestal" id="canvasPedestal">
         <button type="button" class="btn-pedestal-expand" id="btnOpenFullscreen" title="Expand Fullscreen Preview">⛶ Fullscreen</button>
-        <canvas id="postCanvas" width="1080" height="1350"></canvas>
-      </div>
-    </div>
+        <canvas id="postCanvas" width="1080" height="1350" role="img" aria-label="Mr. Hamster generated post canvas"></canvas>
+        <figcaption class="sr-only">High definition 1080p rendered statement post</figcaption>
+      </figure>
+    </section>
 
-  </div>
+    <!-- Mobile Segmented Tool Tabs (Pinned under Live Preview) -->
+    <nav class="mobile-tool-tabs" id="mobileToolTabs" aria-label="Mobile Tool Navigation">
+      <button type="button" class="mobile-tool-tab active" data-target="cardText">
+        <span>Statement</span>
+      </button>
+      <button type="button" class="mobile-tool-tab" data-target="cardRatio">
+        <span>Format</span>
+      </button>
+      <button type="button" class="mobile-tool-tab" data-target="cardAvatar">
+        <span>Avatar</span>
+      </button>
+      <button type="button" class="mobile-tool-tab" data-target="cardStyle">
+        <span>Identity</span>
+      </button>
+    </nav>
 
-  <!-- Mobile Floating Quick Bar (Pinned on screens <= 960px) -->
-  <div class="mobile-floating-bar" id="mobileFloatingBar">
-    <button class="btn btn-secondary" id="btnMobileScrollTop">
-      <span>👁️ View Post</span>
+  </main>
+
+  <!-- Mobile Floating Quick Bar -->
+  <footer class="mobile-floating-bar" id="mobileFloatingBar" role="contentinfo" aria-label="Mobile Quick Export Bar">
+    <button type="button" class="btn btn-secondary" id="btnMobileCopy" style="flex: 0 0 68px; min-height: 48px; padding: 0 8px; gap: 5px; font-size: 0.72rem;" title="Copy to Clipboard">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copy</span>
     </button>
-    <button class="btn btn-primary" id="btnMobileDownload">
-      <span>📥 Download 1080p</span>
+    <button type="button" class="btn btn-primary" id="btnMobileDownload" style="flex: 1; min-height: 48px; font-size: 0.82rem; gap: 7px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <span>Download 1080p Post</span>
     </button>
-  </div>
+  </footer>
 
-  <!-- Hidden Media Containers -->
-  <video id="activeVideo" playsinline loop muted style="display: none;"></video>
-  <img id="activeImgAttach" style="display: none;">
-
-  <!-- Toast Notification Box -->
-  <div class="toast" id="toast">Settings Updated</div>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
     // System Master Credentials
@@ -1302,8 +1338,6 @@ html_content = f"""<!DOCTYPE html>
 
     const state = Object.assign({{}}, DEFAULTS);
     document.getElementById('inputText').value = state.text.replace(/\\\\n/g, '\\n');
-
-    let videoAnimId = null;
 
     const pfpImageObj = new Image();
     pfpImageObj.crossOrigin = 'anonymous';
@@ -1350,6 +1384,8 @@ html_content = f"""<!DOCTYPE html>
     btnPfpCircle.addEventListener('click', () => {{
       btnPfpCircle.classList.add('active');
       btnPfpSquare.classList.remove('active');
+      btnPfpCircle.setAttribute('aria-checked', 'true');
+      btnPfpSquare.setAttribute('aria-checked', 'false');
       state.pfpShape = 'circle';
       render();
     }});
@@ -1357,6 +1393,8 @@ html_content = f"""<!DOCTYPE html>
     btnPfpSquare.addEventListener('click', () => {{
       btnPfpSquare.classList.add('active');
       btnPfpCircle.classList.remove('active');
+      btnPfpSquare.setAttribute('aria-checked', 'true');
+      btnPfpCircle.setAttribute('aria-checked', 'false');
       state.pfpShape = 'square';
       render();
     }});
@@ -1436,15 +1474,15 @@ html_content = f"""<!DOCTYPE html>
       labelFontSize.textContent = `${{state.fontSize}} px`;
       rangePfpSize.value = state.pfpSize;
       labelPfpSize.textContent = `${{state.pfpSize}} px`;
-      document.getElementById('selectVAlign').value = state.vAlign;
       document.getElementById('selectTextAlign').value = state.textAlign;
       document.getElementById('selectHeaderAlign').value = state.headerAlign;
-      document.getElementById('selectFontStyle').value = state.fontStyle;
       selectPfpFrameColor.value = state.pfpFrameColor;
       labelFrameColor.textContent = 'CRISP WHITE';
 
       btnPfpCircle.classList.add('active');
       btnPfpSquare.classList.remove('active');
+      btnPfpCircle.setAttribute('aria-checked', 'true');
+      btnPfpSquare.setAttribute('aria-checked', 'false');
 
       render();
       showToast('Default Settings Restored');
@@ -1462,8 +1500,12 @@ html_content = f"""<!DOCTYPE html>
 
     document.querySelectorAll('.btn-ratio').forEach(btn => {{
       btn.addEventListener('click', () => {{
-        document.querySelectorAll('.btn-ratio').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.btn-ratio').forEach(b => {{
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        }});
         btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
 
         state.aspect = btn.dataset.ratio;
         state.width = parseInt(btn.dataset.w, 10);
@@ -1479,35 +1521,96 @@ html_content = f"""<!DOCTYPE html>
       }});
     }});
 
+    // Mobile Segmented Tool Dock Controller
+    const mobileToolTabs = document.querySelectorAll('.mobile-tool-tab');
+    const controlCards = document.querySelectorAll('.controls-panel .control-card');
+
+    mobileToolTabs.forEach(tab => {{
+      tab.addEventListener('click', () => {{
+        mobileToolTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const targetId = tab.dataset.target;
+        controlCards.forEach(c => {{
+          if (c.id === targetId) {{
+            c.classList.add('active-tab-card');
+          }} else {{
+            c.classList.remove('active-tab-card');
+          }}
+        }});
+      }});
+    }});
+
     // Quick text helpers
     const inputText = document.getElementById('inputText');
     document.getElementById('btnSampleText').addEventListener('click', () => {{
       inputText.value = 'flirting is easy until you have to flirt\\nwith someone you actually want.';
       state.text = inputText.value;
+      document.getElementById('charCount').textContent = `${{state.text.length}} Chars`;
       render();
-      showToast('Sample Quote Inserted');
+      showToast('Sample Quote Loaded');
     }});
 
     document.getElementById('btnClearText').addEventListener('click', () => {{
       inputText.value = '';
       state.text = '';
+      document.getElementById('charCount').textContent = '0 Chars';
       render();
       showToast('Text Cleared');
     }});
 
+    inputText.addEventListener('input', (e) => {{
+      state.text = e.target.value;
+      document.getElementById('charCount').textContent = `${{state.text.length}} Chars`;
+      render();
+    }});
+
+    // Identity Listeners
+    document.getElementById('inputName').addEventListener('input', (e) => {{
+      state.name = e.target.value;
+      render();
+    }});
+    document.getElementById('inputHandle').addEventListener('input', (e) => {{
+      state.handle = e.target.value;
+      render();
+    }});
+    document.getElementById('checkSparkle').addEventListener('change', (e) => {{
+      state.sparkle = e.target.checked;
+      render();
+    }});
+    document.getElementById('checkVerified').addEventListener('change', (e) => {{
+      state.verified = e.target.checked;
+      render();
+    }});
+
+    // Layout Selectors
+    document.getElementById('selectTextAlign').addEventListener('change', (e) => {{
+      state.textAlign = e.target.value;
+      render();
+    }});
+    document.getElementById('selectHeaderAlign').addEventListener('change', (e) => {{
+      state.headerAlign = e.target.value;
+      render();
+    }});
+
+    // Line Breaking Utility
     function getLines(ctx, text, maxWidth) {{
       const lines = [];
       const paragraphs = text.split('\\n');
-      for (let p = 0; p < paragraphs.length; p++) {{
-        const words = paragraphs[p].split(' ');
-        let currentLine = words[0] || '';
+      for (const para of paragraphs) {{
+        if (para === '') {{
+          lines.push('');
+          continue;
+        }}
+        const words = para.split(' ');
+        let currentLine = words[0];
         for (let i = 1; i < words.length; i++) {{
-          const testLine = currentLine + ' ' + words[i];
-          if (ctx.measureText(testLine).width <= maxWidth) {{
+          const word = words[i];
+          const testLine = currentLine + ' ' + word;
+          if (ctx.measureText(testLine).width < maxWidth) {{
             currentLine = testLine;
           }} else {{
             lines.push(currentLine);
-            currentLine = words[i];
+            currentLine = word;
           }}
         }}
         lines.push(currentLine);
@@ -1515,42 +1618,28 @@ html_content = f"""<!DOCTYPE html>
       return lines;
     }}
 
-    // Accurate Verified Badge (12-Point Scalloped Starburst)
-    function drawAccurateVerifiedBadge(ctx, centerX, centerY, size) {{
-      const radius = size / 2;
+    // Accurate Verified Badge Rendering
+    function drawAccurateVerifiedBadge(ctx, centerX, centerY, radius) {{
       ctx.save();
-
-      ctx.fillStyle = '#1d9bf0';
       ctx.beginPath();
-      
-      const points = 12;
-      const innerRadius = radius * 0.88;
-      for (let i = 0; i < points * 2; i++) {{
-        const r = (i % 2 === 0) ? radius : innerRadius;
-        const angle = (i * Math.PI) / points - Math.PI / 2;
-        const x = centerX + Math.cos(angle) * r;
-        const y = centerY + Math.sin(angle) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }}
-      ctx.closePath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.fillStyle = '#1D9BF0'; // Twitter/X Verified Blue
       ctx.fill();
 
-      // Sharp white checkmark
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = Math.max(2, size * 0.125);
+      // Checkmark in white
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = Math.max(2, radius * 0.28);
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.beginPath();
-      ctx.moveTo(centerX - radius * 0.42, centerY - radius * 0.02);
-      ctx.lineTo(centerX - radius * 0.1, centerY + radius * 0.32);
-      ctx.lineTo(centerX + radius * 0.44, centerY - radius * 0.34);
+      ctx.moveTo(centerX - radius * 0.42, centerY);
+      ctx.lineTo(centerX - radius * 0.08, centerY + radius * 0.36);
+      ctx.lineTo(centerX + radius * 0.46, centerY - radius * 0.34);
       ctx.stroke();
-
       ctx.restore();
     }}
 
-    // Master Canvas Render Engine
+    // Master High-Resolution Canvas Renderer (100% OLED Black)
     function render() {{
       const ctx = canvas.getContext('2d');
       const W = canvas.width;
@@ -1564,9 +1653,7 @@ html_content = f"""<!DOCTYPE html>
       const contentWidth = W - (marginX * 2);
 
       // Typography Configuration
-      let fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      if (state.fontStyle === 'serif') fontFamily = 'Georgia, "Playfair Display", "Times New Roman", serif';
-      if (state.fontStyle === 'mono') fontFamily = '"SF Mono", "Cascadia Code", Consolas, monospace';
+      const fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
       ctx.font = `400 ${{state.fontSize}}px ${{fontFamily}}`;
       const lineHeight = Math.round(state.fontSize * 1.48);
@@ -1581,34 +1668,8 @@ html_content = f"""<!DOCTYPE html>
         headerHeight = pfpSize + 72; // Space for stacked name & handle below pfp
       }}
 
-      // Check Media Attachment
-      let mediaHeight = 0;
-      let mediaWidth = contentWidth;
-      const mediaGap = 36;
-      let activeMediaObj = null;
-
-      if (state.attachType === 'image' && imgAttachObj.complete && imgAttachObj.naturalWidth > 0) {{
-        activeMediaObj = imgAttachObj;
-      }} else if (state.attachType === 'video' && videoElement.readyState >= 2) {{
-        activeMediaObj = videoElement;
-      }}
-
-      if (activeMediaObj) {{
-        const naturalW = activeMediaObj.videoWidth || activeMediaObj.naturalWidth || 1;
-        const naturalH = activeMediaObj.videoHeight || activeMediaObj.naturalHeight || 1;
-        const maxMediaH = Math.round(H * 0.42);
-        mediaHeight = Math.round((contentWidth / naturalW) * naturalH);
-        if (mediaHeight > maxMediaH) {{
-          mediaHeight = maxMediaH;
-          mediaWidth = Math.round((maxMediaH / naturalH) * naturalW);
-        }}
-      }}
-
       const headerToTextGap = 34;
-      let totalBlockHeight = headerHeight + headerToTextGap + textBlockHeight;
-      if (activeMediaObj) {{
-        totalBlockHeight += mediaGap + mediaHeight;
-      }}
+      const totalBlockHeight = headerHeight + headerToTextGap + textBlockHeight;
 
       // Determine Start Y
       let startY = 120;
@@ -1637,7 +1698,7 @@ html_content = f"""<!DOCTYPE html>
       }} else {{
         ctx.arc(pfpX + radius, pfpY + radius, radius, 0, Math.PI * 2);
       }}
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#FFFFFF';
       ctx.fill();
       ctx.clip();
 
@@ -1657,261 +1718,89 @@ html_content = f"""<!DOCTYPE html>
           // Sharp rectangular box frame
           ctx.strokeRect(pfpX, pfpY, pfpSize, pfpSize);
         }} else {{
-          // Smooth circular ring frame
+          // Circle frame
           ctx.arc(pfpX + radius, pfpY + radius, radius, 0, Math.PI * 2);
           ctx.stroke();
         }}
         ctx.restore();
       }}
 
-      // 2. Render Name, Sparkle & Centered Verified Badge
-      let displayName = state.name;
-      if (state.sparkle && !displayName.includes('✨')) displayName += ' ✨';
-
-      const fontName = '700 32px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      const fontHandle = '400 27px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      // 2. Render Name & Handle
+      ctx.save();
+      const nameSize = Math.max(26, Math.round(pfpSize * 0.36));
+      const handleSize = Math.max(20, Math.round(nameSize * 0.74));
 
       if (isCenteredHeader) {{
-        const nameY = pfpY + pfpSize + 36;
-        const handleY = pfpY + pfpSize + 70;
-
-        ctx.font = fontName;
-        ctx.fillStyle = '#f7f9f9';
+        // Center-aligned editorial header
+        const textCenterY = pfpY + pfpSize + 28;
+        ctx.font = `700 ${{nameSize}}px ${{fontFamily}}`;
+        ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textBaseline = 'top';
 
-        const nameMetrics = ctx.measureText(displayName);
-        const badgeSize = 25;
-        const badgeGap = 8;
-        const totalW = nameMetrics.width + (state.verified ? (badgeSize + badgeGap) : 0);
-        const startTextX = Math.round(W / 2 - totalW / 2 + nameMetrics.width / 2);
-
-        ctx.fillText(displayName, startTextX, nameY);
+        let displayName = state.name;
+        if (state.sparkle) displayName += ' ✨';
+        ctx.fillText(displayName, W / 2, textCenterY);
 
         if (state.verified) {{
-          const badgeCenterX = Math.round(startTextX + nameMetrics.width / 2 + badgeGap + badgeSize / 2);
-          drawAccurateVerifiedBadge(ctx, badgeCenterX, nameY, badgeSize);
+          const nameWidth = ctx.measureText(displayName).width;
+          const badgeX = Math.round(W / 2 + nameWidth / 2 + 14);
+          const badgeY = Math.round(textCenterY + nameSize * 0.48);
+          drawAccurateVerifiedBadge(ctx, badgeX, badgeY, Math.round(nameSize * 0.38));
         }}
 
-        ctx.font = fontHandle;
-        ctx.fillStyle = '#71767b';
-        ctx.fillText(state.handle, Math.round(W / 2), handleY);
-
+        ctx.font = `400 ${{handleSize}}px ${{fontFamily}}`;
+        ctx.fillStyle = '#71767B';
+        ctx.fillText(state.handle, W / 2, textCenterY + nameSize + 6);
       }} else {{
-        const textStartX = pfpX + pfpSize + 18;
-        const nameY = pfpY + Math.round(pfpSize * 0.34);
-        const handleY = pfpY + Math.round(pfpSize * 0.76);
+        // Left-aligned classic layout
+        const textLeftX = pfpX + pfpSize + 18;
+        const nameBaselineY = pfpY + Math.round(pfpSize * 0.42);
 
-        ctx.font = fontName;
-        ctx.fillStyle = '#f7f9f9';
+        ctx.font = `700 ${{nameSize}}px ${{fontFamily}}`;
+        ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-        ctx.fillText(displayName, textStartX, nameY);
+
+        let displayName = state.name;
+        if (state.sparkle) displayName += ' ✨';
+        ctx.fillText(displayName, textLeftX, nameBaselineY);
 
         if (state.verified) {{
-          const nameMetrics = ctx.measureText(displayName);
-          const badgeSize = 25;
-          const badgeGap = 8;
-          const badgeCenterX = Math.round(textStartX + nameMetrics.width + badgeGap + badgeSize / 2);
-          drawAccurateVerifiedBadge(ctx, badgeCenterX, nameY, badgeSize);
+          const nameWidth = ctx.measureText(displayName).width;
+          const badgeX = Math.round(textLeftX + nameWidth + 14);
+          const badgeY = nameBaselineY;
+          drawAccurateVerifiedBadge(ctx, badgeX, badgeY, Math.round(nameSize * 0.38));
         }}
 
-        ctx.font = fontHandle;
-        ctx.fillStyle = '#71767b';
+        const handleBaselineY = pfpY + Math.round(pfpSize * 0.76);
+        ctx.font = `400 ${{handleSize}}px ${{fontFamily}}`;
+        ctx.fillStyle = '#71767B';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-        ctx.fillText(state.handle, textStartX, handleY);
+        ctx.fillText(state.handle, textLeftX, handleBaselineY);
       }}
+      ctx.restore();
 
-      // 3. Render Post Thought / Quote Text
+      // 3. Render Statement Text Lines
+      ctx.save();
       const textStartY = startY + headerHeight + headerToTextGap;
       ctx.font = `400 ${{state.fontSize}}px ${{fontFamily}}`;
-      ctx.fillStyle = '#f7f9f9';
+      ctx.fillStyle = '#E7E9EA'; // Crisp White-Silver Tweet Text
       ctx.textBaseline = 'top';
 
-      if (state.textAlign === 'center') {{
-        ctx.textAlign = 'center';
-        for (let i = 0; i < lines.length; i++) {{
-          ctx.fillText(lines[i], Math.round(W / 2), textStartY + (i * lineHeight));
-        }}
-      }} else {{
-        ctx.textAlign = 'left';
-        for (let i = 0; i < lines.length; i++) {{
-          ctx.fillText(lines[i], marginX, textStartY + (i * lineHeight));
-        }}
-      }}
-
-      // 4. Render Meme Media Attachment (if present)
-      if (activeMediaObj) {{
-        const mediaY = textStartY + textBlockHeight + mediaGap;
-        let mediaX = marginX;
+      lines.forEach((line, index) => {{
+        const lineY = textStartY + (index * lineHeight);
         if (state.textAlign === 'center') {{
-          mediaX = Math.round(W / 2 - mediaWidth / 2);
+          ctx.textAlign = 'center';
+          ctx.fillText(line, W / 2, lineY);
+        }} else {{
+          ctx.textAlign = 'left';
+          ctx.fillText(line, marginX, lineY);
         }}
-
-        ctx.save();
-        ctx.strokeStyle = '#282828';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(mediaX, mediaY, mediaWidth, mediaHeight);
-
-        ctx.drawImage(activeMediaObj, mediaX, mediaY, mediaWidth, mediaHeight);
-        ctx.restore();
-      }}
-
-      document.getElementById('charCount').textContent = `${{state.text.length}} chars`;
+      }});
+      ctx.restore();
     }}
-
-    // Real-Time Input Event Listeners
-    inputText.addEventListener('input', (e) => {{
-      state.text = e.target.value;
-      render();
-    }});
-
-    document.getElementById('inputName').addEventListener('input', (e) => {{
-      state.name = e.target.value;
-      render();
-    }});
-
-    document.getElementById('inputHandle').addEventListener('input', (e) => {{
-      state.handle = e.target.value;
-      render();
-    }});
-
-    document.getElementById('checkSparkle').addEventListener('change', (e) => {{
-      state.sparkle = e.target.checked;
-      render();
-    }});
-
-    document.getElementById('checkVerified').addEventListener('change', (e) => {{
-      state.verified = e.target.checked;
-      render();
-    }});
-
-    document.getElementById('selectVAlign').addEventListener('change', (e) => {{
-      state.vAlign = e.target.value;
-      render();
-    }});
-
-    document.getElementById('selectTextAlign').addEventListener('change', (e) => {{
-      state.textAlign = e.target.value;
-      render();
-    }});
-
-    document.getElementById('selectHeaderAlign').addEventListener('change', (e) => {{
-      state.headerAlign = e.target.value;
-      render();
-    }});
-
-    document.getElementById('selectFontStyle').addEventListener('change', (e) => {{
-      state.fontStyle = e.target.value;
-      render();
-    }});
-
-    // Meme Media Dropzone & Attachment Handling
-    const dropzone = document.getElementById('dropzone');
-    const inputAttach = document.getElementById('inputAttach');
-    const attachPreviewBar = document.getElementById('attachPreviewBar');
-    const attachFileName = document.getElementById('attachFileName');
-    const attachTypeIcon = document.getElementById('attachTypeIcon');
-    const btnRemoveAttach = document.getElementById('btnRemoveAttach');
-    const videoControlsRow = document.getElementById('videoControlsRow');
-    const videoElement = document.getElementById('activeVideo');
-    const imgAttachObj = document.getElementById('activeImgAttach');
-    const btnToggleVideoPlay = document.getElementById('btnToggleVideoPlay');
-    const btnToggleVideoMute = document.getElementById('btnToggleVideoMute');
-    const btnExportVideo = document.getElementById('btnExportVideo');
-
-    dropzone.addEventListener('click', () => inputAttach.click());
-
-    dropzone.addEventListener('dragover', (e) => {{
-      e.preventDefault();
-      dropzone.style.borderColor = 'var(--gold)';
-    }});
-    dropzone.addEventListener('dragleave', () => {{
-      dropzone.style.borderColor = 'var(--border-hairline)';
-    }});
-    dropzone.addEventListener('drop', (e) => {{
-      e.preventDefault();
-      dropzone.style.borderColor = 'var(--border-hairline)';
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {{
-        handleMediaFile(e.dataTransfer.files[0]);
-      }}
-    }});
-
-    inputAttach.addEventListener('change', (e) => {{
-      if (e.target.files && e.target.files[0]) {{
-        handleMediaFile(e.target.files[0]);
-      }}
-    }});
-
-    function handleMediaFile(file) {{
-      const isVid = file.type.startsWith('video/');
-      const url = URL.createObjectURL(file);
-
-      if (isVid) {{
-        state.attachType = 'video';
-        videoElement.src = url;
-        videoElement.play();
-        attachTypeIcon.textContent = '[VIDEO]';
-        videoControlsRow.style.display = 'block';
-        btnExportVideo.style.display = 'block';
-
-        if (!videoAnimId) {{
-          function step() {{
-            if (state.attachType === 'video') {{
-              render();
-              videoAnimId = requestAnimationFrame(step);
-            }}
-          }}
-          videoAnimId = requestAnimationFrame(step);
-        }}
-      }} else {{
-        state.attachType = 'image';
-        imgAttachObj.onload = () => render();
-        imgAttachObj.src = url;
-        attachTypeIcon.textContent = '[PHOTO]';
-        videoControlsRow.style.display = 'none';
-        btnExportVideo.style.display = 'none';
-        if (videoAnimId) {{
-          cancelAnimationFrame(videoAnimId);
-          videoAnimId = null;
-        }}
-      }}
-
-      attachFileName.textContent = file.name;
-      attachPreviewBar.style.display = 'flex';
-      showToast(`Attached: ${{file.name}}`);
-    }}
-
-    btnRemoveAttach.addEventListener('click', () => {{
-      state.attachType = null;
-      attachPreviewBar.style.display = 'none';
-      videoControlsRow.style.display = 'none';
-      btnExportVideo.style.display = 'none';
-      inputAttach.value = '';
-      if (videoAnimId) {{
-        cancelAnimationFrame(videoAnimId);
-        videoAnimId = null;
-      }}
-      videoElement.pause();
-      render();
-      showToast('Attachment Removed');
-    }});
-
-    btnToggleVideoPlay.addEventListener('click', () => {{
-      if (videoElement.paused) {{
-        videoElement.play();
-        btnToggleVideoPlay.textContent = '⏸️ Pause';
-      }} else {{
-        videoElement.pause();
-        btnToggleVideoPlay.textContent = '▶️ Play';
-      }}
-    }});
-
-    btnToggleVideoMute.addEventListener('click', () => {{
-      videoElement.muted = !videoElement.muted;
-      btnToggleVideoMute.textContent = videoElement.muted ? '🔇 Muted' : '🔊 Sound';
-    }});
 
     // Lossless PNG Download
     document.getElementById('btnDownload').addEventListener('click', () => {{
@@ -1924,13 +1813,15 @@ html_content = f"""<!DOCTYPE html>
       showToast('Lossless 1080p Post Downloaded');
     }});
 
-    // Mobile Pinned Bar Actions
+    // Mobile Pinned Actions
     document.getElementById('btnMobileDownload').addEventListener('click', () => {{
       document.getElementById('btnDownload').click();
     }});
-
-    document.getElementById('btnMobileScrollTop').addEventListener('click', () => {{
-      document.querySelector('.preview-workspace').scrollIntoView({{ behavior: 'smooth' }});
+    document.getElementById('btnMobileCopy').addEventListener('click', () => {{
+      document.getElementById('btnCopy').click();
+    }});
+    document.getElementById('btnQuickExport').addEventListener('click', () => {{
+      document.getElementById('btnDownload').click();
     }});
 
     // Fullscreen Overlay Preview
@@ -1978,7 +1869,7 @@ html_content = f"""<!DOCTYPE html>
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2600);
+      setTimeout(() => t.classList.remove('show'), 2400);
     }}
 
     // Credentials Gate Check & Handlers
@@ -2005,7 +1896,6 @@ html_content = f"""<!DOCTYPE html>
         sessionStorage.setItem('mr_hamster_auth', 'granted');
         document.getElementById('authOverlay').classList.add('hidden');
         errorBox.style.display = 'none';
-        showToast('WELCOME TO MR. HAMSTER ATELIER');
       }} else {{
         errorBox.style.display = 'block';
         document.getElementById('authPassword').value = '';
@@ -2040,4 +1930,4 @@ print(f"Wrote index.html ({len(html_content)} bytes)")
 # Write generator.html
 with open(os.path.join(BASE_DIR, "generator.html"), "w", encoding="utf-8") as f:
     f.write(html_content)
-print("Wrote generator.html")
+print(f"Wrote generator.html ({len(html_content)} bytes)")

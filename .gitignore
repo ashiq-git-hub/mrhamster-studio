@@ -2,5 +2,5 @@
 node_modules/
 __pycache__/
 *.tmp
-
-.vercel
+*.png
+scripts/test_render.py
