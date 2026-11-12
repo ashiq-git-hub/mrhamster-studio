@@ -9,7 +9,7 @@ Mr. Hamster Studio - Swiss Minimalist Luxury Atelier Architecture
 - Media Attachment: Upload Photo, GIF, or Video Clip, Centered by Default, Blunt Corner Trim (0-48px), Live Video Playback
 - Frame Rim System: Circle & Square Frame with Crisp Titanium White, Champagne Ivory, Antique Gold rims
 - Zero Horizontal Overflow, Mathematical Precision
-- Master Credentials Gate: hamster_boss / MogMaster#2026
+- Master Credentials Gate: ashiq / ashiq14726
 """
 
 import os
@@ -1405,8 +1405,8 @@ html_content = f"""<!DOCTYPE html>
   <script>
     // System Master Credentials
     const AUTH_CREDS = {{
-      username: 'hamster_boss',
-      password: 'MogMaster#2026'
+      username: 'ashiq',
+      password: 'ashiq14726'
     }};
 
     const DEFAULT_HAMSTER_B64 = "{mog_b64}";

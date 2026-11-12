@@ -13,8 +13,8 @@ A refined, tactile, retro-styled studio designed for **Mr. Hamster** (`@mrr.hams
 ### 🔐 Access Credentials (Login)
 | Field | Value |
 | :--- | :--- |
-| **Username** | `hamster_boss` |
-| **Password** | `MogMaster#2026` |
+| **Username** | `ashiq` |
+| **Password** | `ashiq14726` |
 
 ---
 
@@ -28,7 +28,7 @@ A refined, tactile, retro-styled studio designed for **Mr. Hamster** (`@mrr.hams
 
 1. **Credentials Gate (Restricted Access)**:
    - Full retro lock screen protecting the studio.
-   - Enter `hamster_boss` / `MogMaster#2026` to unlock.
+   - Enter `ashiq` / `ashiq14726` to unlock.
    - Added a **`🔒 Lock`** button in the top navigation to lock access anytime.
 
 2. **Warm Vintage Stone Palette (Not Washed-Out White)**:
