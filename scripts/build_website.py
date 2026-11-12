@@ -27,8 +27,8 @@ html_content = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Mr. Hamster Studio — Minimalist Luxury Post & Meme Atelier for 1080p high-resolution social statements with attached photos, GIFs, and videos.">
-  <title>Mr. Hamster — Post Atelier</title>
+  <meta name="description" content="Mr. Hamster — Minimalist 1080p social post generator.">
+  <title>Mr. Hamster</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1021,7 +1021,7 @@ html_content = f"""<!DOCTYPE html>
   <div id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <div class="auth-card">
       <div class="auth-badge">🐹</div>
-      <div class="auth-title" id="authTitle">Mr. Hamster Atelier</div>
+      <div class="auth-title" id="authTitle">Mr. Hamster</div>
       <div class="auth-subtitle">Restricted Access · Enter Credentials</div>
 
       <div class="auth-error" id="authError" role="alert">
@@ -1071,7 +1071,6 @@ html_content = f"""<!DOCTYPE html>
           <h1 class="app-title">Mr. Hamster</h1>
           <span class="app-handle-badge">@mrr.hamster</span>
         </div>
-        <p class="atelier-subtitle">Post &amp; Meme Atelier · Swiss Minimalist Edition</p>
       </div>
     </div>
 
