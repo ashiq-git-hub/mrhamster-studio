@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Mr. Hamster Studio — Minimalist Luxury Post & Meme Atelier for 1080p high-resolution social statements.">
+  <meta name="description" content="Mr. Hamster Studio — Minimalist Luxury Post & Meme Atelier for 1080p high-resolution social statements with attached photos, GIFs, and videos.">
   <title>Mr. Hamster — Post Atelier</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -398,7 +398,7 @@
     /* Toggle Group */
     .btn-toggle-group {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
       gap: 2px;
       background: var(--border-hairline);
       border: 1px solid var(--border-hairline);
@@ -896,9 +896,15 @@
         position: sticky !important;
         top: 55px !important;
         z-index: 80 !important;
+        overflow-x: auto !important;
+        scrollbar-width: none;
+      }
+      .mobile-tool-tabs::-webkit-scrollbar {
+        display: none;
       }
       .mobile-tool-tab {
-        flex: 1;
+        flex: 1 0 auto;
+        min-width: 68px;
         padding: 11px 4px;
         background: #FFFFFF;
         border: none;
@@ -906,10 +912,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
+        gap: 4px;
         cursor: pointer;
         font-family: var(--font-mono);
-        font-size: 0.72rem;
+        font-size: 0.70rem;
         font-weight: 700;
         text-transform: uppercase;
         color: var(--text-dim);
@@ -1025,8 +1031,9 @@
       <img id="fullscreenImg" alt="High Resolution Mr. Hamster Statement Preview">
     </div>
     <div class="fullscreen-bottom-bar">
-      <button class="btn btn-primary" id="btnFullscreenDownload" style="width: 100%; max-width: 380px;">
-        <span>📥 Download 1080p Lossless PNG</span>
+      <button class="btn btn-primary" id="btnFullscreenDownload" style="width: 100%; max-width: 380px; gap: 8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Download 1080p Lossless PNG</span>
       </button>
     </div>
   </div>
@@ -1107,11 +1114,96 @@
         <textarea id="inputText" class="textarea-field" rows="4" placeholder="Write your raw statement here..." aria-label="Statement Text"></textarea>
       </section>
 
-      <!-- Card 3: Profile Avatar -->
+      <!-- Card 3: Attached Media (Photo / GIF / Video Clip) -->
+      <section class="control-card" id="cardMedia" aria-labelledby="headingMedia">
+        <div class="card-header">
+          <h2 class="card-title" id="headingMedia">
+            <span class="section-index">03</span> Attached Media
+          </h2>
+          <span id="mediaStatusBadge" style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;">None</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Upload Button & File Input -->
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnUploadMedia" style="flex: 1; gap: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <span>Upload Photo / GIF / Video</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnRemoveMedia" title="Remove attached media" style="display: none;">
+              <span>Remove</span>
+            </button>
+          </div>
+          <input type="file" id="inputMediaFile" accept="image/*,video/*,.gif" style="display: none;">
+
+          <!-- Media Preview Banner (Hidden when none) -->
+          <div id="mediaPreviewBanner" style="display: none; align-items: center; gap: 10px; background: var(--bg-recessed); border: 1px solid var(--border-hairline); border-radius: var(--radius-sm); padding: 8px 10px;">
+            <div id="mediaThumbBox" style="width: 48px; height: 48px; border-radius: 4px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"></div>
+            <div style="flex: 1; overflow: hidden;">
+              <div id="mediaFileName" style="font-size: 0.76rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main);"></div>
+              <div id="mediaFileInfo" style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono);"></div>
+            </div>
+          </div>
+
+          <!-- Alignment: Default Center (Requested by User) -->
+          <div>
+            <div class="slider-label-row">
+              <span>Media Alignment</span>
+              <span id="labelMediaAlign" style="color: var(--gold); font-size: 0.68rem; font-family: var(--font-mono); font-weight: 700;">CENTER (DEFAULT)</span>
+            </div>
+            <div class="btn-toggle-group" role="radiogroup" aria-label="Media Alignment">
+              <button type="button" class="btn-toggle active" id="btnMediaAlignCenter" role="radio" aria-checked="true">Center (Default)</button>
+              <button type="button" class="btn-toggle" id="btnMediaAlignLeft" role="radio" aria-checked="false">Left</button>
+              <button type="button" class="btn-toggle" id="btnMediaAlignFull" role="radio" aria-checked="false">Full Width</button>
+            </div>
+          </div>
+
+          <!-- Corner Bluntness / Corner Trim (Requested by User) -->
+          <div class="slider-row" style="margin-top: 4px;">
+            <div class="slider-label-row">
+              <span>Corner Trim (Blunt Edges)</span>
+              <span id="labelMediaRadius">18 px</span>
+            </div>
+            <div class="slider-stepper-wrap">
+              <button type="button" class="btn-stepper" id="btnMediaRadiusMinus" title="Decrease Bluntness">-</button>
+              <input type="range" id="rangeMediaRadius" min="0" max="48" value="18" aria-label="Corner Bluntness Radius">
+              <button type="button" class="btn-stepper" id="btnMediaRadiusPlus" title="Increase Bluntness">+</button>
+            </div>
+          </div>
+
+          <!-- Media Max Height / Scale -->
+          <div class="slider-row" style="margin-top: 4px;">
+            <div class="slider-label-row">
+              <span>Media Max Height</span>
+              <span id="labelMediaMaxHeight">520 px</span>
+            </div>
+            <div class="slider-stepper-wrap">
+              <button type="button" class="btn-stepper" id="btnMediaHeightMinus" title="Decrease Max Height">-</button>
+              <input type="range" id="rangeMediaHeight" min="200" max="850" value="520" aria-label="Media Max Height">
+              <button type="button" class="btn-stepper" id="btnMediaHeightPlus" title="Increase Max Height">+</button>
+            </div>
+          </div>
+
+          <!-- Frame Rim Border for Media -->
+          <div style="margin-top: 4px;">
+            <div class="slider-label-row">
+              <span>Media Border Rim</span>
+            </div>
+            <select id="selectMediaBorder" aria-label="Media Border Rim">
+              <option value="rgba(255, 255, 255, 0.14)" selected>Subtle Steel Rim (rgba 14%) · Aesthetic</option>
+              <option value="#ffffff">Crisp White Rim (#ffffff)</option>
+              <option value="#c5a059">Champagne Gold (#c5a059)</option>
+              <option value="none">None (Borderless)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 4: Profile Avatar -->
       <section class="control-card" id="cardAvatar" aria-labelledby="headingAvatar">
         <div class="card-header">
           <h2 class="card-title" id="headingAvatar">
-            <span class="section-index">03</span> Profile Avatar
+            <span class="section-index">04</span> Profile Avatar
           </h2>
           <span id="pfpStatusBadge" style="color: var(--gold); font-weight: 700; font-family: var(--font-mono); font-size: 0.72rem;">Mog Hamster</span>
         </div>
@@ -1175,11 +1267,11 @@
         </div>
       </section>
 
-      <!-- Card 4: Identity & Typography -->
+      <!-- Card 5: Identity & Typography -->
       <section class="control-card" id="cardStyle" aria-labelledby="headingStyle">
         <div class="card-header">
           <h2 class="card-title" id="headingStyle">
-            <span class="section-index">04</span> Identity &amp; Typography
+            <span class="section-index">05</span> Identity &amp; Typography
           </h2>
         </div>
         <div style="display: flex; gap: 8px; margin-bottom: 12px;">
@@ -1256,6 +1348,9 @@
       <button type="button" class="mobile-tool-tab active" data-target="cardText">
         <span>Statement</span>
       </button>
+      <button type="button" class="mobile-tool-tab" data-target="cardMedia">
+        <span>Media</span>
+      </button>
       <button type="button" class="mobile-tool-tab" data-target="cardRatio">
         <span>Format</span>
       </button>
@@ -1310,7 +1405,15 @@
       verified: true,
       fontSize: 46,
       vAlign: 'center',
-      textAlign: 'left'
+      textAlign: 'left',
+      // Attached Media defaults:
+      mediaElement: null,
+      mediaType: null, // 'image', 'gif', or 'video'
+      mediaAlign: 'center', // DEFAULT CENTER ALIGNMENT
+      mediaCornerRadius: 18, // DEFAULT BLUNT CORNERS (18px)
+      mediaMaxHeight: 520,
+      mediaBorder: 'rgba(255, 255, 255, 0.14)',
+      mediaFileName: ''
     };
 
     const state = Object.assign({}, DEFAULTS);
@@ -1411,6 +1514,216 @@
       render();
     });
 
+    // ========================================================
+    // ATTACHED MEDIA (PHOTO / GIF / VIDEO) CONTROLLER
+    // ========================================================
+    const inputMediaFile = document.getElementById('inputMediaFile');
+    const btnUploadMedia = document.getElementById('btnUploadMedia');
+    const btnRemoveMedia = document.getElementById('btnRemoveMedia');
+    const mediaPreviewBanner = document.getElementById('mediaPreviewBanner');
+    const mediaThumbBox = document.getElementById('mediaThumbBox');
+    const mediaFileName = document.getElementById('mediaFileName');
+    const mediaFileInfo = document.getElementById('mediaFileInfo');
+    const mediaStatusBadge = document.getElementById('mediaStatusBadge');
+
+    const btnMediaAlignCenter = document.getElementById('btnMediaAlignCenter');
+    const btnMediaAlignLeft = document.getElementById('btnMediaAlignLeft');
+    const btnMediaAlignFull = document.getElementById('btnMediaAlignFull');
+    const labelMediaAlign = document.getElementById('labelMediaAlign');
+
+    const rangeMediaRadius = document.getElementById('rangeMediaRadius');
+    const labelMediaRadius = document.getElementById('labelMediaRadius');
+    const rangeMediaHeight = document.getElementById('rangeMediaHeight');
+    const labelMediaMaxHeight = document.getElementById('labelMediaMaxHeight');
+    const selectMediaBorder = document.getElementById('selectMediaBorder');
+
+    let videoLoopId = null;
+
+    btnUploadMedia.addEventListener('click', () => inputMediaFile.click());
+
+    inputMediaFile.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        handleMediaFile(file);
+      }
+    });
+
+    function handleMediaFile(file) {
+      const isVideo = file.type.startsWith('video/');
+      const isGif = file.type === 'image/gif' || file.name.toLowerCase().endsWith('.gif');
+      state.mediaFileName = file.name;
+
+      if (isVideo) {
+        state.mediaType = 'video';
+        const url = URL.createObjectURL(file);
+        const vid = document.createElement('video');
+        vid.src = url;
+        vid.crossOrigin = 'anonymous';
+        vid.loop = true;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.autoplay = true;
+        vid.onloadedmetadata = () => {
+          state.mediaElement = vid;
+          vid.play().catch(() => {});
+          updateMediaUI(file, 'Video Clip', `${vid.videoWidth}×${vid.videoHeight} · Loop`);
+          startVideoLoop();
+          render();
+          showToast('Video Clip Attached (Playing Live)');
+        };
+      } else {
+        state.mediaType = isGif ? 'gif' : 'image';
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = () => {
+            state.mediaElement = img;
+            if (videoLoopId) cancelAnimationFrame(videoLoopId);
+            updateMediaUI(file, isGif ? 'GIF Animation' : 'Photo', `${img.naturalWidth}×${img.naturalHeight} px`);
+            render();
+            showToast(isGif ? 'GIF Attached' : 'Photo Attached');
+          };
+          img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateMediaUI(file, typeDesc, dimsDesc) {
+      mediaStatusBadge.textContent = typeDesc;
+      mediaStatusBadge.style.color = 'var(--gold)';
+      mediaFileName.textContent = file.name;
+      mediaFileInfo.textContent = `${typeDesc} · ${dimsDesc}`;
+      mediaPreviewBanner.style.display = 'flex';
+      btnRemoveMedia.style.display = 'inline-flex';
+
+      // Thumbnail
+      mediaThumbBox.innerHTML = '';
+      if (state.mediaType === 'video') {
+        const thumbVid = document.createElement('video');
+        thumbVid.src = state.mediaElement.src;
+        thumbVid.muted = true;
+        thumbVid.style.width = '100%';
+        thumbVid.style.height = '100%';
+        thumbVid.style.objectFit = 'cover';
+        mediaThumbBox.appendChild(thumbVid);
+      } else {
+        const thumbImg = document.createElement('img');
+        thumbImg.src = state.mediaElement.src;
+        thumbImg.style.width = '100%';
+        thumbImg.style.height = '100%';
+        thumbImg.style.objectFit = 'cover';
+        mediaThumbBox.appendChild(thumbImg);
+      }
+    }
+
+    btnRemoveMedia.addEventListener('click', () => {
+      if (videoLoopId) cancelAnimationFrame(videoLoopId);
+      if (state.mediaElement && state.mediaType === 'video') {
+        try { state.mediaElement.pause(); } catch (e) {}
+      }
+      state.mediaElement = null;
+      state.mediaType = null;
+      state.mediaFileName = '';
+      inputMediaFile.value = '';
+      mediaStatusBadge.textContent = 'None';
+      mediaStatusBadge.style.color = 'var(--text-muted)';
+      mediaPreviewBanner.style.display = 'none';
+      btnRemoveMedia.style.display = 'none';
+      render();
+      showToast('Media Removed');
+    });
+
+    function startVideoLoop() {
+      if (videoLoopId) cancelAnimationFrame(videoLoopId);
+      function step() {
+        if (state.mediaType === 'video' && state.mediaElement && !state.mediaElement.paused && !state.mediaElement.ended) {
+          render();
+          videoLoopId = requestAnimationFrame(step);
+        }
+      }
+      videoLoopId = requestAnimationFrame(step);
+    }
+
+    // Media Alignment (Center is default)
+    btnMediaAlignCenter.addEventListener('click', () => {
+      btnMediaAlignCenter.classList.add('active');
+      btnMediaAlignLeft.classList.remove('active');
+      btnMediaAlignFull.classList.remove('active');
+      state.mediaAlign = 'center';
+      labelMediaAlign.textContent = 'CENTER (DEFAULT)';
+      render();
+    });
+    btnMediaAlignLeft.addEventListener('click', () => {
+      btnMediaAlignLeft.classList.add('active');
+      btnMediaAlignCenter.classList.remove('active');
+      btnMediaAlignFull.classList.remove('active');
+      state.mediaAlign = 'left';
+      labelMediaAlign.textContent = 'LEFT';
+      render();
+    });
+    btnMediaAlignFull.addEventListener('click', () => {
+      btnMediaAlignFull.classList.add('active');
+      btnMediaAlignCenter.classList.remove('active');
+      btnMediaAlignLeft.classList.remove('active');
+      state.mediaAlign = 'full';
+      labelMediaAlign.textContent = 'FULL WIDTH';
+      render();
+    });
+
+    // Corner Bluntness Slider & Steppers
+    document.getElementById('btnMediaRadiusMinus').addEventListener('click', () => {
+      let v = parseInt(rangeMediaRadius.value, 10) - 2;
+      if (v < 0) v = 0;
+      rangeMediaRadius.value = v;
+      state.mediaCornerRadius = v;
+      labelMediaRadius.textContent = `${v} px`;
+      render();
+    });
+    document.getElementById('btnMediaRadiusPlus').addEventListener('click', () => {
+      let v = parseInt(rangeMediaRadius.value, 10) + 2;
+      if (v > 48) v = 48;
+      rangeMediaRadius.value = v;
+      state.mediaCornerRadius = v;
+      labelMediaRadius.textContent = `${v} px`;
+      render();
+    });
+    rangeMediaRadius.addEventListener('input', (e) => {
+      state.mediaCornerRadius = parseInt(e.target.value, 10);
+      labelMediaRadius.textContent = `${state.mediaCornerRadius} px`;
+      render();
+    });
+
+    // Media Max Height Slider & Steppers
+    document.getElementById('btnMediaHeightMinus').addEventListener('click', () => {
+      let v = parseInt(rangeMediaHeight.value, 10) - 20;
+      if (v < 200) v = 200;
+      rangeMediaHeight.value = v;
+      state.mediaMaxHeight = v;
+      labelMediaMaxHeight.textContent = `${v} px`;
+      render();
+    });
+    document.getElementById('btnMediaHeightPlus').addEventListener('click', () => {
+      let v = parseInt(rangeMediaHeight.value, 10) + 20;
+      if (v > 850) v = 850;
+      rangeMediaHeight.value = v;
+      state.mediaMaxHeight = v;
+      labelMediaMaxHeight.textContent = `${v} px`;
+      render();
+    });
+    rangeMediaHeight.addEventListener('input', (e) => {
+      state.mediaMaxHeight = parseInt(e.target.value, 10);
+      labelMediaMaxHeight.textContent = `${state.mediaMaxHeight} px`;
+      render();
+    });
+
+    // Media Border Selector
+    selectMediaBorder.addEventListener('change', (e) => {
+      state.mediaBorder = e.target.value;
+      render();
+    });
+
     // Slider Stepper Buttons: Font Size
     const rangeFontSize = document.getElementById('rangeFontSize');
     const labelFontSize = document.getElementById('labelFontSize');
@@ -1446,20 +1759,34 @@
       state.fontStyle = DEFAULTS.fontStyle;
       state.pfpShape = DEFAULTS.pfpShape;
       state.pfpFrameColor = DEFAULTS.pfpFrameColor;
+      state.mediaAlign = DEFAULTS.mediaAlign;
+      state.mediaCornerRadius = DEFAULTS.mediaCornerRadius;
+      state.mediaMaxHeight = DEFAULTS.mediaMaxHeight;
+      state.mediaBorder = DEFAULTS.mediaBorder;
 
       rangeFontSize.value = state.fontSize;
       labelFontSize.textContent = `${state.fontSize} px`;
       rangePfpSize.value = state.pfpSize;
       labelPfpSize.textContent = `${state.pfpSize} px`;
+      rangeMediaRadius.value = state.mediaCornerRadius;
+      labelMediaRadius.textContent = `${state.mediaCornerRadius} px`;
+      rangeMediaHeight.value = state.mediaMaxHeight;
+      labelMediaMaxHeight.textContent = `${state.mediaMaxHeight} px`;
       document.getElementById('selectTextAlign').value = state.textAlign;
       document.getElementById('selectHeaderAlign').value = state.headerAlign;
       selectPfpFrameColor.value = state.pfpFrameColor;
       labelFrameColor.textContent = 'CRISP WHITE';
+      selectMediaBorder.value = state.mediaBorder;
 
       btnPfpCircle.classList.add('active');
       btnPfpSquare.classList.remove('active');
       btnPfpCircle.setAttribute('aria-checked', 'true');
       btnPfpSquare.setAttribute('aria-checked', 'false');
+
+      btnMediaAlignCenter.classList.add('active');
+      btnMediaAlignLeft.classList.remove('active');
+      btnMediaAlignFull.classList.remove('active');
+      labelMediaAlign.textContent = 'CENTER (DEFAULT)';
 
       render();
       showToast('Default Settings Restored');
@@ -1616,6 +1943,28 @@
       ctx.restore();
     }
 
+    // Helper: Rounded Rectangle / Blunt Corner Trim Path
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+      if (radius <= 0) {
+        ctx.beginPath();
+        ctx.rect(x, y, width, height);
+        return;
+      }
+      const maxR = Math.min(width / 2, height / 2);
+      const r = Math.min(radius, maxR);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + width - r, y);
+      ctx.arcTo(x + width, y, x + width, y + r, r);
+      ctx.lineTo(x + width, y + height - r);
+      ctx.arcTo(x + width, y + height, x + width - r, y + height, r);
+      ctx.lineTo(x + r, y + height);
+      ctx.arcTo(x, y + height, x, y + height - r, r);
+      ctx.lineTo(x, y + r);
+      ctx.arcTo(x, y, x + r, y, r);
+      ctx.closePath();
+    }
+
     // Master High-Resolution Canvas Renderer (100% OLED Black)
     function render() {
       const ctx = canvas.getContext('2d');
@@ -1646,14 +1995,56 @@
       }
 
       const headerToTextGap = 34;
-      const totalBlockHeight = headerHeight + headerToTextGap + textBlockHeight;
+
+      // Determine Media Height if attached
+      let mediaDrawW = 0;
+      let mediaDrawH = 0;
+      let mediaDrawX = 0;
+      let hasMedia = false;
+      const textToMediaGap = 26;
+
+      if (state.mediaElement) {
+        const isReady = (state.mediaType === 'video') ? (state.mediaElement.readyState >= 2) : state.mediaElement.complete;
+        if (isReady) {
+          hasMedia = true;
+          const natW = state.mediaElement.videoWidth || state.mediaElement.naturalWidth || 800;
+          const natH = state.mediaElement.videoHeight || state.mediaElement.naturalHeight || 600;
+          const mediaAspect = natW / natH;
+
+          let maxAllowedW = contentWidth;
+          if (state.mediaAlign === 'full') {
+            maxAllowedW = contentWidth;
+          } else {
+            maxAllowedW = Math.min(contentWidth, 900);
+          }
+
+          let maxAllowedH = state.mediaMaxHeight || 520;
+          mediaDrawW = maxAllowedW;
+          mediaDrawH = mediaDrawW / mediaAspect;
+
+          if (mediaDrawH > maxAllowedH) {
+            mediaDrawH = maxAllowedH;
+            mediaDrawW = mediaDrawH * mediaAspect;
+          }
+
+          // Horizontal alignment (Default: Center)
+          if (state.mediaAlign === 'left') {
+            mediaDrawX = marginX;
+          } else {
+            // Centered horizontally
+            mediaDrawX = Math.round((W - mediaDrawW) / 2);
+          }
+        }
+      }
+
+      const totalBlockHeight = headerHeight + headerToTextGap + textBlockHeight + (hasMedia ? (textToMediaGap + mediaDrawH) : 0);
 
       // Determine Start Y
       let startY = 120;
       if (state.vAlign === 'center') {
-        startY = Math.max(90, Math.round((H - totalBlockHeight) / 2));
+        startY = Math.max(80, Math.round((H - totalBlockHeight) / 2));
       } else if (state.aspect === '9:16') {
-        startY = 240;
+        startY = 200;
       }
 
       // 1. Render Profile Avatar
@@ -1777,6 +2168,28 @@
         }
       });
       ctx.restore();
+
+      // 4. Render Attached Media (Centered by default, Blunt Trimmed Corners)
+      if (hasMedia) {
+        const mediaY = textStartY + textBlockHeight + textToMediaGap;
+        const r = state.mediaCornerRadius; // Blunt corner radius
+
+        ctx.save();
+        drawRoundedRect(ctx, mediaDrawX, mediaY, mediaDrawW, mediaDrawH, r);
+        ctx.clip();
+        ctx.drawImage(state.mediaElement, mediaDrawX, mediaY, mediaDrawW, mediaDrawH);
+        ctx.restore();
+
+        // Optional Rim Outline
+        if (state.mediaBorder && state.mediaBorder !== 'none') {
+          ctx.save();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = state.mediaBorder;
+          drawRoundedRect(ctx, mediaDrawX, mediaY, mediaDrawW, mediaDrawH, r);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
     }
 
     // Lossless PNG Download
