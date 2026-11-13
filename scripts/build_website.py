@@ -1349,6 +1349,10 @@ html_content = f"""<!DOCTYPE html>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           <span id="btnDownloadText">Download 1080p Post (Lossless PNG)</span>
         </button>
+        <button type="button" class="btn btn-secondary" id="btnSaveStillImage" style="display: none; width: 100%; gap: 7px; font-size: 0.82rem;" title="Save current frame as static PNG">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <span>Save Still Image (PNG)</span>
+        </button>
         <button type="button" class="btn btn-secondary" id="btnCopy" style="width: 100%; gap: 7px;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           <span>Copy to Clipboard</span>
@@ -1402,6 +1406,7 @@ html_content = f"""<!DOCTYPE html>
   <!-- Toast Notification -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <!-- OMGGIF_SCRIPT -->
   <script>
     // System Master Credentials
     const AUTH_CREDS = {{
@@ -1437,6 +1442,10 @@ html_content = f"""<!DOCTYPE html>
       // Attached Media defaults:
       mediaElement: null,
       mediaType: null, // 'image', 'gif', or 'video'
+      gifFrames: [],
+      gifFrameIndex: 0,
+      gifLastFrameTime: 0,
+      gifTotalDuration: 0,
       mediaAlign: 'center', // DEFAULT CENTER ALIGNMENT
       mediaCornerRadius: 18, // DEFAULT BLUNT CORNERS (18px)
       mediaMaxHeight: 520,
@@ -1576,13 +1585,19 @@ html_content = f"""<!DOCTYPE html>
       }}
     }});
 
-    function handleMediaFile(file) {{
-      const isVideo = file.type.startsWith('video/');
+    async function handleMediaFile(file) {{
+      const isVideo = file.type.startsWith('video/') || /\\.(mp4|webm|mov|m4v|ogg)$/i.test(file.name);
       const isGif = file.type === 'image/gif' || file.name.toLowerCase().endsWith('.gif');
       state.mediaFileName = file.name;
 
+      if (videoLoopId) {{
+        cancelAnimationFrame(videoLoopId);
+        videoLoopId = null;
+      }}
+
       if (isVideo) {{
         state.mediaType = 'video';
+        state.gifFrames = [];
         const url = URL.createObjectURL(file);
         const vid = document.createElement('video');
         vid.src = url;
@@ -1594,28 +1609,92 @@ html_content = f"""<!DOCTYPE html>
         vid.onloadedmetadata = () => {{
           state.mediaElement = vid;
           vid.play().catch(() => {{}});
-          updateMediaUI(file, 'Video Clip', `${{vid.videoWidth}}×${{vid.videoHeight}} · Loop`);
-          startVideoLoop();
+          const dur = Math.round(vid.duration || 0);
+          const durStr = dur > 0 ? `${{dur}}s` : 'Loop';
+          updateMediaUI(file, 'Video Clip', `${{vid.videoWidth}}×${{vid.videoHeight}} · ${{durStr}}`);
+          updateExportButtonUI();
+          startMediaLoop();
           render();
-          showToast('Video Clip Attached (Playing Live)');
+          showToast('Video Attached (Ready to Export as .MP4)');
         }};
-      }} else {{
-        state.mediaType = isGif ? 'gif' : 'image';
+      }} else if (isGif) {{
+        state.mediaType = 'gif';
         const reader = new FileReader();
         reader.onload = (evt) => {{
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = () => {{
-            state.mediaElement = img;
-            if (videoLoopId) cancelAnimationFrame(videoLoopId);
-            updateMediaUI(file, isGif ? 'GIF Animation' : 'Photo', `${{img.naturalWidth}}×${{img.naturalHeight}} px`);
-            render();
-            showToast(isGif ? 'GIF Attached' : 'Photo Attached');
-          }};
-          img.src = evt.target.result;
+          try {{
+            const buffer = evt.target.result;
+            const bytes = new Uint8Array(buffer);
+            if (typeof GifReader !== 'undefined') {{
+              const gifReader = new GifReader(bytes);
+              const numFrames = gifReader.numFrames();
+              const w = gifReader.width;
+              const h = gifReader.height;
+              const frames = [];
+              const canvas = document.createElement('canvas');
+              canvas.width = w;
+              canvas.height = h;
+              const ctx = canvas.getContext('2d');
+              const imgData = ctx.createImageData(w, h);
+              let totalMs = 0;
+
+              for (let i = 0; i < numFrames; i++) {{
+                const info = gifReader.frameInfo(i);
+                gifReader.decodeAndBlitFrameRGBA(i, imgData.data);
+                ctx.putImageData(imgData, 0, 0);
+
+                const snapshot = document.createElement('canvas');
+                snapshot.width = w;
+                snapshot.height = h;
+                snapshot.getContext('2d').drawImage(canvas, 0, 0);
+
+                const delayMs = Math.max(20, (info.delay || 10) * 10);
+                totalMs += delayMs;
+                frames.push({{ canvas: snapshot, delay: delayMs }});
+              }}
+
+              state.gifFrames = frames;
+              state.gifFrameIndex = 0;
+              state.gifLastFrameTime = performance.now();
+              state.gifTotalDuration = totalMs;
+              state.mediaElement = frames[0].canvas;
+
+              updateMediaUI(file, 'GIF Animation', `${{w}}×${{h}} · ${{frames.length}} frames`);
+              updateExportButtonUI();
+              startMediaLoop();
+              render();
+              showToast('GIF Attached (Ready to Export as .MP4)');
+            }} else {{
+              loadStaticImage(file);
+            }}
+          }} catch (err) {{
+            console.error('Error decoding GIF, fallback to static:', err);
+            loadStaticImage(file);
+          }}
         }};
-        reader.readAsDataURL(file);
+        reader.readAsArrayBuffer(file);
+      }} else {{
+        loadStaticImage(file);
       }}
+    }}
+
+    function loadStaticImage(file) {{
+      state.mediaType = 'image';
+      state.gifFrames = [];
+      const reader = new FileReader();
+      reader.onload = (evt) => {{
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {{
+          state.mediaElement = img;
+          if (videoLoopId) cancelAnimationFrame(videoLoopId);
+          updateMediaUI(file, 'Photo', `${{img.naturalWidth}}×${{img.naturalHeight}} px`);
+          updateExportButtonUI();
+          render();
+          showToast('Photo Attached (1080p Image Mode)');
+        }};
+        img.src = evt.target.result;
+      }};
+      reader.readAsDataURL(file);
     }}
 
     function updateMediaUI(file, typeDesc, dimsDesc) {{
@@ -1628,7 +1707,7 @@ html_content = f"""<!DOCTYPE html>
 
       // Thumbnail
       mediaThumbBox.innerHTML = '';
-      if (state.mediaType === 'video') {{
+      if (state.mediaType === 'video' && state.mediaElement) {{
         const thumbVid = document.createElement('video');
         thumbVid.src = state.mediaElement.src;
         thumbVid.muted = true;
@@ -1636,7 +1715,16 @@ html_content = f"""<!DOCTYPE html>
         thumbVid.style.height = '100%';
         thumbVid.style.objectFit = 'cover';
         mediaThumbBox.appendChild(thumbVid);
-      }} else {{
+      }} else if (state.mediaType === 'gif' && state.gifFrames && state.gifFrames.length > 0) {{
+        const thumbCanvas = document.createElement('canvas');
+        thumbCanvas.width = state.gifFrames[0].canvas.width;
+        thumbCanvas.height = state.gifFrames[0].canvas.height;
+        thumbCanvas.style.width = '100%';
+        thumbCanvas.style.height = '100%';
+        thumbCanvas.style.objectFit = 'cover';
+        thumbCanvas.getContext('2d').drawImage(state.gifFrames[0].canvas, 0, 0);
+        mediaThumbBox.appendChild(thumbCanvas);
+      }} else if (state.mediaElement) {{
         const thumbImg = document.createElement('img');
         thumbImg.src = state.mediaElement.src;
         thumbImg.style.width = '100%';
@@ -1653,21 +1741,42 @@ html_content = f"""<!DOCTYPE html>
       }}
       state.mediaElement = null;
       state.mediaType = null;
+      state.gifFrames = [];
+      state.gifFrameIndex = 0;
+      state.gifTotalDuration = 0;
       state.mediaFileName = '';
       inputMediaFile.value = '';
       mediaStatusBadge.textContent = 'None';
       mediaStatusBadge.style.color = 'var(--text-muted)';
       mediaPreviewBanner.style.display = 'none';
       btnRemoveMedia.style.display = 'none';
+      updateExportButtonUI();
       render();
       showToast('Media Removed');
     }});
 
-    function startVideoLoop() {{
+    function startMediaLoop() {{
       if (videoLoopId) cancelAnimationFrame(videoLoopId);
-      function step() {{
+      function step(now) {{
+        let needsRender = false;
+
         if (state.mediaType === 'video' && state.mediaElement && !state.mediaElement.paused && !state.mediaElement.ended) {{
+          needsRender = true;
+        }} else if (state.mediaType === 'gif' && state.gifFrames && state.gifFrames.length > 1) {{
+          const currentFrame = state.gifFrames[state.gifFrameIndex];
+          if (currentFrame && (now - state.gifLastFrameTime >= currentFrame.delay)) {{
+            state.gifFrameIndex = (state.gifFrameIndex + 1) % state.gifFrames.length;
+            state.gifLastFrameTime = now;
+            state.mediaElement = state.gifFrames[state.gifFrameIndex].canvas;
+            needsRender = true;
+          }}
+        }}
+
+        if (needsRender) {{
           render();
+        }}
+
+        if ((state.mediaType === 'video' || state.mediaType === 'gif') && state.mediaElement) {{
           videoLoopId = requestAnimationFrame(step);
         }}
       }}
@@ -2007,11 +2116,15 @@ html_content = f"""<!DOCTYPE html>
       const textToMediaGap = 26;
 
       if (state.mediaElement) {{
-        const isReady = (state.mediaType === 'video') ? (state.mediaElement.readyState >= 2) : state.mediaElement.complete;
+        const isReady = (state.mediaType === 'video')
+          ? (state.mediaElement.readyState >= 2)
+          : (state.mediaType === 'gif')
+            ? (state.mediaElement && (state.mediaElement.width > 0 || state.mediaElement.naturalWidth > 0))
+            : (state.mediaElement && state.mediaElement.complete && state.mediaElement.naturalWidth !== 0);
         if (isReady) {{
           hasMedia = true;
-          const natW = state.mediaElement.videoWidth || state.mediaElement.naturalWidth || 800;
-          const natH = state.mediaElement.videoHeight || state.mediaElement.naturalHeight || 600;
+          const natW = state.mediaElement.videoWidth || state.mediaElement.naturalWidth || state.mediaElement.width || 800;
+          const natH = state.mediaElement.videoHeight || state.mediaElement.naturalHeight || state.mediaElement.height || 600;
           const mediaAspect = natW / natH;
 
           let maxAllowedW = contentWidth;
@@ -2208,27 +2321,202 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
-    // Lossless PNG Download
-    document.getElementById('btnDownload').addEventListener('click', () => {{
+    // Master Export Dispatcher (Video / Lossless Image)
+    let isExportingVideo = false;
+
+    function updateExportButtonUI() {{
+      const isVideoMedia = (state.mediaType === 'video' || state.mediaType === 'gif') && state.mediaElement;
+      const btnDownloadText = document.getElementById('btnDownloadText');
+      const btnSaveStillImage = document.getElementById('btnSaveStillImage');
+      const btnMobileDownload = document.getElementById('btnMobileDownload');
+      const btnFullscreenDownload = document.getElementById('btnFullscreenDownload');
+
+      if (isVideoMedia) {{
+        const extName = (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported('video/mp4;codecs=avc1')) ? 'MP4' : 'Video';
+        if (btnDownloadText) btnDownloadText.textContent = `Export 1080p Video (.${{extName}})`;
+        if (btnSaveStillImage) btnSaveStillImage.style.display = 'inline-flex';
+        if (btnMobileDownload) {{
+          btnMobileDownload.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <span>Export Video (.${{extName}})</span>
+          `;
+        }}
+        if (btnFullscreenDownload) {{
+          const span = btnFullscreenDownload.querySelector('span');
+          if (span) span.textContent = `Export 1080p Video (.${{extName}})`;
+        }}
+      }} else {{
+        if (btnDownloadText) btnDownloadText.textContent = 'Download 1080p Post (Lossless PNG)';
+        if (btnSaveStillImage) btnSaveStillImage.style.display = 'none';
+        if (btnMobileDownload) {{
+          btnMobileDownload.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download 1080p Post</span>
+          `;
+        }}
+        if (btnFullscreenDownload) {{
+          const span = btnFullscreenDownload.querySelector('span');
+          if (span) span.textContent = 'Download 1080p Lossless PNG';
+        }}
+      }}
+    }}
+
+    async function handleDownload() {{
+      const isVideoMedia = (state.mediaType === 'video' || state.mediaType === 'gif') && state.mediaElement;
+
+      if (!isVideoMedia) {{
+        // Standard Lossless PNG Download
+        render();
+        const a = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        a.download = `mrhamster_${{state.aspect.replace(':', '-')}}_${{timestamp}}.png`;
+        a.href = canvas.toDataURL('image/png', 1.0);
+        a.click();
+        showToast('Lossless 1080p Post Downloaded');
+        return;
+      }}
+
+      // Video (.MP4 / .WEBM) Export
+      if (isExportingVideo) return;
+      isExportingVideo = true;
+
+      const mimeCandidates = [
+        'video/mp4;codecs=avc1,mp4a.40.2',
+        'video/mp4;codecs=avc1',
+        'video/mp4',
+        'video/webm;codecs=vp9,opus',
+        'video/webm;codecs=vp8,opus',
+        'video/webm'
+      ];
+      let selectedMime = (typeof MediaRecorder !== 'undefined') ? (mimeCandidates.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm') : '';
+      const isMp4 = selectedMime.includes('mp4');
+      const fileExt = isMp4 ? '.mp4' : '.webm';
+
+      const btnDownloadText = document.getElementById('btnDownloadText');
+      if (btnDownloadText) btnDownloadText.textContent = 'Recording Video... 0%';
+      showToast('Recording 1080p Video Post... Please wait');
+
+      try {{
+        let recordDuration = 5;
+        if (state.mediaType === 'video' && state.mediaElement) {{
+          const vidDur = state.mediaElement.duration;
+          if (vidDur && !isNaN(vidDur) && isFinite(vidDur)) {{
+            recordDuration = Math.max(2, Math.min(vidDur, 30));
+          }}
+        }} else if (state.mediaType === 'gif' && state.gifTotalDuration) {{
+          const loopSec = state.gifTotalDuration / 1000;
+          recordDuration = Math.max(3, Math.min(loopSec * 2, 15));
+        }}
+
+        const canvasStream = canvas.captureStream(30);
+        let finalStream = canvasStream;
+
+        if (state.mediaType === 'video' && state.mediaElement) {{
+          try {{
+            const vidStream = state.mediaElement.captureStream ? state.mediaElement.captureStream() : (state.mediaElement.mozCaptureStream ? state.mediaElement.mozCaptureStream() : null);
+            if (vidStream) {{
+              const audioTracks = vidStream.getAudioTracks();
+              if (audioTracks && audioTracks.length > 0) {{
+                finalStream = new MediaStream([
+                  canvasStream.getVideoTracks()[0],
+                  audioTracks[0]
+                ]);
+              }}
+            }}
+          }} catch (e) {{
+            console.warn('Audio track merge bypassed:', e);
+          }}
+
+          state.mediaElement.currentTime = 0;
+          state.mediaElement.muted = false;
+          await state.mediaElement.play().catch(() => {{}});
+        }} else if (state.mediaType === 'gif') {{
+          state.gifFrameIndex = 0;
+          state.gifLastFrameTime = performance.now();
+        }}
+
+        const recorder = new MediaRecorder(finalStream, {{
+          mimeType: selectedMime || undefined,
+          videoBitsPerSecond: 8000000
+        }});
+
+        const chunks = [];
+        recorder.ondataavailable = (e) => {{
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        }};
+
+        const startTime = performance.now();
+        const durationMs = recordDuration * 1000;
+
+        const progressTimer = setInterval(() => {{
+          const elapsed = performance.now() - startTime;
+          const pct = Math.min(99, Math.round((elapsed / durationMs) * 100));
+          const sec = (elapsed / 1000).toFixed(1);
+          if (btnDownloadText) {{
+            btnDownloadText.textContent = `Recording Video... ${{pct}}% (${{sec}}s / ${{recordDuration.toFixed(1)}}s)`;
+          }}
+        }}, 150);
+
+        recorder.onstop = () => {{
+          clearInterval(progressTimer);
+          if (state.mediaType === 'video' && state.mediaElement) {{
+            state.mediaElement.muted = true;
+          }}
+
+          if (btnDownloadText) btnDownloadText.textContent = 'Saving Video File...';
+
+          const blob = new Blob(chunks, {{ type: selectedMime || 'video/mp4' }});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+          a.download = `mrhamster_${{state.aspect.replace(':', '-')}}_${{timestamp}}${{fileExt}}`;
+          a.href = url;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          setTimeout(() => URL.revokeObjectURL(url), 10000);
+
+          isExportingVideo = false;
+          updateExportButtonUI();
+          showToast(`🎬 1080p Video Post Downloaded (${{fileExt.toUpperCase().replace('.', '')}})`);
+        }};
+
+        recorder.start();
+
+        setTimeout(() => {{
+          if (recorder.state === 'recording') {{
+            recorder.stop();
+          }}
+        }}, durationMs);
+
+      }} catch (err) {{
+        console.error('Video recording failed:', err);
+        isExportingVideo = false;
+        updateExportButtonUI();
+        showToast('Video recording error: ' + (err.message || err));
+      }}
+    }}
+
+    document.getElementById('btnDownload').addEventListener('click', handleDownload);
+
+    // Save Still Poster Image
+    document.getElementById('btnSaveStillImage').addEventListener('click', () => {{
       render();
       const a = document.createElement('a');
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
       a.download = `mrhamster_${{state.aspect.replace(':', '-')}}_${{timestamp}}.png`;
       a.href = canvas.toDataURL('image/png', 1.0);
       a.click();
-      showToast('Lossless 1080p Post Downloaded');
+      showToast('Still Poster Image Downloaded (PNG)');
     }});
 
     // Mobile Pinned Actions
-    document.getElementById('btnMobileDownload').addEventListener('click', () => {{
-      document.getElementById('btnDownload').click();
-    }});
+    document.getElementById('btnMobileDownload').addEventListener('click', handleDownload);
     document.getElementById('btnMobileCopy').addEventListener('click', () => {{
       document.getElementById('btnCopy').click();
     }});
-    document.getElementById('btnQuickExport').addEventListener('click', () => {{
-      document.getElementById('btnDownload').click();
-    }});
+    document.getElementById('btnQuickExport').addEventListener('click', handleDownload);
 
     // Fullscreen Overlay Preview
     const fullscreenOverlay = document.getElementById('fullscreenOverlay');
@@ -2327,6 +2615,13 @@ html_content = f"""<!DOCTYPE html>
 </body>
 </html>
 """
+
+# Inline omggif library
+with open(os.path.join(BASE_DIR, "assets", "js", "omggif.js"), "r", encoding="utf-8") as f:
+    omggif_raw = f.read()
+
+omggif_tag = f"<script>\nvar exports = {{}};\n{omggif_raw}\nvar GifReader = exports.GifReader;\n</script>"
+html_content = html_content.replace("<!-- OMGGIF_SCRIPT -->", omggif_tag)
 
 # Write index.html
 with open(os.path.join(BASE_DIR, "index.html"), "w", encoding="utf-8") as f:
